@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+title: Projects
+---
+<h1>Projects</h1>
+<p class="lead">Things built, maintained, debugged, or dragged into better shape.</p>
+
+<ol class="entry-list">
+  {% for project in collections.projects %}
+    <li>
+      <a href="{{ project.url }}">{{ project.data.title }}</a>
+      <time datetime="{{ project.date | htmlDateString }}">{{ project.date | readableDate }}</time>
+      {% if project.data.summary %}<p>{{ project.data.summary }}</p>{% endif %}
+    </li>
+  {% endfor %}
+</ol>

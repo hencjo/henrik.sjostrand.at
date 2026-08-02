@@ -1,0 +1,15 @@
+---
+layout: layouts/base.njk
+---
+<article class="article">
+  <header class="article-header">
+    <p class="meta">{{ date | readableDate }}{% if kind %} · {% if kind == "contribution" %}contributions{% else %}{{ kind }}{% endif %}{% endif %}</p>
+    <h1 class="article-title">{{ title }}{% if kind == 'project' %} <span class="title-kind">[project]</span>{% elif kind == 'contribution' %} <span class="title-kind">[contribution]</span>{% endif %}</h1>
+    {% if url %}<p class="external"><a href="{{ url }}">{{ url }}</a></p>{% endif %}
+    {% if summary %}<p class="summary">{{ summary }}</p>{% endif %}
+  </header>
+
+  <div class="article-body">
+    {{ content | safe }}
+  </div>
+</article>

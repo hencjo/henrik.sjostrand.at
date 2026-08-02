@@ -1,0 +1,54 @@
+---
+layout: layouts/base.njk
+title: Home
+---
+<section class="intro">
+  <p class="lead">Hi, I’m Henrik. This is where I put notes, small projects, old contributions, and things I keep having to explain twice.</p>
+  <p>Mostly developer tools, Java, Nix, identity/auth, terminal-shaped stuff, and whatever saved me time recently.</p>
+  <p class="plain-text-line">Plain text, real artifacts, no pitch deck.</p>
+</section>
+
+<section aria-labelledby="latest-notes" data-caption="latest notes">
+  <h2 id="latest-notes">Latest notes</h2>
+  <ol class="entry-list">
+    {% for post in collections.notes %}
+      {% if loop.index <= 5 %}
+      <li>
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+        <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+        {% if post.data.summary %}<p>{{ post.data.summary }}</p>{% endif %}
+      </li>
+          {% endif %}
+    {% endfor %}
+  </ol>
+</section>
+
+<section aria-labelledby="selected-projects" data-caption="projects">
+  <h2 id="selected-projects">Selected projects</h2>
+  <ol class="entry-list">
+    {% for project in collections.projects %}
+      {% if loop.index <= 5 %}
+      <li>
+        <a href="{{ project.url }}">{{ project.data.title }}</a>
+        <time datetime="{{ project.date | htmlDateString }}">{{ project.date | readableDate }}</time>
+        {% if project.data.summary %}<p>{{ project.data.summary }}</p>{% endif %}
+      </li>
+          {% endif %}
+    {% endfor %}
+  </ol>
+</section>
+
+<section aria-labelledby="recent-contributions" data-caption="contributions">
+  <h2 id="recent-contributions">Contributions</h2>
+  <ol class="entry-list">
+    {% for contribution in collections.contributions %}
+      {% if loop.index <= 5 %}
+      <li>
+        <a href="{{ contribution.url }}">{{ contribution.data.title }}</a>
+        <time datetime="{{ contribution.date | htmlDateString }}">{{ contribution.date | readableDate }}</time>
+        {% if contribution.data.summary %}<p>{{ contribution.data.summary }}</p>{% endif %}
+      </li>
+          {% endif %}
+    {% endfor %}
+  </ol>
+</section>

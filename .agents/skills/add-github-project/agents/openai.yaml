@@ -1,0 +1,6 @@
+interface:
+  display_name: "Add GitHub Project"
+  short_description: "Discover and add GitHub projects"
+  default_prompt: "Use $add-github-project to discover missing hencjo GitHub projects and add project pages to this homepage."
+policy:
+  allow_implicit_invocation: true

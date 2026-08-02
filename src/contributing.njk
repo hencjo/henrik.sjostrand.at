@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+title: Contributions
+---
+<h1>Contributions</h1>
+<p class="lead">Open source work I help with: fixes, tests, paper cuts, and boring reliability improvements.</p>
+
+<ol class="entry-list">
+  {% for project in collections.contributions %}
+    <li>
+      <a href="{{ project.url }}">{{ project.data.title }}</a>
+      <time datetime="{{ project.date | htmlDateString }}">{{ project.date | readableDate }}</time>
+      {% if project.data.summary %}<p>{{ project.data.summary }}</p>{% endif %}
+    </li>
+  {% endfor %}
+</ol>
