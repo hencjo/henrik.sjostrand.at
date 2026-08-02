@@ -1,0 +1,772 @@
+:root {
+  color-scheme: dark;
+  --bg: #050607;
+  --panel: #0b0f10;
+  --panel-2: #081314;
+  --text: #c7d0c6;
+  --muted: #77847a;
+  --faint: #3f4a43;
+  --line: #244238;
+  --line-soft: #15231f;
+  --green: #65d18a;
+  --cyan: #5fcad6;
+  --amber: #d7b86a;
+  --red: #d67870;
+  --code: #0e1715;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 16px; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(95, 202, 214, .08), transparent 32rem),
+    linear-gradient(rgba(255,255,255,.025) 50%, transparent 50%),
+    var(--bg);
+  background-size: auto, 100% 4px, auto;
+  color: var(--text);
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  line-height: 1.65;
+  text-shadow: 0 0 10px rgba(101, 209, 138, .08);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  border: 18px solid rgba(0,0,0,.18);
+  box-shadow: inset 0 0 90px rgba(0,0,0,.55);
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: .25rem .5rem;
+  background: var(--panel);
+  border: 1px solid var(--green);
+}
+
+.site-header,
+main,
+.site-footer {
+  width: min(920px, calc(100% - 32px));
+  margin-inline: auto;
+  position: relative;
+}
+
+.site-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  padding: 34px 0 18px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--green);
+  font-size: .86rem;
+}
+
+.eyebrow::before { content: "[ "; color: var(--faint); }
+.eyebrow::after { content: " ]"; color: var(--faint); }
+
+nav {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+nav a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+nav a::before { content: "<"; color: var(--faint); }
+nav a::after { content: ">"; color: var(--faint); }
+nav a:hover { color: var(--amber); }
+
+main {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.intro,
+section:not(.intro),
+.article {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 55px var(--shadow);
+}
+
+.intro {
+  padding: 1rem;
+}
+
+.intro::before {
+  content: "╔════════════════════════════════════════════════════════════╗";
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--line);
+  margin-bottom: .6rem;
+}
+
+.intro::after {
+  content: "╚════════════════════════════════════════════════════════════╝";
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--line);
+  margin-top: .8rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+h1 {
+  color: var(--green);
+  font-size: clamp(1.8rem, 7vw, 4rem);
+}
+
+.intro h1::before { content: "SYSOP: "; color: var(--muted); }
+
+h2 {
+  color: var(--cyan);
+  font-size: 1rem;
+  margin-bottom: .65rem;
+  text-transform: uppercase;
+}
+
+h2::before { content: "== "; color: var(--faint); }
+h2::after { content: " =="; color: var(--faint); }
+
+h3 {
+  color: var(--amber);
+  font-size: .98rem;
+  margin-top: 1.4rem;
+}
+
+.lead,
+.summary {
+  max-width: 72ch;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+p {
+  max-width: 76ch;
+  margin: .55rem 0;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--amber);
+}
+
+section:not(.intro),
+.article {
+  padding: 1rem;
+}
+
+section:not(.intro)::before,
+.article::before {
+  content: "[open]";
+  display: block;
+  width: max-content;
+  margin: -.35rem 0 .7rem;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.entry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.entry-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .15rem 1rem;
+  padding: .72rem 0;
+  border-top: 1px dashed var(--line);
+}
+
+.entry-list li:first-child { border-top: 0; }
+
+.entry-list a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.entry-list a::before {
+  content: "› ";
+  color: var(--green);
+}
+
+.entry-list a:hover { color: var(--amber); }
+
+.entry-list time,
+.meta,
+.site-footer {
+  color: var(--muted);
+  font-size: .82rem;
+  white-space: nowrap;
+}
+
+.entry-list p {
+  grid-column: 1 / -1;
+  margin: 0 0 0 1.05rem;
+  color: var(--muted);
+}
+
+.article-header {
+  margin-bottom: 1.6rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+.article-body h2 { margin-top: 2rem; }
+.article-body h3 { margin-top: 1.4rem; }
+
+.article .summary,
+.article-body p,
+.article-body ul,
+.article-body ol,
+.article-body blockquote,
+.article-body pre {
+  max-width: none;
+}
+
+ul,
+ol { padding-left: 1.4rem; }
+li { margin: .28rem 0; }
+li::marker { color: var(--green); }
+
+blockquote {
+  margin: 1.2rem 0;
+  padding: .15rem 0 .15rem 1rem;
+  border-left: 2px solid var(--amber);
+  color: var(--muted);
+}
+
+code,
+pre {
+  font-family: inherit;
+  background: var(--code);
+  border: 1px solid var(--line-soft);
+}
+
+code { padding: .05rem .3rem; }
+pre { overflow-x: auto; padding: .9rem; }
+pre code { padding: 0; border: 0; background: transparent; }
+
+hr {
+  border: 0;
+  border-top: 1px dashed var(--line);
+  margin: 1.6rem 0;
+}
+
+.site-footer {
+  padding: 1.4rem 0 2.2rem;
+}
+
+
+
+@media (max-width: 680px) {
+  .site-header,
+  .entry-list li {
+    display: block;
+  }
+
+  nav {
+    justify-content: flex-start;
+    margin-top: .75rem;
+  }
+
+  .entry-list time {
+    display: block;
+    margin-left: 1.05rem;
+  }
+}
+
+.article-title::before {
+  content: attr(data-prefix);
+}
+
+.article-title .title-kind {
+  color: var(--muted);
+  font-size: .45em;
+  vertical-align: middle;
+}
+
+.site-footer a {
+  color: var(--muted);
+}
+
+.site-footer a:hover {
+  color: var(--amber);
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.footer-links {
+  text-align: right;
+}
+
+@media (max-width: 680px) {
+  .site-footer {
+    display: block;
+  }
+
+  .footer-links {
+    margin-top: .35rem;
+    text-align: left;
+  }
+}
+
+.plain-text-line {
+  color: var(--amber);
+}
+
+.plain-text-line::before {
+  content: "> ";
+  color: var(--faint);
+}
+
+.modem-log {
+  display: flex;
+  gap: .9rem;
+  overflow-x: auto;
+  max-width: min(62ch, 100%);
+  padding-bottom: .2rem;
+  scrollbar-color: var(--line) transparent;
+  white-space: nowrap;
+}
+
+.modem-log span {
+  flex: 0 0 auto;
+}
+
+.modem-log span::before {
+  content: "[";
+  color: var(--faint);
+}
+
+.modem-log span::after {
+  content: "]";
+  color: var(--faint);
+}
+
+.modem-line {
+  width: min(68ch, 100%);
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 1ch solid var(--green);
+  animation:
+    modem-type 18s steps(121, end) infinite,
+    modem-caret .85s step-end infinite;
+}
+
+@keyframes modem-type {
+  0% { width: 0; }
+  72% { width: min(68ch, 100%); }
+  86% { width: min(68ch, 100%); }
+  100% { width: 0; }
+}
+
+@keyframes modem-caret {
+  50% { border-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modem-line {
+    width: auto;
+    animation: modem-caret .85s step-end infinite;
+  }
+}
+
+.modem-terminal {
+  --rows: 3;
+  position: relative;
+  display: grid;
+  align-content: start;
+  width: min(42ch, 100%);
+  height: calc(var(--rows) * 1.65em);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.modem-terminal span {
+  display: block;
+  width: 0;
+  overflow: hidden;
+  border-right: 1ch solid transparent;
+}
+
+.modem-terminal span:nth-child(1) { animation: modem-row-1 18s steps(3, end) infinite, modem-row-caret-1 18s step-end infinite; }
+.modem-terminal span:nth-child(2) { animation: modem-row-2 18s steps(2, end) infinite, modem-row-caret-2 18s step-end infinite; }
+.modem-terminal span:nth-child(3) { animation: modem-row-3 18s steps(18, end) infinite, modem-row-caret-3 18s step-end infinite; }
+.modem-terminal span:nth-child(4) { animation: modem-row-4 18s steps(13, end) infinite, modem-row-caret-4 18s step-end infinite; }
+.modem-terminal span:nth-child(5) { animation: modem-row-5 18s steps(12, end) infinite, modem-row-caret-5 18s step-end infinite; }
+.modem-terminal span:nth-child(6) { animation: modem-row-6 18s steps(13, end) infinite, modem-row-caret-6 18s step-end infinite; }
+.modem-terminal span:nth-child(7) { animation: modem-row-7 18s steps(9, end) infinite, modem-row-caret-7 18s step-end infinite; }
+.modem-terminal span:nth-child(8) { animation: modem-row-8 18s steps(10, end) infinite, modem-row-caret-8 18s step-end infinite; }
+
+@keyframes modem-row-1 { 0%, 2% { width: 0; } 5%, 100% { width: 3ch; } }
+@keyframes modem-row-2 { 0%, 8% { width: 0; } 11%, 100% { width: 2ch; } }
+@keyframes modem-row-3 { 0%, 16% { width: 0; } 31%, 100% { width: 18ch; } }
+@keyframes modem-row-4 { 0%, 36% { width: 0; } 47%, 100% { width: 13ch; } }
+@keyframes modem-row-5 { 0%, 52% { width: 0; } 62%, 100% { width: 12ch; } }
+@keyframes modem-row-6 { 0%, 66% { width: 0; } 77%, 100% { width: 13ch; } }
+@keyframes modem-row-7 { 0%, 80% { width: 0; } 88%, 100% { width: 9ch; } }
+@keyframes modem-row-8 { 0%, 91% { width: 0; } 99%, 100% { width: 10ch; } }
+
+@keyframes modem-row-caret-1 { 0%, 5% { border-color: var(--green); } 5.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-2 { 8%, 11% { border-color: var(--green); } 0%, 7.9%, 11.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-3 { 16%, 31% { border-color: var(--green); } 0%, 15.9%, 31.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-4 { 36%, 47% { border-color: var(--green); } 0%, 35.9%, 47.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-5 { 52%, 62% { border-color: var(--green); } 0%, 51.9%, 62.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-6 { 66%, 77% { border-color: var(--green); } 0%, 65.9%, 77.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-7 { 80%, 88% { border-color: var(--green); } 0%, 79.9%, 88.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-8 { 91%, 100% { border-color: var(--green); } 0%, 90.9% { border-color: transparent; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .modem-terminal {
+    height: auto;
+  }
+
+  .modem-terminal span {
+    width: auto;
+    animation: none !important;
+  }
+}
+
+.modem-terminal span:nth-child(1) { animation: modem-row-1 26s steps(3, end) infinite, modem-row-caret-1 26s step-end infinite; }
+.modem-terminal span:nth-child(2) { animation: modem-row-2 26s steps(2, end) infinite, modem-row-caret-2 26s step-end infinite; }
+.modem-terminal span:nth-child(3) { animation: modem-row-3 26s steps(18, end) infinite, modem-row-caret-3 26s step-end infinite; }
+.modem-terminal span:nth-child(4) { animation: modem-row-4 26s steps(13, end) infinite, modem-row-caret-4 26s step-end infinite; }
+.modem-terminal span:nth-child(5) { animation: modem-row-5 26s steps(20, end) infinite, modem-row-caret-5 26s step-end infinite; }
+.modem-terminal span:nth-child(6) { animation: modem-row-6 26s steps(10, end) infinite, modem-row-caret-6 26s step-end infinite; }
+.modem-terminal span:nth-child(7) { animation: modem-row-7 26s steps(13, end) infinite, modem-row-caret-7 26s step-end infinite; }
+.modem-terminal span:nth-child(8) { animation: modem-row-8 26s steps(20, end) infinite, modem-row-caret-8 26s step-end infinite; }
+.modem-terminal span:nth-child(9) { animation: modem-row-9 26s steps(6, end) infinite, modem-row-caret-9 26s step-end infinite; }
+.modem-terminal span:nth-child(10) { animation: modem-row-10 26s steps(28, end) infinite, modem-row-caret-10 26s step-end infinite; }
+.modem-terminal span:nth-child(11) { animation: modem-row-11 26s steps(12, end) infinite, modem-row-caret-11 26s step-end infinite; }
+.modem-terminal span:nth-child(12) { animation: modem-row-12 26s steps(4, end) infinite, modem-row-caret-12 26s step-end infinite; }
+.modem-terminal span:nth-child(13) { animation: modem-row-13 26s steps(15, end) infinite, modem-row-caret-13 26s step-end infinite; }
+.modem-terminal span:nth-child(14) { animation: modem-row-14 26s steps(18, end) infinite, modem-row-caret-14 26s step-end infinite; }
+.modem-terminal span:nth-child(15) { animation: modem-row-15 26s steps(1, end) infinite, modem-row-caret-15 26s step-end infinite; }
+.modem-terminal span:nth-child(16) { animation: modem-row-16 26s steps(10, end) infinite, modem-row-caret-16 26s step-end infinite; }
+.modem-terminal span:nth-child(17) { animation: modem-row-17 26s steps(10, end) infinite, modem-row-caret-17 26s step-end infinite; }
+
+@keyframes modem-row-1 { 0%, 1% { width: 0; } 3%, 100% { width: 3ch; } }
+@keyframes modem-row-2 { 0%, 4% { width: 0; } 6%, 100% { width: 2ch; } }
+@keyframes modem-row-3 { 0%, 7% { width: 0; } 15%, 100% { width: 18ch; } }
+@keyframes modem-row-4 { 0%, 16% { width: 0; } 22%, 100% { width: 13ch; } }
+@keyframes modem-row-5 { 0%, 23% { width: 0; } 31%, 100% { width: 20ch; } }
+@keyframes modem-row-6 { 0%, 32% { width: 0; } 36%, 100% { width: 10ch; } }
+@keyframes modem-row-7 { 0%, 37% { width: 0; } 42%, 100% { width: 13ch; } }
+@keyframes modem-row-8 { 0%, 43% { width: 0; } 51%, 100% { width: 20ch; } }
+@keyframes modem-row-9 { 0%, 52% { width: 0; } 55%, 100% { width: 6ch; } }
+@keyframes modem-row-10 { 0%, 56% { width: 0; } 67%, 100% { width: 28ch; } }
+@keyframes modem-row-11 { 0%, 68% { width: 0; } 73%, 100% { width: 12ch; } }
+@keyframes modem-row-12 { 0%, 74% { width: 0; } 77%, 100% { width: 4ch; } }
+@keyframes modem-row-13 { 0%, 78% { width: 0; } 84%, 100% { width: 15ch; } }
+@keyframes modem-row-14 { 0%, 85% { width: 0; } 92%, 100% { width: 18ch; } }
+@keyframes modem-row-15 { 0%, 93% { width: 0; } 94%, 100% { width: 1ch; } }
+@keyframes modem-row-16 { 0%, 95% { width: 0; } 98%, 100% { width: 10ch; } }
+@keyframes modem-row-17 { 0%, 98% { width: 0; } 100% { width: 10ch; } }
+
+@keyframes modem-row-caret-1 { 0%, 3% { border-color: var(--green); } 3.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-2 { 4%, 6% { border-color: var(--green); } 0%, 3.9%, 6.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-3 { 7%, 15% { border-color: var(--green); } 0%, 6.9%, 15.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-4 { 16%, 22% { border-color: var(--green); } 0%, 15.9%, 22.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-5 { 23%, 31% { border-color: var(--green); } 0%, 22.9%, 31.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-6 { 32%, 36% { border-color: var(--green); } 0%, 31.9%, 36.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-7 { 37%, 42% { border-color: var(--green); } 0%, 36.9%, 42.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-8 { 43%, 51% { border-color: var(--green); } 0%, 42.9%, 51.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-9 { 52%, 55% { border-color: var(--green); } 0%, 51.9%, 55.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-10 { 56%, 67% { border-color: var(--green); } 0%, 55.9%, 67.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-11 { 68%, 73% { border-color: var(--green); } 0%, 67.9%, 73.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-12 { 74%, 77% { border-color: var(--green); } 0%, 73.9%, 77.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-13 { 78%, 84% { border-color: var(--green); } 0%, 77.9%, 84.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-14 { 85%, 92% { border-color: var(--green); } 0%, 84.9%, 92.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-15 { 93%, 94% { border-color: var(--green); } 0%, 92.9%, 94.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-16 { 95%, 98% { border-color: var(--green); } 0%, 94.9%, 98.1%, 100% { border-color: transparent; } }
+@keyframes modem-row-caret-17 { 98%, 100% { border-color: var(--green); } 0%, 97.9% { border-color: transparent; } }
+
+/* JS-driven modem terminal. Overrides the earlier CSS-only prototype. */
+.modem-terminal {
+  display: block;
+  width: min(48ch, 100%);
+  height: calc(4 * 1.45em);
+  overflow: hidden;
+  white-space: normal;
+  line-height: 1.45;
+}
+
+.modem-output {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--muted);
+  font: inherit;
+  line-height: inherit;
+  white-space: pre-wrap;
+}
+
+.modem-cursor {
+  display: inline-block;
+  width: .65ch;
+  height: 1em;
+  margin-left: .1ch;
+  background: var(--green);
+  vertical-align: -0.12em;
+  animation: modem-js-caret .85s step-end infinite;
+}
+
+@keyframes modem-js-caret {
+  50% { opacity: 0; }
+}
+
+.modem-terminal .modem-cursor {
+  display: inline-block;
+  width: .65ch;
+  height: 1em;
+  margin-left: .1ch;
+  overflow: visible;
+  border: 0;
+  background: var(--green);
+  vertical-align: -0.12em;
+  animation: modem-js-caret .85s step-end infinite !important;
+}
+
+/* RemoteAccess-ish footer box. The earlier modem experiments are intentionally overridden here. */
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.modem-box {
+  width: min(62ch, 100%);
+  border: 1px solid var(--cyan);
+  background:
+    linear-gradient(180deg, rgba(95, 202, 214, .08), transparent 28%),
+    var(--panel);
+  box-shadow:
+    0 0 0 1px var(--bg),
+    0 0 0 2px var(--line),
+    0 18px 55px var(--shadow),
+    inset 0 0 32px rgba(101, 209, 138, .045);
+  color: var(--muted);
+}
+
+.modem-box-title,
+.modem-box-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .18rem .55rem;
+  background: var(--cyan);
+  color: var(--bg);
+  font-size: .78rem;
+  line-height: 1.25;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+.modem-box-title::before { content: "╡ "; }
+.modem-box-title::after { content: " ╞"; }
+
+.modem-box-status {
+  background: transparent;
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+}
+
+.modem-screen,
+.modem-terminal {
+  display: block;
+  width: 100%;
+  height: calc(5 * 1.45em);
+  overflow: hidden;
+  padding: .55rem .7rem;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px),
+    #050807;
+  white-space: normal;
+  line-height: 1.45;
+}
+
+.modem-output {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--green);
+  font: inherit;
+  line-height: inherit;
+  white-space: pre-wrap;
+}
+
+.modem-output::selection {
+  background: var(--cyan);
+  color: var(--bg);
+}
+
+.modem-screen .modem-cursor {
+  display: inline-block;
+  width: .65ch;
+  height: 1em;
+  margin-left: .1ch;
+  border: 0;
+  background: var(--amber);
+  vertical-align: -0.12em;
+  animation: modem-js-caret .85s step-end infinite !important;
+}
+
+.footer-links {
+  align-self: end;
+  white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  .site-footer {
+    display: block;
+  }
+
+  .modem-box {
+    width: 100%;
+  }
+
+  .footer-links {
+    margin-top: .8rem;
+  }
+}
+
+.modem-box-title {
+  display: none;
+}
+
+.intro::before,
+.intro::after {
+  content: none;
+}
+
+section:not(.intro)::before,
+.article::before {
+  content: "[" attr(data-caption) "]";
+}
+
+section:not(.intro):not([data-caption])::before,
+.article::before {
+  content: "[open]";
+}
+
+section[data-caption] > h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+section:not(.intro)::before,
+.article::before {
+  color: var(--amber);
+  font-size: .92rem;
+  letter-spacing: .03em;
+}
+
+.long-list li {
+  display: block;
+}
+
+.long-list time {
+  display: block;
+  margin: .1rem 0 .45rem 1.05rem;
+}
+
+.long-list p,
+.long-list ul {
+  margin-left: 1.05rem;
+}
+
+.year-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.year-pills a {
+  padding: .08rem .45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--amber);
+  text-decoration: none;
+}
+
+.year-pills a:hover {
+  border-color: var(--amber);
+}
+
+.long-list time {
+  display: inline;
+  margin: 0 0 0 .65rem;
+}
+
+.long-list time::before {
+  content: "[";
+  color: var(--faint);
+}
+
+.long-list time::after {
+  content: "]";
+  color: var(--faint);
+}

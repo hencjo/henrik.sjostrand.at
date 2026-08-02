@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contributions / Henrik</title>
+  <meta name="description" content="A personal changelog / field notebook.">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header class="site-header">
+    <p class="eyebrow">personal changelog / field notebook</p>
+    <nav aria-label="Main navigation">
+      <a href="/">home</a>
+      <a href="/notes/">notes</a>
+      <a href="/projects/">projects</a>
+      <a href="/contributing/">contributions</a>
+      <a href="/community/">community</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>Contributions</h1>
+<p class="lead">Open source work I help with: fixes, tests, paper cuts, and boring reliability improvements.</p>
+
+<ol class="entry-list">
+  
+    <li>
+      <a href="/projects/opencode/">opencode</a>
+      <time datetime="2026-05-28">May 28, 2026</time>
+      <p>Work around Nix packaging for the open source coding agent.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/devenv/">devenv</a>
+      <time datetime="2026-03-18">Mar 18, 2026</time>
+      <p>Contributions to reproducible developer environments: services, port allocation, process watching, and cache sharp edges.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/jooq/">jOOQ</a>
+      <time datetime="2012-10-26">Oct 26, 2012</time>
+      <p>Fix for inserting PostgreSQL string arrays containing quotes or backslashes — later used by jOOQ as an example of a good pull request.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/argo/">Argo JSON Library</a>
+      <time datetime="2011-02-12">Feb 12, 2011</time>
+      <p>Old contribution to Argo, a small dependency-free JSON parser and generator for Java.</p>
+    </li>
+  
+</ol>
+
+  </main>
+
+  <footer class="site-footer">
+    <section class="modem-box" aria-label="Remote Access modem session">
+      <div class="modem-screen" data-lines='["ATDT 0046707455390","CONNECT 33600","RemoteAccess 2.02","HENCJO BBS  Node 1","ANSI graphics detected","What is your name? guest","Password: ********","Checking user record...","Access level: visitor","Last caller: long ago","Welcome to HENCJO BBS","Main Board Command?","NO CARRIER"]'>
+        <pre class="modem-output">ATDT</pre><span class="modem-cursor" aria-hidden="true"></span>
+      </div>
+      <div class="modem-box-status"><span>ALT-H help</span><span>F10 hangup</span><span>sysop: away</span></div>
+    </section>
+    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  </footer>
+  <script>
+    (() => {
+      const screen = document.querySelector(".modem-screen");
+      const output = screen?.querySelector(".modem-output");
+      if (!screen || !output) return;
+      const lines = JSON.parse(screen.dataset.lines);
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      async function run() {
+        output.textContent = "";
+        for (const line of lines) {
+          for (const char of line) {
+            output.textContent += char;
+            screen.scrollTop = screen.scrollHeight;
+            await wait(24 + Math.random() * 24);
+          }
+          output.textContent += "\n";
+          screen.scrollTop = screen.scrollHeight;
+          await wait(line.startsWith("250") || line === "OK" ? 240 : 380);
+        }
+        await wait(1800);
+        run();
+      }
+      run();
+    })();
+  </script>
+</body>
+</html>

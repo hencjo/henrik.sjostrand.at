@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects / Henrik</title>
+  <meta name="description" content="A personal changelog / field notebook.">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <header class="site-header">
+    <p class="eyebrow">personal changelog / field notebook</p>
+    <nav aria-label="Main navigation">
+      <a href="/">home</a>
+      <a href="/notes/">notes</a>
+      <a href="/projects/">projects</a>
+      <a href="/contributing/">contributions</a>
+      <a href="/community/">community</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>Projects</h1>
+<p class="lead">Things built, maintained, debugged, or dragged into better shape.</p>
+
+<ol class="entry-list">
+  
+    <li>
+      <a href="/projects/stow/">stow</a>
+      <time datetime="2026-06-12">Jun 12, 2026</time>
+      <p>GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/silo/">Silo</a>
+      <time datetime="2026-05-04">May 04, 2026</time>
+      <p>Local-only OpenID mock backend for development and tests.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/wkhtmltopdf-rest/">wkhtmltopdf-rest</a>
+      <time datetime="2014-02-23">Feb 23, 2014</time>
+      <p>A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/summer-security-ldap/">Summer Security LDAP</a>
+      <time datetime="2013-11-24">Nov 24, 2013</time>
+      <p>LDAP authenticator for Summer Security.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/git-bash-prompt-utils/">git-bash-prompt-utils</a>
+      <time datetime="2013-05-14">May 14, 2013</time>
+      <p>Small Bash helpers for nicer Git-aware prompts.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/summer-migration/">Summer Migration</a>
+      <time datetime="2013-01-12">Jan 12, 2013</time>
+      <p>A simple Java database migration library built around explicit migration descriptions.</p>
+    </li>
+  
+    <li>
+      <a href="/projects/summer-security/">Summer Security</a>
+      <time datetime="2012-12-19">Dec 19, 2012</time>
+      <p>A small Java authentication library/DSL with code-first configuration and minimal dependencies.</p>
+    </li>
+  
+</ol>
+
+  </main>
+
+  <footer class="site-footer">
+    <section class="modem-box" aria-label="Remote Access modem session">
+      <div class="modem-screen" data-lines='["ATDT 0046707455390","CONNECT 33600","RemoteAccess 2.02","HENCJO BBS  Node 1","ANSI graphics detected","What is your name? guest","Password: ********","Checking user record...","Access level: visitor","Last caller: long ago","Welcome to HENCJO BBS","Main Board Command?","NO CARRIER"]'>
+        <pre class="modem-output">ATDT</pre><span class="modem-cursor" aria-hidden="true"></span>
+      </div>
+      <div class="modem-box-status"><span>ALT-H help</span><span>F10 hangup</span><span>sysop: away</span></div>
+    </section>
+    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  </footer>
+  <script>
+    (() => {
+      const screen = document.querySelector(".modem-screen");
+      const output = screen?.querySelector(".modem-output");
+      if (!screen || !output) return;
+      const lines = JSON.parse(screen.dataset.lines);
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      async function run() {
+        output.textContent = "";
+        for (const line of lines) {
+          for (const char of line) {
+            output.textContent += char;
+            screen.scrollTop = screen.scrollHeight;
+            await wait(24 + Math.random() * 24);
+          }
+          output.textContent += "\n";
+          screen.scrollTop = screen.scrollHeight;
+          await wait(line.startsWith("250") || line === "OK" ? 240 : 380);
+        }
+        await wait(1800);
+        run();
+      }
+      run();
+    })();
+  </script>
+</body>
+</html>
