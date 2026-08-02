@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "eleventy --serve",
     "build": "eleventy",
+    "deploy": "npm run build && node scripts/deploy-pages.mjs",
     "clean": "rm -rf _site"
   },
   "devDependencies": {
