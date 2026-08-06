@@ -13,10 +13,6 @@ export default function (eleventyConfig) {
     return new Date(value).toISOString().slice(0, 10);
   });
 
-  eleventyConfig.addCollection("notes", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/notes/*.md").sort((a, b) => b.date - a.date);
-  });
-
   eleventyConfig.addCollection("projects", (collectionApi) => {
     return collectionApi
       .getFilteredByGlob("src/projects/*.md")

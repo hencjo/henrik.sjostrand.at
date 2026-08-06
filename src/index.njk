@@ -3,24 +3,8 @@ layout: layouts/base.njk
 title: Home
 ---
 <section class="intro">
-  <p class="lead">Hi, I’m Henrik. This is where I put notes, small projects, old contributions, and things I keep having to explain twice.</p>
+  <p class="lead">Hi, I’m Henrik. This is where I put small projects, old contributions, community work, and things I keep having to explain twice.</p>
   <p>Mostly developer tools, Java, Nix, identity/auth, terminal-shaped stuff, and whatever saved me time recently.</p>
-  <p class="plain-text-line">Plain text, real artifacts, no pitch deck.</p>
-</section>
-
-<section aria-labelledby="latest-notes" data-caption="latest notes">
-  <h2 id="latest-notes">Latest notes</h2>
-  <ol class="entry-list">
-    {% for post in collections.notes %}
-      {% if loop.index <= 5 %}
-      <li>
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
-        <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
-        {% if post.data.summary %}<p>{{ post.data.summary }}</p>{% endif %}
-      </li>
-          {% endif %}
-    {% endfor %}
-  </ol>
 </section>
 
 <section aria-labelledby="selected-projects" data-caption="projects">
