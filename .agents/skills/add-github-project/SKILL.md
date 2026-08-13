@@ -70,6 +70,7 @@ Match the existing site:
 - Practical over promotional.
 - Mildly opinionated is good.
 - No résumé sludge, no startup landing-page voice, no README paste-job.
+- No smugness: state the work plainly; do not posture against other tools, teams, or ways of working.
 - Explain:
   - what it does
   - why it exists

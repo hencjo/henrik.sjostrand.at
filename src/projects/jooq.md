@@ -14,6 +14,6 @@ My old contribution fixed insertion into PostgreSQL string arrays when the strin
 
 The nice bit: the jOOQ blog later used the pull request as an example of how to provide a good pull request. The post calls it an “awesome pull request” and points out the shape of it: small refactoring steps, a regression test, then the actual fix.
 
-Small bug. Real bug. Clean contribution.
+The fix included a regression test and a small refactoring step before the change itself.
 
 [Pull request](https://github.com/jOOQ/jOOQ/pull/1889) · [jOOQ blog: How to provide a good pull request](https://blog.jooq.org/how-to-provide-a-good-pull-request/)

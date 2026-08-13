@@ -12,6 +12,6 @@ Summer Security is a Java web authentication library for applications that need 
 
 It supports HTTP Basic auth, form login compatible with Spring Security conventions, code-based configuration, and avoids ThreadLocal-based magic. It handles authentication, not authorization.
 
-The taste is clear: explicit wiring, small surface area, and no XML ceremony.
+It keeps configuration explicit, the surface area small, and XML out of the setup.
 
 [GitHub](https://github.com/hencjo/summer-security)
