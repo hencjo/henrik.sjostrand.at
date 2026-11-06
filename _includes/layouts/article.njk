@@ -1,15 +1,40 @@
 ---
 layout: layouts/base.njk
 ---
-<article class="article">
-  <header class="article-header">
-    <p class="meta">{{ date | readableDate }}{% if kind %} · {% if kind == "contribution" %}contributions{% else %}{{ kind }}{% endif %}{% endif %}</p>
-    <h1 class="article-title">{{ title }}{% if kind == 'project' %} <span class="title-kind">[project]</span>{% elif kind == 'contribution' %} <span class="title-kind">[contribution]</span>{% endif %}</h1>
-    {% if url %}<p class="external"><a href="{{ url }}">{{ url }}</a></p>{% endif %}
-    {% if summary %}<p class="summary">{{ summary }}</p>{% endif %}
+{% set repoHost = url | replace("https://", "") %}
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">{% if kind == "contribution" %}Contribution{% else %}Project{% endif %}</span>
+      <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
+    </p>
+    <h1>{{ title }}</h1>
+    {% if summary %}<p class="lead">{{ summary }}</p>{% endif %}
+    {% if pitch %}
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      {{ pitch }}
+    </blockquote>
+    {% endif %}
   </header>
 
-  <div class="article-body">
-    {{ content | safe }}
+  <div class="post-grid">
+    <div class="post-body">
+      {{ content | safe }}
+    </div>
+
+    <aside class="post-aside">
+      {% if url %}
+      <a class="primary-link" role="button" href="{{ url }}">{% if "github.com" in url %}View on GitHub{% else %}Visit project{% endif %} →</a>
+      {% endif %}
+      <dl>
+        <dt>Type</dt>
+        <dd>{% if kind == "contribution" %}Open source contribution{% else %}Own project{% endif %}</dd>
+        <dt>{% if kind == "contribution" %}First contribution{% else %}Started{% endif %}</dt>
+        <dd>{{ date | readableDate }}</dd>
+        {% if url %}<dt>Link</dt><dd><a href="{{ url }}">{{ repoHost }}</a></dd>{% endif %}
+      </dl>
+      <p class="back">{% if kind == "contribution" %}<a href="/contributing/">← All contributions</a>{% else %}<a href="/projects/">← All projects</a>{% endif %}</p>
+    </aside>
   </div>
 </article>

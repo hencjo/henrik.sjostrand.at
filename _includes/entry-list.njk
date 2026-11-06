@@ -1,0 +1,13 @@
+<ol class="rows">
+  {% for item in items %}
+    {% if not limit or loop.index <= limit %}
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="{{ item.url }}">{{ item.data.title }}</a> <time datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time></h3>
+        {% if item.data.summary %}<p class="row-summary">{{ item.data.summary }}</p>{% endif %}
+      </div>
+      {% if item.data.pitch %}<p class="row-pitch">{{ item.data.pitch }}</p>{% endif %}
+    </li>
+    {% endif %}
+  {% endfor %}
+</ol>

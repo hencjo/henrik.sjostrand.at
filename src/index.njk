@@ -3,41 +3,32 @@ layout: layouts/base.njk
 title: Home
 ---
 <section class="intro">
-  <p class="lead">Hi, I’m Henrik. This is where I put small projects, old contributions, community work, and things I find worth sharing.</p>
+  <h1>Hi, I’m Henrik.</h1>
+  <p class="lead">This is where I put small projects, old contributions, community work, and things I find worth sharing.</p>
   <p>Mostly developer tools, Java, Nix, identity/auth, terminal-shaped stuff, and whatever saved me time recently.</p>
 </section>
 
-<section aria-labelledby="selected-projects" data-caption="projects">
-  <h2 id="selected-projects">Selected projects</h2>
-  <ol class="entry-list">
-    {% for project in collections.projects %}
-      {% if loop.index <= 5 %}
-      <li>
-        <a href="{{ project.url }}">{{ project.data.title }}</a>
-        <time datetime="{{ project.date | htmlDateString }}">{{ project.date | readableDate }}</time>
-        {% if project.data.summary %}<p>{{ project.data.summary }}</p>{% endif %}
-      </li>
-          {% endif %}
-    {% endfor %}
-  </ol>
+<section aria-labelledby="selected-projects">
+  <div class="section-head">
+    <h2 id="selected-projects">Selected projects</h2>
+    <a href="/projects/">All projects →</a>
+  </div>
+  {% set items = collections.projects %}{% set limit = 6 %}
+  {% include "entry-list.njk" %}
 </section>
 
-<section aria-labelledby="recent-contributions" data-caption="contributions">
-  <h2 id="recent-contributions">Contributions</h2>
-  <ol class="entry-list">
-    {% for contribution in collections.contributions %}
-      {% if loop.index <= 5 %}
-      <li>
-        <a href="{{ contribution.url }}">{{ contribution.data.title }}</a>
-        <time datetime="{{ contribution.date | htmlDateString }}">{{ contribution.date | readableDate }}</time>
-        {% if contribution.data.summary %}<p>{{ contribution.data.summary }}</p>{% endif %}
-      </li>
-          {% endif %}
-    {% endfor %}
-  </ol>
+<section aria-labelledby="recent-contributions">
+  <div class="section-head">
+    <h2 id="recent-contributions">Contributions</h2>
+    <a href="/contributing/">All contributions →</a>
+  </div>
+  {% set items = collections.contributions %}{% set limit = 4 %}
+  {% include "entry-list.njk" %}
 </section>
 
-<section aria-labelledby="community" data-caption="community">
-  <h2 id="community">Community</h2>
+<section aria-labelledby="community">
+  <div class="section-head">
+    <h2 id="community">Community</h2>
+  </div>
   {% include "community-list.njk" %}
 </section>

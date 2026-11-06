@@ -3,15 +3,33 @@ layout: layouts/article.njk
 title: Fransson
 date: 2026-08-06
 kind: project
-tags: [rust, kafka, developer-tools, testing]
-summary: Repeatable Kafka data for local and test environments.
+tags: [rust, kafka, testing]
+summary: "Repeatable Kafka data for local and test environments."
+pitch: "Realistic Kafka data locally, byte-for-byte reproducible, without hand-rolled scripts poking at production clusters."
 url: https://github.com/hencjo/fransson
 ---
 
-Fransson is for making Kafka state reproducible when local development or tests need more than toy messages.
+## The problem
 
-It can archive selected production topics, restore deterministic snapshots, forward only new events, and reconcile topic shape without pretending event streams are just another seed file.
+Event-driven systems are hard to develop against with toy data. Compacted reference topics, real message shapes, and real volumes matter — but copying data out of production Kafka usually means ad-hoc scripts, nervous operators, and environments nobody can recreate.
 
-Why it belongs here: it handles the boring-but-dangerous edge of integration work — realistic data, repeatable environments, and fewer hand-rolled scripts poking at clusters.
+## What it does
 
-[GitHub](https://github.com/hencjo/fransson)
+Fransson is a deliberately one-way tool: source connections are read-only, every write goes to the configured destination.
+
+- **Dump and restore.** Archive selected topics up to the high-watermark, then restore them deterministically into local or test Kafka. Equal partition contents produce byte-identical archives.
+- **Clone and stream.** Keep compacted topics in sync, or forward only new events while it runs.
+- **Manage topic shape.** Reconcile topic configuration declaratively, or start each run with a fresh empty topic.
+- **Faithful copies.** Partition, key, payload, timestamp, and headers are preserved; nothing is transformed or repartitioned.
+
+## Why it's interesting
+
+It treats Kafka state as something you can declare and reproduce, rather than a seed file you hope still works. The design keeps the dangerous parts boring: one direction, explicit modes, preflight checks before anything destructive, and a clear story for "restore only if empty".
+
+## Try it
+
+```sh
+nix run github:hencjo/fransson -- --help
+fransson dump --config fransson.yaml --source production:products --archive products.fransson.zst
+fransson restore --config fransson.yaml
+```

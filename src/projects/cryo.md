@@ -3,15 +3,40 @@ layout: layouts/article.njk
 title: cryo
 date: 2026-08-27
 kind: project
-tags: [rust, http, testing, developer-tools]
-summary: HTTP snapshot tests built from existing curl examples and OpenAPI operations.
+tags: [rust, http, testing]
+summary: "HTTP snapshot tests built from existing curl examples and OpenAPI operations."
+pitch: "Your codebase already contains API tests — they're the curl examples in your docs. cryo turns them into regression checks you review like code."
 url: https://github.com/hencjo/cryo
 ---
 
-cryo turns localhost curl examples and OpenAPI operations into HTTP snapshot tests. It compares fresh responses with committed snapshots and keeps changes as reviewable candidates.
+## The problem
 
-The useful bit: it finds requests already present in a codebase, records readable HTTP snapshots, and makes nondeterministic fields explicit instead of silently accepting changes.
+API regression tests are valuable and tedious to write, so they rarely exist. Meanwhile, READMEs and comments are full of perfectly good `curl` examples, and the OpenAPI spec already lists every operation.
 
-Why it belongs here: it makes API regression checks easier to add and keeps response changes visible in review.
+## What it does
 
-[GitHub](https://github.com/hencjo/cryo)
+cryo is approval testing for HTTP APIs:
+
+```text
+discover → bless → check → diff or fix → recheck → accept
+```
+
+- **Discover** localhost curl commands anywhere in the source tree, or import OpenAPI 3.0/3.1 operations.
+- **Bless** known-good responses as readable, canonical HTTP snapshots committed to the repo.
+- **Check** later runs; changed responses become candidates instead of overwriting the baseline.
+- **Normalize deliberately.** Timestamps and IDs are handled by explicit JSON/CSV replacement rules visible in the manifest — never accepted automatically.
+
+## Why it's interesting
+
+It finds tests that already exist instead of asking you to write new ones, and it treats every response change as something a human reviews. It's also careful by default: discovery only enables side-effect-free loopback GET/HEAD requests, and OpenAPI import ignores the spec's `servers` so production can't become a test target by accident.
+
+A 200 → 500 change is flagged as a regression, not just a diff — the kind of small judgement that makes a tool pleasant.
+
+## Try it
+
+```sh
+nix run github:hencjo/cryo -- --help
+cryo discover src test
+cryo bless
+cryo check
+```

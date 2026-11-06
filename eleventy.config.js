@@ -1,5 +1,8 @@
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ public: "." });
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@picocss/pico/css/pico.min.css": "css/pico.min.css"
+  });
 
   eleventyConfig.addFilter("readableDate", (value) => {
     return new Intl.DateTimeFormat("en", {
