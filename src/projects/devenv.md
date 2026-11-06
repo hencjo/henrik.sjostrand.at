@@ -16,6 +16,7 @@ My contributions sit in the unglamorous-but-important zone:
 - worked on the MongoDB module, including `services.mongodb.replication`
 - improved RabbitMQ port allocation for distribution and EPMD ports
 - fixed process watching so processes do not restart on meaningless file events
+- allocated OpenTelemetry Collector listener ports
 - tightened dynamic port allocation and eval-cache behavior
 - added regression tests around port allocation across repositories
 
