@@ -3,45 +3,124 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Argo JSON Library / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>Argo JSON Library · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <article class="article">
-  <header class="article-header">
-    <p class="meta">Feb 12, 2011 · contributions</p>
-    <h1 class="article-title">Argo JSON Library <span class="title-kind">[contribution]</span></h1>
-    <p class="external"><a href="https://argo.sourceforge.net/">https://argo.sourceforge.net/</a></p>
-    <p class="summary">Old contribution to Argo, a small dependency-free JSON parser and generator for Java.</p>
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Contribution</span>
+      <time datetime="2011-02-12">Feb 12, 2011</time>
+    </p>
+    <h1>Argo JSON Library</h1>
+    <p class="lead">Old contribution to Argo, a small dependency-free JSON parser and generator for Java.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Early open source work on a dependency-free JSON library for Java.
+    </blockquote>
+    
   </header>
 
-  <div class="article-body">
-    <p>Argo is a dependency-free JSON parser and generator for Java, originally hosted on SourceForge.</p>
-<p>This one is old enough that the trail is not as clean as GitHub-era work. The public breadcrumb is the old Rebel Alliance profile listing Argo under open-source contributions, plus the SourceForge/GitHub project history.</p>
-<p>Keeping it here anyway. Old useful work still counts.</p>
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The project</h2>
+<p>Argo is a dependency-free JSON parser and generator for Java, originally hosted on SourceForge.</p>
+<h2>What I did</h2>
+<p>Contributed to the library in its SourceForge era. The trail is not as clean as GitHub-era work: the public breadcrumb is an old Rebel Alliance profile listing Argo under open-source contributions, plus the SourceForge and GitHub project history.</p>
+<h2>Why it matters</h2>
+<p>Small, dependency-free libraries are a recurring theme here. Old useful work still counts.</p>
 <p><a href="https://argo.sourceforge.net/">Argo site</a> · <a href="https://sourceforge.net/projects/argo/">SourceForge</a></p>
 
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://argo.sourceforge.net/">Visit project →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Open source contribution</dd>
+        <dt>First contribution</dt>
+        <dd>Feb 12, 2011</dd>
+        <dt>Link</dt><dd><a href="https://argo.sourceforge.net/">argo.sourceforge.net/</a></dd>
+      </dl>
+      <p class="back"><a href="/contributing/">← All contributions</a></p>
+    </aside>
   </div>
 </article>
 
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>

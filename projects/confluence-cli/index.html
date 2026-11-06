@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>confluence-cli · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Contribution</span>
+      <time datetime="2026-09-24">Sep 24, 2026</time>
+    </p>
+    <h1>confluence-cli</h1>
+    <p class="lead">Nix flake and system certificate trust for a terminal Confluence client.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Two small changes that make a nice tool work in a real corporate setup: behind internal CAs, and inside Nix environments.
+    </blockquote>
+    
+  </header>
+
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The project</h2>
+<p>confluence-cli reads, searches, browses, and edits Confluence from the terminal — handy on its own, and very handy for scripts and coding agents.</p>
+<h2>What I did</h2>
+<ul>
+<li>added a Nix flake for building, running, and embedding confluence-cli in developer environments</li>
+<li>made TLS trust the operating-system certificate store, so it works behind corporate CAs</li>
+</ul>
+<h2>Why it matters</h2>
+<p>Great tools often fail at the last metre in a workplace: a TLS error against an internal certificate authority, or no clean way to pin it in a project environment. Both PRs were merged upstream.</p>
+
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/rvben/confluence-cli">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Open source contribution</dd>
+        <dt>First contribution</dt>
+        <dd>Sep 24, 2026</dd>
+        <dt>Link</dt><dd><a href="https://github.com/rvben/confluence-cli">github.com/rvben/confluence-cli</a></dd>
+      </dl>
+      <p class="back"><a href="/contributing/">← All contributions</a></p>
+    </aside>
+  </div>
+</article>
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>

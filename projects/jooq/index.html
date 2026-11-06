@@ -3,46 +3,125 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jOOQ / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>jOOQ · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <article class="article">
-  <header class="article-header">
-    <p class="meta">Oct 26, 2012 · contributions</p>
-    <h1 class="article-title">jOOQ <span class="title-kind">[contribution]</span></h1>
-    <p class="external"><a href="https://github.com/jOOQ/jOOQ/pull/1889">https://github.com/jOOQ/jOOQ/pull/1889</a></p>
-    <p class="summary">Fix for inserting PostgreSQL string arrays containing quotes or backslashes — later used by jOOQ as an example of a good pull request.</p>
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Contribution</span>
+      <time datetime="2012-10-26">Oct 26, 2012</time>
+    </p>
+    <h1>jOOQ</h1>
+    <p class="lead">Fix for inserting PostgreSQL string arrays containing quotes or backslashes.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      A small bug fix that the jOOQ blog later held up as an example of how to write a good pull request.
+    </blockquote>
+    
   </header>
 
-  <div class="article-body">
-    <p>jOOQ is a type-safe SQL DSL and code generator for Java.</p>
-<p>My old contribution fixed insertion into PostgreSQL string arrays when the strings contained <code>&quot;</code> or <code>\</code> characters.</p>
-<p>The nice bit: the jOOQ blog later used the pull request as an example of how to provide a good pull request. The post calls it an “awesome pull request” and points out the shape of it: small refactoring steps, a regression test, then the actual fix.</p>
-<p>The fix included a regression test and a small refactoring step before the change itself.</p>
-<p><a href="https://github.com/jOOQ/jOOQ/pull/1889">Pull request</a> · <a href="https://blog.jooq.org/how-to-provide-a-good-pull-request/">jOOQ blog: How to provide a good pull request</a></p>
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The project</h2>
+<p>jOOQ is a type-safe SQL DSL and code generator for Java.</p>
+<h2>What I did</h2>
+<p>Fixed insertion into PostgreSQL string arrays when the strings contained <code>&quot;</code> or <code>\</code> characters.</p>
+<p>The pull request was shaped deliberately: small refactoring steps first, then a regression test, then the actual fix.</p>
+<h2>Why it matters</h2>
+<p>The jOOQ blog later used it as its example in <a href="https://blog.jooq.org/how-to-provide-a-good-pull-request/">How to provide a good pull request</a>, calling it an “awesome pull request”. The fix was small; the lesson about making changes easy to review has stuck with me since.</p>
+<p><a href="https://github.com/jOOQ/jOOQ/pull/1889">Pull request</a></p>
 
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/jOOQ/jOOQ/pull/1889">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Open source contribution</dd>
+        <dt>First contribution</dt>
+        <dd>Oct 26, 2012</dd>
+        <dt>Link</dt><dd><a href="https://github.com/jOOQ/jOOQ/pull/1889">github.com/jOOQ/jOOQ/pull/1889</a></dd>
+      </dl>
+      <p class="back"><a href="/contributing/">← All contributions</a></p>
+    </aside>
   </div>
 </article>
 
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>

@@ -3,45 +3,128 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>git-bash-prompt-utils / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>git-bash-prompt-utils · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <article class="article">
-  <header class="article-header">
-    <p class="meta">May 14, 2013 · project</p>
-    <h1 class="article-title">git-bash-prompt-utils <span class="title-kind">[project]</span></h1>
-    <p class="external"><a href="https://github.com/hencjo/git-bash-prompt-utils">https://github.com/hencjo/git-bash-prompt-utils</a></p>
-    <p class="summary">Small Bash helpers for nicer Git-aware prompts.</p>
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2013-05-14">May 14, 2013</time>
+    </p>
+    <h1>git-bash-prompt-utils</h1>
+    <p class="lead">Small Bash helpers for nicer Git-aware prompts.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Show where you are relative to the repository root — deep project trees get a lot less miserable.
+    </blockquote>
+    
   </header>
 
-  <div class="article-body">
-    <p>A small collection of Bash helpers for Git-aware prompts.</p>
-<p>The useful bit: showing the current directory relative to the Git root, which makes deep project trees less miserable.</p>
-<p>Tiny tool, real quality-of-life improvement.</p>
-<p><a href="https://github.com/hencjo/git-bash-prompt-utils">GitHub</a></p>
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The problem</h2>
+<p>In deep Maven-style trees, <code>\w</code> in a Bash prompt turns into a wall of path, while the part you actually care about — where you are inside the repository — gets lost.</p>
+<h2>What it does</h2>
+<p><code>__git_relative_subdir</code> replaces <code>\w</code> with the working directory relative to the Git root:</p>
+<pre><code class="language-text">~/demo $ cd git-repo/
+ master / $ cd module1/src/main/java/
+ master /module1/src/main/java $
+</code></pre>
+<p>Combine it with <code>__git_ps1</code> for branch and status.</p>
+<h2>Why it's interesting</h2>
+<p>Tiny tool, real quality-of-life improvement. You look at your prompt thousands of times a day; it's worth making it say the right thing.</p>
 
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/hencjo/git-bash-prompt-utils">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Own project</dd>
+        <dt>Started</dt>
+        <dd>May 14, 2013</dd>
+        <dt>Link</dt><dd><a href="https://github.com/hencjo/git-bash-prompt-utils">github.com/hencjo/git-bash-prompt-utils</a></dd>
+      </dl>
+      <p class="back"><a href="/projects/">← All projects</a></p>
+    </aside>
   </div>
 </article>
 
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>

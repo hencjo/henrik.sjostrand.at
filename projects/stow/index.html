@@ -3,45 +3,130 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>stow / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>stow · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <article class="article">
-  <header class="article-header">
-    <p class="meta">Jun 12, 2026 · project</p>
-    <h1 class="article-title">stow <span class="title-kind">[project]</span></h1>
-    <p class="external"><a href="https://github.com/hencjo/stow">https://github.com/hencjo/stow</a></p>
-    <p class="summary">GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2026-06-12">Jun 12, 2026</time>
+    </p>
+    <h1>stow</h1>
+    <p class="lead">GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      GitOps for a plain Docker host: deployments are merge requests, and the host converges — or rolls back — on its own.
+    </blockquote>
+    
   </header>
 
-  <div class="article-body">
-    <p>stow turns service deployment into a Git-backed control loop. A GitLab repo describes each service; the host reconciles Docker containers to the merged state.</p>
-<p>Deployment changes are reviewed in Git: image digests, config, SOPS-managed secrets, verification, and rollback live together.</p>
-<p>Why it belongs here: it makes deployment state explicit, auditable, and repeatable without adding much operational machinery.</p>
-<p><a href="https://github.com/hencjo/stow">GitHub</a></p>
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The problem</h2>
+<p>Not every service needs Kubernetes, but every service deserves reviewed, auditable, repeatable deployments. On a plain Docker host that usually degrades into SSH sessions and shell scripts.</p>
+<h2>What it does</h2>
+<p>A GitLab repository is the source of truth. Each service is a <code>stow.yaml</code> descriptor plus versioned configuration.</p>
+<ol>
+<li>The application pipeline builds and pushes an image.</li>
+<li><code>stow suggest-image</code> opens or updates a merge request pinning the image digest (and optional changelog).</li>
+<li>After merge, the deployment pipeline pokes the host daemon.</li>
+<li><code>stow daemon</code> reconciles Docker to the latest default-branch HEAD, decrypting SOPS-managed config, verifying the new instance, and rolling back automatically if verification fails.</li>
+</ol>
+<h2>Why it's interesting</h2>
+<p>It brings the good parts of GitOps — declarative descriptors, digest-pinned artifacts, approvals in merge requests, convergence status — to a single host in one small binary. No cluster, no operator, no control plane to babysit.</p>
+<p>The details are careful: YAML edits preserve unrelated bytes, re-running a suggestion never duplicates a merge request, and a moved target branch fails safely instead of racing.</p>
 
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/hencjo/stow">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Own project</dd>
+        <dt>Started</dt>
+        <dd>Jun 12, 2026</dd>
+        <dt>Link</dt><dd><a href="https://github.com/hencjo/stow">github.com/hencjo/stow</a></dd>
+      </dl>
+      <p class="back"><a href="/projects/">← All projects</a></p>
+    </aside>
   </div>
 </article>
 
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>

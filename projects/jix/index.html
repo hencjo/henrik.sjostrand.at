@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jix · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2026-11-06">Nov 06, 2026</time>
+    </p>
+    <h1>jix</h1>
+    <p class="lead">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Java builds that never resolve dependencies behind your back — and you don&#39;t have to throw away your existing build to get there.
+    </blockquote>
+    
+  </header>
+
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The problem</h2>
+<p>Java and Nix have never been easy friends. Maven resolves dependencies at build time, from the network, using whatever JDK and OS properties happen to be around. Nix wants every input known and hashed up front. The usual answer is to give up on one of them.</p>
+<h2>What it does</h2>
+<p>jix resolves Maven dependencies once, locks the full graph and every artifact hash in <code>jix.lock</code>, and lets Nix fetch, verify, and cache the artifacts as ordinary hash-checked downloads.</p>
+<ul>
+<li><strong>Two locks, no surprises.</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts. Missing or stale locks stop the build instead of resolving silently.</li>
+<li><strong>Start small.</strong> Use locked classpaths with your current build, or adopt the optional Java build DSL for thin, fat, shaded, or multi-module JARs.</li>
+<li><strong>Several environments, one lock.</strong> Declare named Java/OS contexts and <code>jix lock</code> pins all of them.</li>
+<li><strong>Plain Nix outputs.</strong> <code>jix build jar</code> is <code>nix build .#jar</code>; standard binary caches just work.</li>
+<li><strong>IDE included.</strong> <code>jix idea</code> generates repository-local IntelliJ configuration from the same pinned inputs.</li>
+</ul>
+<h2>Why it's interesting</h2>
+<p>Most &quot;Java in Nix&quot; attempts either vendor a giant fixed-output derivation or re-implement Maven badly. jix takes Maven's resolution semantics seriously — it checks its behaviour against Maven 3.9 / Resolver 1.9 — and then gets out of the way, so a Java project becomes as reproducible as any other Nix package.</p>
+<p>It's also designed to be adopted gradually: dependency-only first, the build later, and the migration guide ships in the binary so a coding agent can help.</p>
+<h2>Try it</h2>
+<pre><code class="language-sh">jix init --template fat
+jix lock
+jix run
+</code></pre>
+
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/hencjo/jix">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Own project</dd>
+        <dt>Started</dt>
+        <dd>Nov 06, 2026</dd>
+        <dt>Link</dt><dd><a href="https://github.com/hencjo/jix">github.com/hencjo/jix</a></dd>
+      </dl>
+      <p class="back"><a href="/projects/">← All projects</a></p>
+    </aside>
+  </div>
+</article>
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>

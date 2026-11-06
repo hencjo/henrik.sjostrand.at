@@ -3,44 +3,123 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>wkhtmltopdf-rest / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>wkhtmltopdf-rest · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <article class="article">
-  <header class="article-header">
-    <p class="meta">Feb 23, 2014 · project</p>
-    <h1 class="article-title">wkhtmltopdf-rest <span class="title-kind">[project]</span></h1>
-    <p class="external"><a href="https://github.com/hencjo/wkhtmltopdf-rest">https://github.com/hencjo/wkhtmltopdf-rest</a></p>
-    <p class="summary">A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2014-02-23">Feb 23, 2014</time>
+    </p>
+    <h1>wkhtmltopdf-rest</h1>
+    <p class="lead">A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      One job, one endpoint: give it a URL, get a PDF back — written in Haskell.
+    </blockquote>
+    
   </header>
 
-  <div class="article-body">
-    <p>A small Haskell service that wraps <code>wkhtmltopdf</code>.</p>
-<p>It does one job: accepts a URL and returns a PDF. Not glamorous. Useful.</p>
-<p><a href="https://github.com/hencjo/wkhtmltopdf-rest">GitHub</a></p>
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The problem</h2>
+<p>Generating PDFs from HTML is a common need, and <code>wkhtmltopdf</code> does it well — but it's a command-line tool, and you don't want every application shelling out to it and managing its dependencies.</p>
+<h2>What it does</h2>
+<p>A small Haskell web service that wraps <code>wkhtmltopdf</code>: it accepts a URL and returns the rendered PDF.</p>
+<h2>Why it's interesting</h2>
+<p>It isolates an awkward native dependency behind a tiny HTTP interface, so applications only need to speak HTTP. Not glamorous — useful. And a good excuse to put Haskell into production-shaped work.</p>
 
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/hencjo/wkhtmltopdf-rest">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Own project</dd>
+        <dt>Started</dt>
+        <dd>Feb 23, 2014</dd>
+        <dt>Link</dt><dd><a href="https://github.com/hencjo/wkhtmltopdf-rest">github.com/hencjo/wkhtmltopdf-rest</a></dd>
+      </dl>
+      <p class="back"><a href="/projects/">← All projects</a></p>
+    </aside>
   </div>
 </article>
 
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>

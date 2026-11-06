@@ -3,89 +3,190 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projects / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>Projects · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <h1>Projects</h1>
-<p class="lead">Things built, maintained, debugged, or dragged into better shape.</p>
+  <main class="container-fluid" id="main">
+    <hgroup class="page-header">
+  <h1>Projects</h1>
+  <p>Things built, maintained, debugged, or dragged into better shape.</p>
+</hgroup>
 
-<ol class="entry-list">
+
+<ol class="rows">
   
-    <li>
-      <a href="/projects/cryo/">cryo</a>
-      <time datetime="2026-08-27">Aug 27, 2026</time>
-      <p>HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/jix/">jix</a> <time datetime="2026-11-06">Nov 06, 2026</time></h3>
+        <p class="row-summary">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
+      </div>
+      <p class="row-pitch">Java builds that never resolve dependencies behind your back — and you don&#39;t have to throw away your existing build to get there.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/fransson/">Fransson</a>
-      <time datetime="2026-08-06">Aug 06, 2026</time>
-      <p>Repeatable Kafka data for local and test environments.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/cryo/">cryo</a> <time datetime="2026-08-27">Aug 27, 2026</time></h3>
+        <p class="row-summary">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
+      </div>
+      <p class="row-pitch">Your codebase already contains API tests — they&#39;re the curl examples in your docs. cryo turns them into regression checks you review like code.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/stow/">stow</a>
-      <time datetime="2026-06-12">Jun 12, 2026</time>
-      <p>GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/fransson/">Fransson</a> <time datetime="2026-08-06">Aug 06, 2026</time></h3>
+        <p class="row-summary">Repeatable Kafka data for local and test environments.</p>
+      </div>
+      <p class="row-pitch">Realistic Kafka data locally, byte-for-byte reproducible, without hand-rolled scripts poking at production clusters.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/silo/">Silo</a>
-      <time datetime="2026-05-04">May 04, 2026</time>
-      <p>Local-only OpenID mock backend for development and tests.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/stow/">stow</a> <time datetime="2026-06-12">Jun 12, 2026</time></h3>
+        <p class="row-summary">GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
+      </div>
+      <p class="row-pitch">GitOps for a plain Docker host: deployments are merge requests, and the host converges — or rolls back — on its own.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/wkhtmltopdf-rest/">wkhtmltopdf-rest</a>
-      <time datetime="2014-02-23">Feb 23, 2014</time>
-      <p>A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/silo/">Silo</a> <time datetime="2026-05-04">May 04, 2026</time></h3>
+        <p class="row-summary">Local-only OpenID mock backend for development and tests.</p>
+      </div>
+      <p class="row-pitch">A real-looking OpenID login flow on localhost, with a user picker instead of a corporate identity provider.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/summer-security-ldap/">Summer Security LDAP</a>
-      <time datetime="2013-11-24">Nov 24, 2013</time>
-      <p>LDAP authenticator for Summer Security.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/wkhtmltopdf-rest/">wkhtmltopdf-rest</a> <time datetime="2014-02-23">Feb 23, 2014</time></h3>
+        <p class="row-summary">A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
+      </div>
+      <p class="row-pitch">One job, one endpoint: give it a URL, get a PDF back — written in Haskell.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/git-bash-prompt-utils/">git-bash-prompt-utils</a>
-      <time datetime="2013-05-14">May 14, 2013</time>
-      <p>Small Bash helpers for nicer Git-aware prompts.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/summer-security-ldap/">Summer Security LDAP</a> <time datetime="2013-11-24">Nov 24, 2013</time></h3>
+        <p class="row-summary">LDAP authenticator for Summer Security.</p>
+      </div>
+      <p class="row-pitch">Plug a directory into Summer Security without pulling in a framework to do it.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/summer-migration/">Summer Migration</a>
-      <time datetime="2013-01-12">Jan 12, 2013</time>
-      <p>A simple Java database migration library built around explicit migration descriptions.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/git-bash-prompt-utils/">git-bash-prompt-utils</a> <time datetime="2013-05-14">May 14, 2013</time></h3>
+        <p class="row-summary">Small Bash helpers for nicer Git-aware prompts.</p>
+      </div>
+      <p class="row-pitch">Show where you are relative to the repository root — deep project trees get a lot less miserable.</p>
     </li>
+    
   
-    <li>
-      <a href="/projects/summer-security/">Summer Security</a>
-      <time datetime="2012-12-19">Dec 19, 2012</time>
-      <p>A small Java authentication library/DSL with code-first configuration and minimal dependencies.</p>
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/summer-migration/">Summer Migration</a> <time datetime="2013-01-12">Jan 12, 2013</time></h3>
+        <p class="row-summary">A simple Java database migration library built around explicit migration descriptions.</p>
+      </div>
+      <p class="row-pitch">Database migrations where the order is written in code — not decided by whatever files happen to be on the classpath.</p>
     </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/summer-security/">Summer Security</a> <time datetime="2012-12-19">Dec 19, 2012</time></h3>
+        <p class="row-summary">A small Java authentication library/DSL with code-first configuration and no dependencies.</p>
+      </div>
+      <p class="row-pitch">Web authentication as a readable list of rules in plain Java — no XML, no ThreadLocals, no framework.</p>
+    </li>
+    
   
 </ol>
 
+
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>

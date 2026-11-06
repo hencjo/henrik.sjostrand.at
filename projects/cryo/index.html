@@ -3,45 +3,138 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>cryo / Henrik</title>
-  <meta name="description" content="A portfolio.">
+  <title>cryo · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <p class="eyebrow">portfolio</p>
+  <header class="container-fluid site-header">
     <nav aria-label="Main navigation">
-      <a href="/">home</a>
-      <a href="/projects/">projects</a>
-      <a href="/contributing/">contributions</a>
-      <a href="/community/">community</a>
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
     </nav>
   </header>
 
-  <main id="main">
-    <article class="article">
-  <header class="article-header">
-    <p class="meta">Aug 27, 2026 · project</p>
-    <h1 class="article-title">cryo <span class="title-kind">[project]</span></h1>
-    <p class="external"><a href="https://github.com/hencjo/cryo">https://github.com/hencjo/cryo</a></p>
-    <p class="summary">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
+  <main class="container-fluid" id="main">
+    
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2026-08-27">Aug 27, 2026</time>
+    </p>
+    <h1>cryo</h1>
+    <p class="lead">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Your codebase already contains API tests — they&#39;re the curl examples in your docs. cryo turns them into regression checks you review like code.
+    </blockquote>
+    
   </header>
 
-  <div class="article-body">
-    <p>cryo turns localhost curl examples and OpenAPI operations into HTTP snapshot tests. It compares fresh responses with committed snapshots and keeps changes as reviewable candidates.</p>
-<p>The useful bit: it finds requests already present in a codebase, records readable HTTP snapshots, and makes nondeterministic fields explicit instead of silently accepting changes.</p>
-<p>Why it belongs here: it makes API regression checks easier to add and keeps response changes visible in review.</p>
-<p><a href="https://github.com/hencjo/cryo">GitHub</a></p>
+  <div class="post-grid">
+    <div class="post-body">
+      <h2>The problem</h2>
+<p>API regression tests are valuable and tedious to write, so they rarely exist. Meanwhile, READMEs and comments are full of perfectly good <code>curl</code> examples, and the OpenAPI spec already lists every operation.</p>
+<h2>What it does</h2>
+<p>cryo is approval testing for HTTP APIs:</p>
+<pre><code class="language-text">discover → bless → check → diff or fix → recheck → accept
+</code></pre>
+<ul>
+<li><strong>Discover</strong> localhost curl commands anywhere in the source tree, or import OpenAPI 3.0/3.1 operations.</li>
+<li><strong>Bless</strong> known-good responses as readable, canonical HTTP snapshots committed to the repo.</li>
+<li><strong>Check</strong> later runs; changed responses become candidates instead of overwriting the baseline.</li>
+<li><strong>Normalize deliberately.</strong> Timestamps and IDs are handled by explicit JSON/CSV replacement rules visible in the manifest — never accepted automatically.</li>
+</ul>
+<h2>Why it's interesting</h2>
+<p>It finds tests that already exist instead of asking you to write new ones, and it treats every response change as something a human reviews. It's also careful by default: discovery only enables side-effect-free loopback GET/HEAD requests, and OpenAPI import ignores the spec's <code>servers</code> so production can't become a test target by accident.</p>
+<p>A 200 → 500 change is flagged as a regression, not just a diff — the kind of small judgement that makes a tool pleasant.</p>
+<h2>Try it</h2>
+<pre><code class="language-sh">nix run github:hencjo/cryo -- --help
+cryo discover src test
+cryo bless
+cryo check
+</code></pre>
 
+    </div>
+
+    <aside class="post-aside">
+      
+      <a class="primary-link" role="button" href="https://github.com/hencjo/cryo">View on GitHub →</a>
+      
+      <dl>
+        <dt>Type</dt>
+        <dd>Own project</dd>
+        <dt>Started</dt>
+        <dd>Aug 27, 2026</dd>
+        <dt>Link</dt><dd><a href="https://github.com/hencjo/cryo">github.com/hencjo/cryo</a></dd>
+      </dl>
+      <p class="back"><a href="/projects/">← All projects</a></p>
+    </aside>
   </div>
 </article>
 
   </main>
 
-  <footer class="site-footer">
-    <p class="footer-links"><a href="https://github.com/hencjo">github</a> · <a href="https://www.linkedin.com/in/hencjo/">linkedin</a></p>
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
 </body>
 </html>
