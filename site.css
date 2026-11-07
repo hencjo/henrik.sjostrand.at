@@ -2,12 +2,14 @@
    system by default; html[data-theme] overrides via the header toggle. */
 
 :root {
-  --pico-font-family-sans-serif: Inter, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --pico-font-family-sans-serif: "IBM Plex Sans", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --pico-font-family: var(--pico-font-family-sans-serif);
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
   --pico-line-height: 1.65;
   --gutter: clamp(1rem, 4vw, 4rem);
   --measure: 68ch;
   --text: var(--pico-color);
-  --pico-font-family-monospace: ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --pico-font-family-monospace: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 /* Full-width layout with comfortable side gutters. */
@@ -874,4 +876,52 @@ nav.project-menu li {
 .project-menu a[aria-current="page"] .m-title {
   font-weight: 650;
   color: var(--pico-h1-color);
+}
+
+/* ------------------------------------------------------------------
+   Display type: Fraunces for headings and the name — calm settings
+   (no SOFT/WONK) for legibility. Text and italics are IBM Plex Sans;
+   code is IBM Plex Mono.
+   ------------------------------------------------------------------ */
+
+h1, h2, h3,
+.site-header .brand {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+}
+
+h1 {
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+h2, h3 {
+  font-weight: 580;
+  letter-spacing: 0;
+}
+
+.site-header .brand {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Small uppercase labels and inline dates stay in the text face. */
+.section-head h2,
+.post-body h4,
+.row h3 time {
+  font-family: var(--pico-font-family-sans-serif);
+  font-variation-settings: normal;
+}
+
+.pitch,
+.row-pitch {
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* Plex Sans runs a touch large; ease the article size. */
+.post-body {
+  font-size: 1.05rem;
 }
