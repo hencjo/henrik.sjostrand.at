@@ -25,7 +25,7 @@
       </ul>
       <ul>
         <li><a href="/projects/" aria-current="page">Projects</a></li>
-        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/oss/">OSS</a></li>
         <li><a href="/community/">Community</a></li>
         <li>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
@@ -38,11 +38,18 @@
 
   <main class="container-fluid" id="main">
     
+
+
+
+
+<div class="reader">
+  
 <article class="post">
   <header class="post-hero">
     <p class="meta">
       <span class="kind">Project</span>
       <time datetime="2012-12-19">Dec 19, 2012</time>
+      <a href="https://github.com/hencjo/summer-security">github.com/hencjo/summer-security</a>
     </p>
     <h1>Summer Security</h1>
     <p class="lead">A small Java authentication library/DSL with code-first configuration and no dependencies.</p>
@@ -54,41 +61,76 @@
     
   </header>
 
-  <div class="post-grid">
-    <div class="post-body">
-      <h2>The problem</h2>
+  <div class="post-body">
+    <h2>The problem</h2>
 <p>Plenty of Java web applications need login, and little else. Full security frameworks bring XML configuration, hidden global state, and a large surface area for what is often a handful of rules.</p>
 <h2>What it does</h2>
 <p>Summer Security is a servlet filter configured as a small DSL:</p>
-<pre><code class="language-java">summer(logger,
-  when(pathBeginsWith(&quot;/img/&quot;)).thenAllow(),
-  when(formBasedLogin.loginRequest()).then(formBasedLogin.performLoginRequest()),
-  when(session.exists()).thenAllow(),
-  when(httpBasicAuthenticator.authorizes()).thenAllow(),
-  otherwise().then(redirect(&quot;/login.html&quot;))
-);
-</code></pre>
+<pre class="language-java" tabindex="0"><code class="language-java"><span class="token function">summer</span><span class="token punctuation">(</span>logger<span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span><span class="token function">pathBeginsWith</span><span class="token punctuation">(</span><span class="token string">"/img/"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">thenAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span>formBasedLogin<span class="token punctuation">.</span><span class="token function">loginRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>formBasedLogin<span class="token punctuation">.</span><span class="token function">performLoginRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span>session<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">thenAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span>httpBasicAuthenticator<span class="token punctuation">.</span><span class="token function">authorizes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">thenAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">otherwise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token function">redirect</span><span class="token punctuation">(</span><span class="token string">"/login.html"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>It supports HTTP Basic and form login (compatible with Spring Security conventions), and is extendable through request matchers and responders.</p>
 <h2>Why it's interesting</h2>
 <p>The whole policy reads top to bottom on one screen. The logged-in user is a function of the request rather than ThreadLocal magic, there are no dependencies, and the scope is honest: authentication, not authorization.</p>
 
-    </div>
-
-    <aside class="post-aside">
-      
-      <a class="primary-link" role="button" href="https://github.com/hencjo/summer-security">View on GitHub →</a>
-      
-      <dl>
-        <dt>Type</dt>
-        <dd>Own project</dd>
-        <dt>Started</dt>
-        <dd>Dec 19, 2012</dd>
-        <dt>Link</dt><dd><a href="https://github.com/hencjo/summer-security">github.com/hencjo/summer-security</a></dd>
-      </dl>
-      <p class="back"><a href="/projects/">← All projects</a></p>
-    </aside>
   </div>
+
+  <footer class="post-footer">
+    <a href="https://github.com/hencjo/summer-security">View on GitHub →</a>
+    <a href="/projects/">All projects</a>
+  </footer>
 </article>
+
+  <aside class="reader-menu">
+    
+<nav class="project-menu" aria-label="Projects">
+  <p class="menu-group">Projects</p>
+  <ul>
+    
+    <li><a href="/projects/jix/"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
+    
+    <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    
+    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    
+    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    
+    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    
+    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    
+    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    
+    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/projects/summer-security/" aria-current="page"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+  </ul>
+  <p class="menu-group">OSS</p>
+  <ul>
+    
+    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    
+    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    
+    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/projects/jooq/"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/community/">Community →</a></p>
+</nav>
+
+  </aside>
+</div>
 
   </main>
 

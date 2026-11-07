@@ -25,7 +25,7 @@
       </ul>
       <ul>
         <li><a href="/projects/" aria-current="page">Projects</a></li>
-        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/oss/">OSS</a></li>
         <li><a href="/community/">Community</a></li>
         <li>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
@@ -38,11 +38,18 @@
 
   <main class="container-fluid" id="main">
     
+
+
+
+
+<div class="reader">
+  
 <article class="post">
   <header class="post-hero">
     <p class="meta">
       <span class="kind">Project</span>
       <time datetime="2026-11-06">Nov 06, 2026</time>
+      <a href="https://github.com/hencjo/jix">github.com/hencjo/jix</a>
     </p>
     <h1>jix</h1>
     <p class="lead">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
@@ -54,9 +61,8 @@
     
   </header>
 
-  <div class="post-grid">
-    <div class="post-body">
-      <h2>The problem</h2>
+  <div class="post-body">
+    <h2>The problem</h2>
 <p>Java and Nix have never been easy friends. Maven resolves dependencies at build time, from the network, using whatever JDK and OS properties happen to be around. Nix wants every input known and hashed up front. The usual answer is to give up on one of them.</p>
 <h2>What it does</h2>
 <p>jix resolves Maven dependencies once, locks the full graph and every artifact hash in <code>jix.lock</code>, and lets Nix fetch, verify, and cache the artifacts as ordinary hash-checked downloads.</p>
@@ -71,28 +77,64 @@
 <p>Most &quot;Java in Nix&quot; attempts either vendor a giant fixed-output derivation or re-implement Maven badly. jix takes Maven's resolution semantics seriously — it checks its behaviour against Maven 3.9 / Resolver 1.9 — and then gets out of the way, so a Java project becomes as reproducible as any other Nix package.</p>
 <p>It's also designed to be adopted gradually: dependency-only first, the build later, and the migration guide ships in the binary so a coding agent can help.</p>
 <h2>Try it</h2>
-<pre><code class="language-sh">jix init --template fat
+<pre class="language-sh" tabindex="0"><code class="language-sh">jix init <span class="token parameter variable">--template</span> fat
 jix lock
-jix run
-</code></pre>
+jix run</code></pre>
 
-    </div>
-
-    <aside class="post-aside">
-      
-      <a class="primary-link" role="button" href="https://github.com/hencjo/jix">View on GitHub →</a>
-      
-      <dl>
-        <dt>Type</dt>
-        <dd>Own project</dd>
-        <dt>Started</dt>
-        <dd>Nov 06, 2026</dd>
-        <dt>Link</dt><dd><a href="https://github.com/hencjo/jix">github.com/hencjo/jix</a></dd>
-      </dl>
-      <p class="back"><a href="/projects/">← All projects</a></p>
-    </aside>
   </div>
+
+  <footer class="post-footer">
+    <a href="https://github.com/hencjo/jix">View on GitHub →</a>
+    <a href="/projects/">All projects</a>
+  </footer>
 </article>
+
+  <aside class="reader-menu">
+    
+<nav class="project-menu" aria-label="Projects">
+  <p class="menu-group">Projects</p>
+  <ul>
+    
+    <li><a href="/projects/jix/" aria-current="page"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
+    
+    <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    
+    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    
+    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    
+    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    
+    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    
+    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    
+    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/projects/summer-security/"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+  </ul>
+  <p class="menu-group">OSS</p>
+  <ul>
+    
+    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    
+    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    
+    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/projects/jooq/"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/community/">Community →</a></p>
+</nav>
+
+  </aside>
+</div>
 
   </main>
 

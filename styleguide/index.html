@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style guide · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li><a href="/projects/">Projects</a></li>
+        <li><a href="/oss/">OSS</a></li>
+        <li><a href="/community/">Community</a></li>
+        <li>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">◐</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    
+
+
+
+
+<div class="reader">
+  
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2026-11-07">Nov 07, 2026</time>
+      <a href="https://github.com/hencjo">github.com/hencjo</a>
+    </p>
+    <h1>Style guide</h1>
+    <p class="lead">Every element an article can use, rendered with the site&#39;s typography.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Only built by the dev server — this page never ships.
+    </blockquote>
+    
+  </header>
+
+  <div class="post-body">
+    <h2>The problem</h2>
+<p>Body text is set at a comfortable size with generous leading and a measure of roughly 68 characters, so long paragraphs stay easy to follow. Links look <a href="#">like this</a>, <strong>strong text</strong> stands out a little, <em>emphasis</em> is plain italic, and inline code such as <code>jix.lock</code> or <code>--force</code> sits on a quiet tint. Keys: <kbd>Ctrl</kbd> + <kbd>C</kbd>.</p>
+<p>A second paragraph shows the spacing between paragraphs. It should feel like a page in a book, not a wall of UI.</p>
+<h3>A third-level heading</h3>
+<p>Used for sub-points inside a section.</p>
+<ul>
+<li>Unordered lists have muted markers</li>
+<li>and modest spacing between items
+<ul>
+<li>nested lists work too</li>
+</ul>
+</li>
+<li><strong>Bold lead-ins</strong> work well for feature bullets.</li>
+</ul>
+<ol>
+<li>Ordered lists</li>
+<li>for steps</li>
+<li>and sequences</li>
+</ol>
+<h2>The idea</h2>
+<p>A fenced code block with a language gets syntax highlighting and a label:</p>
+<pre class="language-java" tabindex="0"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Upgrader</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">MigrationsDescription</span> <span class="token function">upgradeDescription</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">migrations</span><span class="token punctuation">(</span>
+            <span class="token function">migration</span><span class="token punctuation">(</span><span class="token string">"1.0-baseline"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">installsThrough</span><span class="token punctuation">(</span><span class="token function">script</span><span class="token punctuation">(</span><span class="token string">"1.0-baseline.sql"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token function">migration</span><span class="token punctuation">(</span><span class="token string">"1.1-decode-field"</span><span class="token punctuation">,</span> <span class="token class-name">V1_1_Migrations</span><span class="token punctuation">.</span><span class="token function">base64decodeSomeField</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Highlight the lines that matter with <code>```java/2,4-5</code>:</p>
+<pre class="language-rust" tabindex="0"><code class="language-rust"><span class="highlight-line"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token namespace">anyhow<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span> <span class="token punctuation">{</span></span>
+<span class="highlight-line">    <span class="token keyword">let</span> config <span class="token operator">=</span> <span class="token class-name">Config</span><span class="token punctuation">::</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token string">"fransson.yaml"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    <span class="token comment">// Source connections are read-only; every write targets the destination.</span></span>
+<mark class="highlight-line highlight-line-active">    <span class="token keyword">let</span> archive <span class="token operator">=</span> <span class="token function">dump</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>config<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token string">"production"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token string">"products"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span></mark>
+<mark class="highlight-line highlight-line-active">    <span class="token function">restore</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>config<span class="token punctuation">.</span>destination<span class="token punctuation">,</span> <span class="token operator">&amp;</span>archive<span class="token punctuation">)</span></mark>
+<span class="highlight-line"><span class="token punctuation">}</span></span></code></pre>
+<p>Captioned code, using the <code>figure</code> shortcode:</p>
+<figure>
+<pre class="language-nix" tabindex="0"><code class="language-nix"><span class="token punctuation">{</span> maven <span class="token punctuation">}</span><span class="token punctuation">:</span>
+<span class="token keyword">let</span>
+  dependencies <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">"org.apache.commons:commons-lang3:3.17.0"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">in</span> <span class="token punctuation">{</span>
+  classpaths<span class="token punctuation">.</span>main <span class="token operator">=</span> maven<span class="token punctuation">.</span>resolve <span class="token punctuation">{</span> scope <span class="token operator">=</span> <span class="token string">"compile"</span><span class="token punctuation">;</span> <span class="token keyword">inherit</span> dependencies<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<figcaption>maven.nix — declare dependencies once; jix lock pins them.</figcaption></figure>
+<p>Shell, YAML, HTTP, and diffs:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token comment"># comments are muted</span>
+jix lock <span class="token operator">&amp;&amp;</span> jix build jar</code></pre>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token key atrule">topics</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> products
+    <span class="token key atrule">config</span><span class="token punctuation">:</span>
+      <span class="token key atrule">cleanup.policy</span><span class="token punctuation">:</span> compact</code></pre>
+<pre class="language-http" tabindex="0"><code class="language-http">GET http://localhost:{{APP_PORT}}/api/status
+<span class="token header"><span class="token header-name keyword">Accept</span><span class="token punctuation">:</span> <span class="token header-value">application/json</span></span></code></pre>
+<pre class="language-diff" tabindex="0"><code class="language-diff"><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span> let timeout = 30;
+</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span> let timeout = Duration::from_secs(30);
+</span></code></pre>
+<aside class="note">
+<p class="note-title">Design choice</p>
+<p>A note callout, for a constraint, trade-off, or something the project deliberately doesn't do. It can hold <code>code</code> and <a href="#">links</a>.</p>
+</aside>
+<blockquote>
+<p>A blockquote, for quoting someone or an issue. It is set quieter than the body text.</p>
+<footer>— someone on a mailing list</footer>
+</blockquote>
+<hr>
+<h2>Why it's interesting</h2>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Pinned in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nix packages and toolchains</td>
+<td><code>flake.lock</code></td>
+</tr>
+<tr>
+<td>Maven selections and hashes</td>
+<td><code>jix.lock</code></td>
+</tr>
+</tbody>
+</table>
+<p><small>Small print for footnotes and asides.</small></p>
+
+  </div>
+
+  <footer class="post-footer">
+    <a href="https://github.com/hencjo">View on GitHub →</a>
+    <a href="/projects/">All projects</a>
+  </footer>
+</article>
+
+  <aside class="reader-menu">
+    
+<nav class="project-menu" aria-label="Projects">
+  <p class="menu-group">Projects</p>
+  <ul>
+    
+    <li><a href="/projects/jix/"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
+    
+    <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    
+    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    
+    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    
+    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    
+    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    
+    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    
+    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/projects/summer-security/"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+  </ul>
+  <p class="menu-group">OSS</p>
+  <ul>
+    
+    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    
+    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    
+    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/projects/jooq/"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/community/">Community →</a></p>
+</nav>
+
+  </aside>
+</div>
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var icon = document.getElementById("theme-icon");
+      var order = ["system", "light", "dark"];
+      var icons = { system: "◐", light: "☀", dark: "☾" };
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        icon.textContent = icons[mode];
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>

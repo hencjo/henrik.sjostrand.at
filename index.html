@@ -25,7 +25,7 @@
       </ul>
       <ul>
         <li><a href="/projects/">Projects</a></li>
-        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/oss/">OSS</a></li>
         <li><a href="/community/">Community</a></li>
         <li>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
@@ -39,176 +39,109 @@
   <main class="container-fluid" id="main">
     <section class="intro">
   <h1>Hi, I’m Henrik.</h1>
-  <p class="lead">This is where I put small projects, old contributions, community work, and things I find worth sharing.</p>
-  <p>Mostly developer tools, Java, Nix, identity/auth, terminal-shaped stuff, and whatever saved me time recently.</p>
+  <p class="lead">Small projects, open source work, community — and why I think they’re interesting. Mostly developer tools, Java, Nix, identity/auth, and terminal-shaped stuff.</p>
 </section>
 
-<section aria-labelledby="selected-projects">
-  <div class="section-head">
-    <h2 id="selected-projects">Selected projects</h2>
-    <a href="/projects/">All projects →</a>
+
+
+
+
+
+
+
+<div class="reader">
+  
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">Project</span>
+      <time datetime="2026-11-06">Nov 06, 2026</time>
+      <a href="https://github.com/hencjo/jix">github.com/hencjo/jix</a>
+    </p>
+    <h1><a href="/projects/jix/">jix</a></h1>
+    <p class="lead">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
+    
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      Java builds that never resolve dependencies behind your back — and you don&#39;t have to throw away your existing build to get there.
+    </blockquote>
+    
+  </header>
+
+  <div class="post-body">
+    <h2>The problem</h2>
+<p>Java and Nix have never been easy friends. Maven resolves dependencies at build time, from the network, using whatever JDK and OS properties happen to be around. Nix wants every input known and hashed up front. The usual answer is to give up on one of them.</p>
+<h2>What it does</h2>
+<p>jix resolves Maven dependencies once, locks the full graph and every artifact hash in <code>jix.lock</code>, and lets Nix fetch, verify, and cache the artifacts as ordinary hash-checked downloads.</p>
+<ul>
+<li><strong>Two locks, no surprises.</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts. Missing or stale locks stop the build instead of resolving silently.</li>
+<li><strong>Start small.</strong> Use locked classpaths with your current build, or adopt the optional Java build DSL for thin, fat, shaded, or multi-module JARs.</li>
+<li><strong>Several environments, one lock.</strong> Declare named Java/OS contexts and <code>jix lock</code> pins all of them.</li>
+<li><strong>Plain Nix outputs.</strong> <code>jix build jar</code> is <code>nix build .#jar</code>; standard binary caches just work.</li>
+<li><strong>IDE included.</strong> <code>jix idea</code> generates repository-local IntelliJ configuration from the same pinned inputs.</li>
+</ul>
+<h2>Why it's interesting</h2>
+<p>Most &quot;Java in Nix&quot; attempts either vendor a giant fixed-output derivation or re-implement Maven badly. jix takes Maven's resolution semantics seriously — it checks its behaviour against Maven 3.9 / Resolver 1.9 — and then gets out of the way, so a Java project becomes as reproducible as any other Nix package.</p>
+<p>It's also designed to be adopted gradually: dependency-only first, the build later, and the migration guide ships in the binary so a coding agent can help.</p>
+<h2>Try it</h2>
+<pre class="language-sh" tabindex="0"><code class="language-sh">jix init <span class="token parameter variable">--template</span> fat
+jix lock
+jix run</code></pre>
+
   </div>
-  
-  <ol class="rows">
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/jix/">jix</a> <time datetime="2026-11-06">Nov 06, 2026</time></h3>
-        <p class="row-summary">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
-      </div>
-      <p class="row-pitch">Java builds that never resolve dependencies behind your back — and you don&#39;t have to throw away your existing build to get there.</p>
-    </li>
-    
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/cryo/">cryo</a> <time datetime="2026-08-27">Aug 27, 2026</time></h3>
-        <p class="row-summary">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
-      </div>
-      <p class="row-pitch">Your codebase already contains API tests — they&#39;re the curl examples in your docs. cryo turns them into regression checks you review like code.</p>
-    </li>
-    
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/fransson/">Fransson</a> <time datetime="2026-08-06">Aug 06, 2026</time></h3>
-        <p class="row-summary">Repeatable Kafka data for local and test environments.</p>
-      </div>
-      <p class="row-pitch">Realistic Kafka data locally, byte-for-byte reproducible, without hand-rolled scripts poking at production clusters.</p>
-    </li>
-    
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/stow/">stow</a> <time datetime="2026-06-12">Jun 12, 2026</time></h3>
-        <p class="row-summary">GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
-      </div>
-      <p class="row-pitch">GitOps for a plain Docker host: deployments are merge requests, and the host converges — or rolls back — on its own.</p>
-    </li>
-    
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/silo/">Silo</a> <time datetime="2026-05-04">May 04, 2026</time></h3>
-        <p class="row-summary">Local-only OpenID mock backend for development and tests.</p>
-      </div>
-      <p class="row-pitch">A real-looking OpenID login flow on localhost, with a user picker instead of a corporate identity provider.</p>
-    </li>
-    
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/wkhtmltopdf-rest/">wkhtmltopdf-rest</a> <time datetime="2014-02-23">Feb 23, 2014</time></h3>
-        <p class="row-summary">A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
-      </div>
-      <p class="row-pitch">One job, one endpoint: give it a URL, get a PDF back — written in Haskell.</p>
-    </li>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</ol>
 
-</section>
+  <footer class="post-footer">
+    <a href="https://github.com/hencjo/jix">View on GitHub →</a>
+    <a href="/projects/">All projects</a>
+  </footer>
+</article>
 
-<section aria-labelledby="recent-contributions">
-  <div class="section-head">
-    <h2 id="recent-contributions">Contributions</h2>
-    <a href="/contributing/">All contributions →</a>
-  </div>
-  
-  <ol class="rows">
-  
+  <aside class="reader-menu">
     
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/confluence-cli/">confluence-cli</a> <time datetime="2026-09-24">Sep 24, 2026</time></h3>
-        <p class="row-summary">Nix flake and system certificate trust for a terminal Confluence client.</p>
-      </div>
-      <p class="row-pitch">Two small changes that make a nice tool work in a real corporate setup: behind internal CAs, and inside Nix environments.</p>
-    </li>
+<nav class="project-menu" aria-label="Projects">
+  <p class="menu-group">Projects</p>
+  <ul>
     
-  
+    <li><a href="/projects/jix/" aria-current="page"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
     
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/opencode/">opencode</a> <time datetime="2026-05-28">May 28, 2026</time></h3>
-        <p class="row-summary">Work around Nix packaging for the open source coding agent.</p>
-      </div>
-      <p class="row-pitch">Making an open source coding agent easier to build and run reproducibly with Nix.</p>
-    </li>
+    <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
     
-  
+    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
     
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/devenv/">devenv</a> <time datetime="2026-03-18">Mar 18, 2026</time></h3>
-        <p class="row-summary">Contributions to reproducible developer environments: services, port allocation, process watching, and cache sharp edges.</p>
-      </div>
-      <p class="row-pitch">Fewer papercuts in the tool I use every day: services that start cleanly, ports that don&#39;t collide, processes that don&#39;t restart for nothing.</p>
-    </li>
+    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
     
-  
+    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
     
-    <li class="row">
-      <div class="row-main">
-        <h3><a href="/projects/jooq/">jOOQ</a> <time datetime="2012-10-26">Oct 26, 2012</time></h3>
-        <p class="row-summary">Fix for inserting PostgreSQL string arrays containing quotes or backslashes.</p>
-      </div>
-      <p class="row-pitch">A small bug fix that the jOOQ blog later held up as an example of how to write a good pull request.</p>
-    </li>
+    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
     
-  
+    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
     
-  
-</ol>
+    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/projects/summer-security/"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+  </ul>
+  <p class="menu-group">OSS</p>
+  <ul>
+    
+    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    
+    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    
+    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/projects/jooq/"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/community/">Community →</a></p>
+</nav>
 
-</section>
-
-<section aria-labelledby="community">
-  <div class="section-head">
-    <h2 id="community">Community</h2>
-  </div>
-  <ol class="rows">
-  <li class="row">
-    <div class="row-main">
-      <h3><a href="https://brewingagile.org/">Brewing Agile</a> <time>2012–2018</time></h3>
-      <p class="row-summary">I founded Brewing Agile in 2012. It grew out of the Scrum Beers crowd into a Göteborg conference about agile thinking, learning, leadership, collaboration, and process — less about selling a method, more about making space for practice and debate.</p>
-      <p class="year-pills">
-        <a href="https://brewingagile.org/2012/index.html">2012</a>
-        <a href="https://brewingagile.org/2013/index.html">2013</a>
-        <a href="https://brewingagile.org/2014/index.html">2014</a>
-        <a href="https://brewingagile.org/2015/index.html">2015</a>
-        <a href="https://brewingagile.org/2016/index.html">2016</a>
-        <a href="https://brewingagile.org/2017/index.html">2017</a>
-        <a href="https://brewingagile.org/2018/index.html">2018</a>
-      </p>
-    </div>
-    <p class="row-pitch">Designed to be accessible and affordable, because Göteborg deserved quality content without people needing a corporate training budget or a trip abroad.</p>
-  </li>
-
-  <li class="row">
-    <div class="row-main">
-      <h3><a href="https://www.meetup.com/scrum-beers-goteborg/">Scrum Beers Göteborg</a> <time>Meetup</time></h3>
-      <p class="row-summary">The low-ceremony version of an agile meetup: people in a pub, talking about teams, delivery, collaboration, architecture, leadership, and whatever is currently making work harder than it needs to be.</p>
-    </div>
-    <p class="row-pitch">Deliberately relaxed: people comparing notes over a beer. Sometimes a theme; the side conversations often carry the evening.</p>
-  </li>
-</ol>
-
-</section>
+  </aside>
+</div>
 
   </main>
 

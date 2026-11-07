@@ -25,7 +25,7 @@
       </ul>
       <ul>
         <li><a href="/projects/" aria-current="page">Projects</a></li>
-        <li><a href="/contributing/">Contributions</a></li>
+        <li><a href="/oss/">OSS</a></li>
         <li><a href="/community/">Community</a></li>
         <li>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
@@ -38,11 +38,18 @@
 
   <main class="container-fluid" id="main">
     
+
+
+
+
+<div class="reader">
+  
 <article class="post">
   <header class="post-hero">
     <p class="meta">
-      <span class="kind">Contribution</span>
+      <span class="kind">OSS</span>
       <time datetime="2012-10-26">Oct 26, 2012</time>
+      <a href="https://github.com/jOOQ/jOOQ/pull/1889">github.com/jOOQ/jOOQ/pull/1889</a>
     </p>
     <h1>jOOQ</h1>
     <p class="lead">Fix for inserting PostgreSQL string arrays containing quotes or backslashes.</p>
@@ -54,9 +61,8 @@
     
   </header>
 
-  <div class="post-grid">
-    <div class="post-body">
-      <h2>The project</h2>
+  <div class="post-body">
+    <h2>The project</h2>
 <p>jOOQ is a type-safe SQL DSL and code generator for Java.</p>
 <h2>What I did</h2>
 <p>Fixed insertion into PostgreSQL string arrays when the strings contained <code>&quot;</code> or <code>\</code> characters.</p>
@@ -65,23 +71,60 @@
 <p>The jOOQ blog later used it as its example in <a href="https://blog.jooq.org/how-to-provide-a-good-pull-request/">How to provide a good pull request</a>, calling it an “awesome pull request”. The fix was small; the lesson about making changes easy to review has stuck with me since.</p>
 <p><a href="https://github.com/jOOQ/jOOQ/pull/1889">Pull request</a></p>
 
-    </div>
-
-    <aside class="post-aside">
-      
-      <a class="primary-link" role="button" href="https://github.com/jOOQ/jOOQ/pull/1889">View on GitHub →</a>
-      
-      <dl>
-        <dt>Type</dt>
-        <dd>Open source contribution</dd>
-        <dt>First contribution</dt>
-        <dd>Oct 26, 2012</dd>
-        <dt>Link</dt><dd><a href="https://github.com/jOOQ/jOOQ/pull/1889">github.com/jOOQ/jOOQ/pull/1889</a></dd>
-      </dl>
-      <p class="back"><a href="/contributing/">← All contributions</a></p>
-    </aside>
   </div>
+
+  <footer class="post-footer">
+    <a href="https://github.com/jOOQ/jOOQ/pull/1889">View on GitHub →</a>
+    <a href="/oss/">All OSS work</a>
+  </footer>
 </article>
+
+  <aside class="reader-menu">
+    
+<nav class="project-menu" aria-label="Projects">
+  <p class="menu-group">Projects</p>
+  <ul>
+    
+    <li><a href="/projects/jix/"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
+    
+    <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    
+    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    
+    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    
+    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    
+    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    
+    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    
+    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/projects/summer-security/"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+  </ul>
+  <p class="menu-group">OSS</p>
+  <ul>
+    
+    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    
+    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    
+    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/projects/jooq/" aria-current="page"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/community/">Community →</a></p>
+</nav>
+
+  </aside>
+</div>
 
   </main>
 
