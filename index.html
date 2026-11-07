@@ -38,8 +38,7 @@
 
   <main class="container-fluid" id="main">
     <section class="intro">
-  <h1>Hi, I’m Henrik.</h1>
-  <p class="lead">Small projects, open source work, community — and why I think they’re interesting. Mostly developer tools, Java, Nix, identity/auth, and terminal-shaped stuff.</p>
+  <h1>I’m Henrik</h1>
 </section>
 
 
@@ -54,46 +53,69 @@
 <article class="post">
   <header class="post-hero">
     <p class="meta">
-      <span class="kind">Project</span>
       <time datetime="2026-11-06">Nov 06, 2026</time>
       <a href="https://github.com/hencjo/jix">github.com/hencjo/jix</a>
     </p>
     <h1><a href="/projects/jix/">jix</a></h1>
     <p class="lead">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
     
-    <blockquote class="pitch">
-      <span class="pitch-label">In short</span>
-      Java builds that never resolve dependencies behind your back — and you don&#39;t have to throw away your existing build to get there.
-    </blockquote>
+    <p class="pitch">Ever fought your build tool when all you wanted was to call javac? jix pins your Maven dependencies with Nix — so the build becomes a few lines you can read, and change.</p>
     
   </header>
 
   <div class="post-body">
     <h2>The problem</h2>
-<p>Java and Nix have never been easy friends. Maven resolves dependencies at build time, from the network, using whatever JDK and OS properties happen to be around. Nix wants every input known and hashed up front. The usual answer is to give up on one of them.</p>
+<p>First, credit where it's due: Maven gave Java the best dependency ecosystem of its generation. Group/artifact/version coordinates, POMs that describe what a library needs, and Maven Central — one place where nearly every Java library lives, with history going back twenty years. Every other language's package manager owes something to it. jix doesn't replace any of that; it depends on it.</p>
+<p>But have you ever battled your build tool and just wanted to call <code>javac</code> yourself?</p>
+<p>You know exactly what you want: compile these sources against those JARs, put this file in the JAR, done. Instead you're reading about Maven resource inclusions, picking between three plugins that almost do it, and debugging a lifecycle phase you didn't know existed. The build tool owns the dependency resolution, so it also owns everything else.</p>
+<p>And even when it works, it resolves dependencies at build time, from the network, with whatever JDK happens to be around. Same project, different day, different result.</p>
+<h2>The idea</h2>
+<p>Keep the ecosystem, split the two jobs. jix does the part that's genuinely hard — resolving dependencies from Maven Central the way Maven does, scopes, BOMs, exclusions and all — then locks the full graph and every artifact hash in <code>jix.lock</code>. After that, the dependencies are just pinned Nix values, and the build is ordinary code.</p>
+<p>Bundling a file is one line. Here's an entire executable JAR build:</p>
+<figure>
+<pre class="language-nix" tabindex="0"><code class="language-nix"><span class="highlight-line"><span class="token punctuation">{</span> pkgs<span class="token punctuation">,</span> java<span class="token punctuation">,</span> deps<span class="token punctuation">,</span> jdk <span class="token operator">?</span> pkgs<span class="token punctuation">.</span>jdk21 <span class="token punctuation">}</span><span class="token punctuation">:</span></span>
+<span class="highlight-line"><span class="token keyword">let</span></span>
+<span class="highlight-line">  runtime <span class="token operator">=</span> <span class="token punctuation">{</span> classpath <span class="token operator">=</span> <span class="token punctuation">[</span> deps<span class="token punctuation">.</span>classpaths<span class="token punctuation">.</span>runtime <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="highlight-line"></span>
+<span class="highlight-line">  thin <span class="token operator">=</span> java<span class="token punctuation">.</span>library <span class="token punctuation">{</span></span>
+<span class="highlight-line">    name <span class="token operator">=</span> <span class="token string">"application"</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    sources <span class="token operator">=</span> <span class="token url">./src/main/java</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    compile<span class="token punctuation">.</span>classpath <span class="token operator">=</span> <span class="token punctuation">[</span> deps<span class="token punctuation">.</span>classpaths<span class="token punctuation">.</span>main <span class="token punctuation">]</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    <span class="token keyword">inherit</span> runtime jdk<span class="token punctuation">;</span></span>
+<span class="highlight-line">    release <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    manifest<span class="token punctuation">.</span><span class="token string">"Main-Class"</span> <span class="token operator">=</span> <span class="token string">"example.Main"</span><span class="token punctuation">;</span></span>
+<mark class="highlight-line highlight-line-active">    resources <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span> from <span class="token operator">=</span> <span class="token url">./src/main/resources</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">;</span></mark>
+<span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="highlight-line"></span>
+<span class="highlight-line">  jar <span class="token operator">=</span> java<span class="token punctuation">.</span>fatJar <span class="token punctuation">{</span></span>
+<span class="highlight-line">    name <span class="token operator">=</span> <span class="token string">"application"</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    dependencies <span class="token operator">=</span> <span class="token punctuation">[</span> thin <span class="token punctuation">]</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    mainClass <span class="token operator">=</span> <span class="token string">"example.Main"</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="highlight-line"><span class="token keyword">in</span> <span class="token punctuation">{</span> <span class="token keyword">inherit</span> jar<span class="token punctuation">;</span> <span class="token punctuation">}</span></span></code></pre>
+<figcaption>build.nix — from jix's fat-JAR template. Resources are one line; there are no plugins.</figcaption></figure>
+<p>Want something the DSL doesn't do? <code>deps.classpaths.main</code> is a plain Nix derivation holding the pinned JARs. Write your own step and call <code>javac</code> with it — no plugin API to learn.</p>
+<aside class="note">
+<p class="note-title">Design choice</p>
+<p>Builds never resolve dependencies or update locks. A missing or stale <code>jix.lock</code> stops the build instead of quietly going to the network.</p>
+</aside>
 <h2>What it does</h2>
-<p>jix resolves Maven dependencies once, locks the full graph and every artifact hash in <code>jix.lock</code>, and lets Nix fetch, verify, and cache the artifacts as ordinary hash-checked downloads.</p>
 <ul>
-<li><strong>Two locks, no surprises.</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts. Missing or stale locks stop the build instead of resolving silently.</li>
-<li><strong>Start small.</strong> Use locked classpaths with your current build, or adopt the optional Java build DSL for thin, fat, shaded, or multi-module JARs.</li>
+<li><strong>Two locks, no surprises.</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts.</li>
+<li><strong>Start small.</strong> Use locked classpaths with your current build first; adopt the build DSL later, or never.</li>
 <li><strong>Several environments, one lock.</strong> Declare named Java/OS contexts and <code>jix lock</code> pins all of them.</li>
 <li><strong>Plain Nix outputs.</strong> <code>jix build jar</code> is <code>nix build .#jar</code>; standard binary caches just work.</li>
-<li><strong>IDE included.</strong> <code>jix idea</code> generates repository-local IntelliJ configuration from the same pinned inputs.</li>
+<li><strong>IDE included.</strong> <code>jix idea</code> generates IntelliJ configuration from the same pinned inputs.</li>
 </ul>
 <h2>Why it's interesting</h2>
-<p>Most &quot;Java in Nix&quot; attempts either vendor a giant fixed-output derivation or re-implement Maven badly. jix takes Maven's resolution semantics seriously — it checks its behaviour against Maven 3.9 / Resolver 1.9 — and then gets out of the way, so a Java project becomes as reproducible as any other Nix package.</p>
-<p>It's also designed to be adopted gradually: dependency-only first, the build later, and the migration guide ships in the binary so a coding agent can help.</p>
+<p>Build tools bundle two very different things: dependency resolution, which is hard and worth getting exactly right, and building, which is mostly &quot;run javac, zip the result&quot;. Because they're bundled, you pay for the first with the complexity of the second.</p>
+<p>Maven got the hard part right, and the whole Java world builds on it. jix treats that as something to respect, not reinvent: it resolves from the same repositories with the same semantics — checked against Maven 3.9 / Resolver 1.9 — and hands you the result as pinned, hash-checked inputs. What you do with them is up to you, in a language that's good at describing builds.</p>
 <h2>Try it</h2>
 <pre class="language-sh" tabindex="0"><code class="language-sh">jix init <span class="token parameter variable">--template</span> fat
 jix lock
 jix run</code></pre>
 
   </div>
-
-  <footer class="post-footer">
-    <a href="https://github.com/hencjo/jix">View on GitHub →</a>
-    <a href="/projects/">All projects</a>
-  </footer>
 </article>
 
   <aside class="reader-menu">
@@ -102,7 +124,7 @@ jix run</code></pre>
   <p class="menu-group">Projects</p>
   <ul>
     
-    <li><a href="/projects/jix/" aria-current="page"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
+    <li><a href="/projects/jix/" aria-current="page"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
     
     <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
     

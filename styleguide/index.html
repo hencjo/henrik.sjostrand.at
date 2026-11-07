@@ -47,17 +47,13 @@
 <article class="post">
   <header class="post-hero">
     <p class="meta">
-      <span class="kind">Project</span>
       <time datetime="2026-11-07">Nov 07, 2026</time>
       <a href="https://github.com/hencjo">github.com/hencjo</a>
     </p>
     <h1>Style guide</h1>
     <p class="lead">Every element an article can use, rendered with the site&#39;s typography.</p>
     
-    <blockquote class="pitch">
-      <span class="pitch-label">In short</span>
-      Only built by the dev server — this page never ships.
-    </blockquote>
+    <p class="pitch">Only built by the dev server — this page never ships.</p>
     
   </header>
 
@@ -91,12 +87,12 @@
         <span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<p>Highlight the lines that matter with <code>```java/2,4-5</code>:</p>
+<p>Highlight the lines that matter with <code>```java/2,4-5</code> (zero-based line numbers):</p>
 <pre class="language-rust" tabindex="0"><code class="language-rust"><span class="highlight-line"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token namespace">anyhow<span class="token punctuation">::</span></span><span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span> <span class="token punctuation">{</span></span>
 <span class="highlight-line">    <span class="token keyword">let</span> config <span class="token operator">=</span> <span class="token class-name">Config</span><span class="token punctuation">::</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token string">"fransson.yaml"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    <span class="token comment">// Source connections are read-only; every write targets the destination.</span></span>
+<mark class="highlight-line highlight-line-active">    <span class="token comment">// Source connections are read-only; every write targets the destination.</span></mark>
 <mark class="highlight-line highlight-line-active">    <span class="token keyword">let</span> archive <span class="token operator">=</span> <span class="token function">dump</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>config<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token string">"production"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token string">"products"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span></mark>
-<mark class="highlight-line highlight-line-active">    <span class="token function">restore</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>config<span class="token punctuation">.</span>destination<span class="token punctuation">,</span> <span class="token operator">&amp;</span>archive<span class="token punctuation">)</span></mark>
+<span class="highlight-line">    <span class="token function">restore</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>config<span class="token punctuation">.</span>destination<span class="token punctuation">,</span> <span class="token operator">&amp;</span>archive<span class="token punctuation">)</span></span>
 <span class="highlight-line"><span class="token punctuation">}</span></span></code></pre>
 <p>Captioned code, using the <code>figure</code> shortcode:</p>
 <figure>
@@ -150,11 +146,6 @@ jix lock <span class="token operator">&amp;&amp;</span> jix build jar</code></pr
 <p><small>Small print for footnotes and asides.</small></p>
 
   </div>
-
-  <footer class="post-footer">
-    <a href="https://github.com/hencjo">View on GitHub →</a>
-    <a href="/projects/">All projects</a>
-  </footer>
 </article>
 
   <aside class="reader-menu">
@@ -163,7 +154,7 @@ jix lock <span class="token operator">&amp;&amp;</span> jix build jar</code></pr
   <p class="menu-group">Projects</p>
   <ul>
     
-    <li><a href="/projects/jix/"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Java builds with Nix</span></a></li>
+    <li><a href="/projects/jix/"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
     
     <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
     
