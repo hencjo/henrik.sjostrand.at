@@ -5,6 +5,7 @@ date: 2013-11-24
 kind: project
 tags: [java, ldap, authentication]
 summary: "LDAP authenticator for Summer Security."
+blurb: "LDAP for Summer Security"
 pitch: "Plug a directory into Summer Security without pulling in a framework to do it."
 url: https://github.com/hencjo/summer-security-ldap
 ---

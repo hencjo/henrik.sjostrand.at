@@ -5,6 +5,7 @@ date: 2012-12-19
 kind: project
 tags: [java, authentication, web]
 summary: "A small Java authentication library/DSL with code-first configuration and no dependencies."
+blurb: "Code-first web authentication"
 pitch: "Web authentication as a readable list of rules in plain Java — no XML, no ThreadLocals, no framework."
 url: https://github.com/hencjo/summer-security
 ---

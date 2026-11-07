@@ -5,6 +5,7 @@ date: 2014-02-23
 kind: project
 tags: [haskell, pdf, service]
 summary: "A small REST wrapper around wkhtmltopdf: send a URL, get a PDF."
+blurb: "URL in, PDF out"
 pitch: "One job, one endpoint: give it a URL, get a PDF back — written in Haskell."
 url: https://github.com/hencjo/wkhtmltopdf-rest
 ---

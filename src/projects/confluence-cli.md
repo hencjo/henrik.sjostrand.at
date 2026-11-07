@@ -5,6 +5,7 @@ date: 2026-09-24
 kind: contribution
 tags: [rust, nix, developer-tools]
 summary: "Nix flake and system certificate trust for a terminal Confluence client."
+blurb: "Nix flake and corporate TLS"
 pitch: "Two small changes that make a nice tool work in a real corporate setup: behind internal CAs, and inside Nix environments."
 url: https://github.com/rvben/confluence-cli
 ---

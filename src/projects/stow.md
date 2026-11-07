@@ -5,6 +5,7 @@ date: 2026-06-12
 kind: project
 tags: [rust, gitops, docker]
 summary: "GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence."
+blurb: "GitOps for a plain Docker host"
 pitch: "GitOps for a plain Docker host: deployments are merge requests, and the host converges — or rolls back — on its own."
 url: https://github.com/hencjo/stow
 ---

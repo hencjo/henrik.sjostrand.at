@@ -5,6 +5,7 @@ date: 2026-03-18
 kind: contribution
 tags: [nix, developer-tools]
 summary: "Contributions to reproducible developer environments: services, port allocation, process watching, and cache sharp edges."
+blurb: "Services, ports, process watching"
 pitch: "Fewer papercuts in the tool I use every day: services that start cleanly, ports that don't collide, processes that don't restart for nothing."
 url: https://github.com/cachix/devenv
 ---

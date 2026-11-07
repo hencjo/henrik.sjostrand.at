@@ -5,6 +5,7 @@ date: 2026-08-27
 kind: project
 tags: [rust, http, testing]
 summary: "HTTP snapshot tests built from existing curl examples and OpenAPI operations."
+blurb: "Snapshot tests from curl examples"
 pitch: "Your codebase already contains API tests — they're the curl examples in your docs. cryo turns them into regression checks you review like code."
 url: https://github.com/hencjo/cryo
 ---

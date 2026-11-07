@@ -5,7 +5,9 @@
   --pico-font-family-sans-serif: Inter, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --pico-line-height: 1.65;
   --gutter: clamp(1rem, 4vw, 4rem);
-  --measure: 72ch;
+  --measure: 68ch;
+  --text: var(--pico-color);
+  --pico-font-family-monospace: ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 }
 
 /* Full-width layout with comfortable side gutters. */
@@ -274,66 +276,6 @@ main > section + section {
   color: var(--pico-primary);
 }
 
-.post-grid {
-  display: grid;
-  grid-template-columns: minmax(0, var(--measure)) minmax(16rem, 22rem);
-  justify-content: space-between;
-  gap: 3rem;
-}
-
-.post-body h2 {
-  margin-top: 2.25rem;
-  font-size: 1.35rem;
-}
-
-.post-body h2:first-child {
-  margin-top: 0;
-}
-
-.post-body pre {
-  padding: 1rem 1.25rem;
-}
-
-.post-aside {
-  align-self: start;
-  position: sticky;
-  top: 1.5rem;
-  padding: 1.25rem 1.4rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-}
-
-.post-aside .primary-link {
-  display: block;
-  width: 100%;
-  margin-bottom: 1.25rem;
-  text-align: center;
-}
-
-.post-aside dl {
-  margin: 0;
-}
-
-.post-aside dt {
-  font-size: .75rem;
-  font-weight: 650;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--pico-muted-color);
-}
-
-.post-aside dd {
-  margin: 0 0 1rem;
-  overflow-wrap: anywhere;
-}
-
-.post-aside .back {
-  margin: 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--pico-muted-border-color);
-  font-size: .9rem;
-}
-
 /* Footer */
 
 .site-footer {
@@ -344,18 +286,6 @@ main > section + section {
 
 .site-footer a {
   color: var(--pico-muted-color);
-}
-
-@media (max-width: 900px) {
-  .post-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
-  }
-
-  .post-aside {
-    position: static;
-    order: -1;
-  }
 }
 
 @media (max-width: 576px) {
@@ -400,15 +330,567 @@ main > section + section {
   color: var(--pico-muted-color);
 }
 
-.post-aside .primary-link {
-  background: transparent;
-  border: 1px solid var(--pico-muted-border-color);
+/* ------------------------------------------------------------------
+   Article typography (.post-body)
+   Write in markdown; this gives it rhythm, a readable measure, and
+   code that reads well in both themes.
+   ------------------------------------------------------------------ */
+
+.post-body {
+  font-size: 1.075rem;
+  line-height: 1.75;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+
+.post-body > * {
+  margin-top: 0;
+  margin-bottom: 1.25em;
+}
+
+.post-body > :last-child {
+  margin-bottom: 0;
+}
+
+/* Headings: clear section breaks, tight to the text they introduce. */
+.post-body h2 {
+  margin-top: 2.6em;
+  margin-bottom: .6em;
+  font-size: 1.55rem;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+}
+
+.post-body h3 {
+  margin-top: 2em;
+  margin-bottom: .5em;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.post-body h4 {
+  margin-top: 1.75em;
+  margin-bottom: .4em;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--pico-muted-color);
+}
+
+.post-body > h2:first-child,
+.post-body > h3:first-child {
+  margin-top: 0;
+}
+
+.post-body h2 + h3 {
+  margin-top: 1em;
+}
+
+/* Links */
+.post-body a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
+
+.post-body a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Emphasis */
+.post-body strong {
+  font-weight: 650;
+  color: var(--pico-h3-color);
+}
+
+/* Lists */
+.post-body ul,
+.post-body ol {
+  padding-left: 1.4em;
+}
+
+.post-body li {
+  margin-bottom: .45em;
+  list-style: inherit;
+}
+
+.post-body ul > li {
+  list-style-type: disc;
+}
+
+.post-body ol > li {
+  list-style-type: decimal;
+}
+
+.post-body li::marker {
+  color: var(--pico-muted-color);
+}
+
+.post-body li > ul,
+.post-body li > ol {
+  margin-top: .45em;
+  margin-bottom: 0;
+}
+
+/* Quotes */
+.post-body blockquote {
+  margin-inline: 0;
+  padding: .1em 0 .1em 1.25em;
+  border-left: 3px solid var(--pico-muted-border-color);
+  font-style: normal;
+  color: var(--pico-muted-color);
+}
+
+.post-body blockquote footer {
+  margin-top: .5em;
+  padding: 0;
+  background: none;
+  font-size: .9em;
+}
+
+/* Rule: a quiet section break */
+.post-body hr {
+  margin-block: 2.5em;
+  border: 0;
+  text-align: center;
+  height: auto;
+}
+
+.post-body hr::after {
+  content: "· · ·";
+  letter-spacing: .6em;
+  color: var(--pico-muted-color);
+}
+
+/* Inline code, keyboard */
+.post-body :not(pre) > code,
+.post-body kbd {
+  padding: .12em .38em;
+  border-radius: 4px;
+  font-size: .86em;
+  vertical-align: baseline;
+}
+
+.post-body :not(pre) > code {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
   color: var(--pico-color);
 }
 
-.post-aside .primary-link:hover,
-.post-aside .primary-link:focus {
+.post-body kbd {
+  border: 1px solid var(--code-border);
+  border-bottom-width: 2px;
+  background: var(--pico-background-color);
+  color: var(--pico-color);
+  font-family: var(--pico-font-family-monospace);
+}
+
+/* Code blocks */
+.post-body pre {
+  position: relative;
+  margin-inline: 0;
+  padding: 1.1em 1.3em;
+  overflow-x: auto;
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  background: var(--code-bg);
+  font-size: .86rem;
+  line-height: 1.65;
+  tab-size: 2;
+  color: var(--code-text);
+}
+
+.post-body pre code {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: inherit;
+  color: inherit;
+  white-space: pre;
+}
+
+.post-body pre:focus-visible {
+  outline: 2px solid var(--pico-primary-focus);
+}
+
+/* Language label in the corner of highlighted blocks. */
+.post-body pre[class*="language-"]::before {
+  position: absolute;
+  top: .45em;
+  right: .75em;
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--code-comment);
+  pointer-events: none;
+}
+
+.post-body pre.language-java::before { content: "java"; }
+.post-body pre.language-rust::before { content: "rust"; }
+.post-body pre.language-nix::before { content: "nix"; }
+.post-body pre.language-sh::before,
+.post-body pre.language-bash::before,
+.post-body pre.language-shell::before { content: "shell"; }
+.post-body pre.language-yaml::before { content: "yaml"; }
+.post-body pre.language-json::before { content: "json"; }
+.post-body pre.language-http::before { content: "http"; }
+.post-body pre.language-sql::before { content: "sql"; }
+.post-body pre.language-haskell::before { content: "haskell"; }
+.post-body pre.language-js::before,
+.post-body pre.language-javascript::before { content: "js"; }
+.post-body pre.language-ts::before,
+.post-body pre.language-typescript::before { content: "ts"; }
+.post-body pre.language-toml::before { content: "toml"; }
+.post-body pre.language-diff::before { content: "diff"; }
+
+/* Highlighted lines: ```java/2,4-5 */
+.post-body pre mark.highlight-line {
+  display: inline-block;
+  min-width: calc(100% + 2.6em);
+  margin-inline: -1.3em;
+  padding-inline: calc(1.3em - 3px) 1.3em;
+  border-left: 3px solid var(--pico-primary);
+  background: var(--code-mark);
+  color: inherit;
+}
+
+.post-body pre .highlight-line-add { background: var(--code-add); }
+.post-body pre .highlight-line-remove { background: var(--code-remove); }
+
+/* Figures: images or code with a caption */
+.post-body figure {
+  margin-inline: 0;
+}
+
+.post-body figure > :not(figcaption) {
+  margin-bottom: 0;
+}
+
+.post-body figcaption {
+  margin-top: .6em;
+  font-size: .85rem;
+  color: var(--pico-muted-color);
+}
+
+.post-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--pico-muted-border-color);
+}
+
+/* Note callout */
+.post-body .note {
+  padding: 1em 1.25em;
+  border: 1px solid var(--pico-muted-border-color);
+  border-left: 3px solid var(--pico-primary);
+  border-radius: 0 8px 8px 0;
   background: var(--pico-card-sectioning-background-color);
-  border-color: var(--pico-muted-color);
+  font-size: .97em;
+}
+
+.post-body .note > :last-child {
+  margin-bottom: 0;
+}
+
+.post-body .note-title {
+  margin-bottom: .3em;
+  font-size: .75rem;
+  font-weight: 650;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--pico-primary);
+}
+
+/* Tables */
+.post-body table {
+  width: 100%;
+  font-size: .95em;
+}
+
+.post-body th {
+  font-weight: 650;
+}
+
+/* Footnotes-ish small print */
+.post-body small {
+  color: var(--pico-muted-color);
+}
+
+/* ------------------------------------------------------------------
+   Code palette (Prism tokens). Neutral, low-saturation, both themes.
+   ------------------------------------------------------------------ */
+
+:root {
+  --code-bg: #f6f6f4;
+  --code-border: #e4e4e0;
+  --code-text: #2b2b2b;
+  --code-comment: #8a8a84;
+  --code-keyword: #8a3ab9;
+  --code-string: #2f7a3e;
+  --code-number: #b35c00;
+  --code-function: #2059a8;
+  --code-type: #976a00;
+  --code-punct: #6b6b66;
+  --code-mark: rgba(255, 210, 60, .18);
+  --code-add: rgba(46, 160, 67, .12);
+  --code-remove: rgba(220, 60, 60, .1);
+}
+
+[data-theme="dark"] {
+  --code-bg: #1c1c1c;
+  --code-border: #2c2c2c;
+  --code-text: #dcdcd6;
+  --code-comment: #7c7c76;
+  --code-keyword: #c79bea;
+  --code-string: #9ccf8f;
+  --code-number: #e6a86b;
+  --code-function: #8fb8ee;
+  --code-type: #e4c97a;
+  --code-punct: #9c9c96;
+  --code-mark: rgba(255, 210, 60, .09);
+  --code-add: rgba(46, 160, 67, .14);
+  --code-remove: rgba(220, 60, 60, .14);
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --code-bg: #1c1c1c;
+    --code-border: #2c2c2c;
+    --code-text: #dcdcd6;
+    --code-comment: #7c7c76;
+    --code-keyword: #c79bea;
+    --code-string: #9ccf8f;
+    --code-number: #e6a86b;
+    --code-function: #8fb8ee;
+    --code-type: #e4c97a;
+    --code-punct: #9c9c96;
+    --code-mark: rgba(255, 210, 60, .09);
+    --code-add: rgba(46, 160, 67, .14);
+    --code-remove: rgba(220, 60, 60, .14);
+  }
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata { color: var(--code-comment); font-style: italic; }
+
+.token.punctuation,
+.token.operator { color: var(--code-punct); }
+
+.token.keyword,
+.token.atrule,
+.token.important,
+.token.selector,
+.token.rule { color: var(--code-keyword); }
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.inserted,
+.token.url { color: var(--code-string); }
+
+.token.number,
+.token.boolean,
+.token.constant,
+.token.symbol,
+.token.entity { color: var(--code-number); }
+
+.token.function,
+.token.method,
+.token.property-access { color: var(--code-function); }
+
+.token.class-name,
+.token.builtin,
+.token.namespace,
+.token.annotation,
+.token.tag,
+.token.property,
+.token.key,
+.token.attr-name { color: var(--code-type); }
+
+.token.namespace { opacity: .85; }
+.token.deleted { color: #d16969; }
+.token.bold, .token.important { font-weight: 600; }
+.token.italic { font-style: italic; }
+
+/* Shell prompts and diff markers read as punctuation. */
+.language-diff .token.prefix { user-select: none; }
+
+/* ------------------------------------------------------------------
+   Reader: article on the left, floating project menu on the right.
+   ------------------------------------------------------------------ */
+
+.reader {
+  display: grid;
+  grid-template-columns: minmax(0, 54rem) minmax(14rem, 17rem);
+  justify-content: space-between;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.post-hero h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-hero h1 a:hover {
+  color: var(--pico-primary);
+}
+
+.post-hero .meta a {
+  color: var(--pico-muted-color);
+}
+
+.post-hero .meta a:hover {
+  color: var(--pico-primary);
+}
+
+.post-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.reader-menu {
+  position: sticky;
+  top: 1.5rem;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.project-menu {
+  display: block;
+  font-size: .92rem;
+}
+
+nav.project-menu ul {
+  display: block;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+nav.project-menu li {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-menu a {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  margin: 0;
+  padding: .3rem 0 .3rem .85rem;
+  border-left: 2px solid var(--pico-muted-border-color);
+  border-radius: 0;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.project-menu a span {
+  font-size: .8rem;
+  color: var(--pico-muted-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.project-menu a:hover {
+  border-left-color: var(--pico-muted-color);
+  color: var(--pico-h3-color);
+}
+
+.project-menu a[aria-current="page"] {
+  border-left-color: var(--pico-primary);
+  color: var(--pico-h1-color);
+  font-weight: 600;
+}
+
+.menu-group {
+  margin: 0 0 .5rem;
+  font-size: .72rem;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--pico-muted-color);
+}
+
+.project-menu .menu-more {
+  margin: 0;
+}
+
+.project-menu .menu-more a {
+  display: inline;
+  padding: 0;
+  border: 0;
+  color: var(--pico-muted-color);
+}
+
+.project-menu .menu-more a:hover {
+  color: var(--pico-primary);
+}
+
+.intro + .reader {
+  margin-top: 1rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--pico-muted-border-color);
+}
+
+@media (max-width: 960px) {
+  .reader {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reader-menu {
+    position: static;
+    max-height: none;
+    padding-top: 2rem;
+    border-top: 1px solid var(--pico-muted-border-color);
+  }
+
+  .project-menu ul {
+    columns: 2 12rem;
+    column-gap: 2rem;
+  }
+}
+
+/* Menu entries: title + year on one line, blurb underneath. */
+.project-menu a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: .75rem;
+  row-gap: .05rem;
+  padding-block: .4rem;
+}
+
+.project-menu .m-year {
+  font-size: .78rem;
+  color: var(--pico-muted-color);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.project-menu .m-blurb {
+  grid-column: 1 / -1;
+  font-size: .8rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--pico-muted-color);
+}
+
+nav.project-menu li {
+  padding-block: 0;
+}
+
+.project-menu .m-title {
+  font-weight: 500;
+  color: var(--pico-h3-color);
+}
+
+.project-menu a[aria-current="page"] .m-title {
+  font-weight: 650;
   color: var(--pico-h1-color);
 }

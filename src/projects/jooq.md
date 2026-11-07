@@ -5,6 +5,7 @@ date: 2012-10-26
 kind: contribution
 tags: [java, sql, postgres]
 summary: "Fix for inserting PostgreSQL string arrays containing quotes or backslashes."
+blurb: "A textbook pull request"
 pitch: "A small bug fix that the jOOQ blog later held up as an example of how to write a good pull request."
 url: https://github.com/jOOQ/jOOQ/pull/1889
 ---

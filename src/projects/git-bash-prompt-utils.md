@@ -5,6 +5,7 @@ date: 2013-05-14
 kind: project
 tags: [shell, git, terminal]
 summary: "Small Bash helpers for nicer Git-aware prompts."
+blurb: "Git-aware Bash prompts"
 pitch: "Show where you are relative to the repository root — deep project trees get a lot less miserable."
 url: https://github.com/hencjo/git-bash-prompt-utils
 ---

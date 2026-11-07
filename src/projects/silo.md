@@ -5,6 +5,7 @@ date: 2026-05-04
 kind: project
 tags: [rust, openid, oauth]
 summary: "Local-only OpenID mock backend for development and tests."
+blurb: "OpenID mock for local dev"
 pitch: "A real-looking OpenID login flow on localhost, with a user picker instead of a corporate identity provider."
 url: https://github.com/hencjo/silo
 ---

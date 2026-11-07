@@ -5,6 +5,7 @@ date: 2026-08-06
 kind: project
 tags: [rust, kafka, testing]
 summary: "Repeatable Kafka data for local and test environments."
+blurb: "Reproducible Kafka data"
 pitch: "Realistic Kafka data locally, byte-for-byte reproducible, without hand-rolled scripts poking at production clusters."
 url: https://github.com/hencjo/fransson
 ---

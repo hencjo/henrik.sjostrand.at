@@ -1,0 +1,16 @@
+{# Floating project menu. `currentUrl` marks the active entry. #}
+<nav class="project-menu" aria-label="Projects">
+  <p class="menu-group">Projects</p>
+  <ul>
+    {% for item in collections.projects %}
+    <li><a href="{{ item.url }}"{% if item.url == currentUrl %} aria-current="page"{% endif %}><span class="m-title">{{ item.data.title }}</span> <span class="m-year">{{ item.date | readableYear }}</span>{% if item.data.blurb %}<span class="m-blurb">{{ item.data.blurb }}</span>{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+  <p class="menu-group">OSS</p>
+  <ul>
+    {% for item in collections.contributions %}
+    <li><a href="{{ item.url }}"{% if item.url == currentUrl %} aria-current="page"{% endif %}><span class="m-title">{{ item.data.title }}</span> <span class="m-year">{{ item.date | readableYear }}</span>{% if item.data.blurb %}<span class="m-blurb">{{ item.data.blurb }}</span>{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+  <p class="menu-more"><a href="/community/">Community →</a></p>
+</nav>

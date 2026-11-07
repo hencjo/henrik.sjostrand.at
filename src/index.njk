@@ -4,31 +4,19 @@ title: Home
 ---
 <section class="intro">
   <h1>Hi, I’m Henrik.</h1>
-  <p class="lead">This is where I put small projects, old contributions, community work, and things I find worth sharing.</p>
-  <p>Mostly developer tools, Java, Nix, identity/auth, terminal-shaped stuff, and whatever saved me time recently.</p>
+  <p class="lead">Small projects, open source work, community — and why I think they’re interesting. Mostly developer tools, Java, Nix, identity/auth, and terminal-shaped stuff.</p>
 </section>
 
-<section aria-labelledby="selected-projects">
-  <div class="section-head">
-    <h2 id="selected-projects">Selected projects</h2>
-    <a href="/projects/">All projects →</a>
-  </div>
-  {% set items = collections.projects %}{% set limit = 6 %}
-  {% include "entry-list.njk" %}
-</section>
-
-<section aria-labelledby="recent-contributions">
-  <div class="section-head">
-    <h2 id="recent-contributions">Contributions</h2>
-    <a href="/contributing/">All contributions →</a>
-  </div>
-  {% set items = collections.contributions %}{% set limit = 4 %}
-  {% include "entry-list.njk" %}
-</section>
-
-<section aria-labelledby="community">
-  <div class="section-head">
-    <h2 id="community">Community</h2>
-  </div>
-  {% include "community-list.njk" %}
-</section>
+{% set featured = collections.projects[0] %}
+{% set p = featured.data %}
+{% set pdate = featured.date %}
+{% set purl = featured.url %}
+{% set body = featured.templateContent %}
+{% set linkTitle = true %}
+{% set currentUrl = featured.url %}
+<div class="reader">
+  {% include "project-article.njk" %}
+  <aside class="reader-menu">
+    {% include "project-menu.njk" %}
+  </aside>
+</div>

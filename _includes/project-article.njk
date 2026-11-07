@@ -1,0 +1,27 @@
+{# Renders one project article. Expects: p (data), pdate, purl, body, linkTitle. #}
+<article class="post">
+  <header class="post-hero">
+    <p class="meta">
+      <span class="kind">{% if p.kind == "contribution" %}OSS{% else %}Project{% endif %}</span>
+      <time datetime="{{ pdate | htmlDateString }}">{{ pdate | readableDate }}</time>
+      {% if p.url %}<a href="{{ p.url }}">{{ p.url | replace("https://", "") }}</a>{% endif %}
+    </p>
+    <h1>{% if linkTitle %}<a href="{{ purl }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h1>
+    {% if p.summary %}<p class="lead">{{ p.summary }}</p>{% endif %}
+    {% if p.pitch %}
+    <blockquote class="pitch">
+      <span class="pitch-label">In short</span>
+      {{ p.pitch }}
+    </blockquote>
+    {% endif %}
+  </header>
+
+  <div class="post-body">
+    {{ body | safe }}
+  </div>
+
+  <footer class="post-footer">
+    {% if p.url %}<a href="{{ p.url }}">{% if "github.com" in p.url %}View on GitHub{% else %}Visit project{% endif %} →</a>{% endif %}
+    {% if p.kind == "contribution" %}<a href="/oss/">All OSS work</a>{% else %}<a href="/projects/">All projects</a>{% endif %}
+  </footer>
+</article>

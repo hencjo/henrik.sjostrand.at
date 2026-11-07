@@ -1,7 +1,32 @@
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+
+const escapeHtml = (s) =>
+  String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ public: "." });
   eleventyConfig.addPassthroughCopy({
     "node_modules/@picocss/pico/css/pico.min.css": "css/pico.min.css"
+  });
+
+  // The style guide is a dev-server-only page.
+  if (process.env.ELEVENTY_RUN_MODE !== "serve") {
+    eleventyConfig.ignores.add("src/styleguide.md");
+  }
+
+  // Build-time Prism highlighting for fenced code blocks (no client JS).
+  eleventyConfig.addPlugin(syntaxHighlight, { preAttributes: { tabindex: 0 } });
+
+  // {% figure "Caption" %} …markdown, e.g. a fenced code block… {% endfigure %}
+  eleventyConfig.addPairedShortcode("figure", (content, caption = "") => {
+    const cap = caption ? `<figcaption>${escapeHtml(caption)}</figcaption>` : "";
+    return `<figure>\n\n${content.trim()}\n\n${cap}</figure>`;
+  });
+
+  // {% note "Heads up" %} …markdown… {% endnote %}
+  eleventyConfig.addPairedShortcode("note", (content, title = "") => {
+    const t = title ? `<p class="note-title">${escapeHtml(title)}</p>\n` : "";
+    return `<aside class="note">\n${t}\n${content.trim()}\n\n</aside>`;
   });
 
   eleventyConfig.addFilter("readableDate", (value) => {
@@ -11,6 +36,8 @@ export default function (eleventyConfig) {
       day: "2-digit"
     }).format(new Date(value));
   });
+
+  eleventyConfig.addFilter("readableYear", (value) => new Date(value).getFullYear());
 
   eleventyConfig.addFilter("htmlDateString", (value) => {
     return new Date(value).toISOString().slice(0, 10);

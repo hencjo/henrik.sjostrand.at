@@ -5,6 +5,7 @@ date: 2013-01-12
 kind: project
 tags: [java, database]
 summary: "A simple Java database migration library built around explicit migration descriptions."
+blurb: "Explicit database migrations"
 pitch: "Database migrations where the order is written in code — not decided by whatever files happen to be on the classpath."
 url: https://github.com/hencjo/summer-migration
 ---

@@ -5,6 +5,7 @@ date: 2026-05-28
 kind: contribution
 tags: [nix, ai, developer-tools]
 summary: "Work around Nix packaging for the open source coding agent."
+blurb: "Nix packaging for a coding agent"
 pitch: "Making an open source coding agent easier to build and run reproducibly with Nix."
 url: https://github.com/anomalyco/opencode
 ---

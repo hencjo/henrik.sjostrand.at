@@ -5,6 +5,7 @@ date: 2026-11-06
 kind: project
 tags: [rust, nix, java, maven]
 summary: "Pinned Maven dependencies and reproducible Java builds powered by Nix."
+blurb: "Reproducible Java builds with Nix"
 pitch: "Java builds that never resolve dependencies behind your back — and you don't have to throw away your existing build to get there."
 url: https://github.com/hencjo/jix
 ---

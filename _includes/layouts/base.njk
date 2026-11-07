@@ -24,8 +24,8 @@
         <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
       </ul>
       <ul>
-        <li><a href="/projects/"{% if page.url.startsWith("/projects/") %} aria-current="page"{% endif %}>Projects</a></li>
-        <li><a href="/contributing/"{% if page.url == "/contributing/" %} aria-current="page"{% endif %}>Contributions</a></li>
+        <li><a href="/projects/"{% if page.url and page.url.startsWith("/projects/") %} aria-current="page"{% endif %}>Projects</a></li>
+        <li><a href="/oss/"{% if page.url == "/oss/" %} aria-current="page"{% endif %}>OSS</a></li>
         <li><a href="/community/"{% if page.url == "/community/" %} aria-current="page"{% endif %}>Community</a></li>
         <li>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">

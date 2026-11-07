@@ -5,6 +5,7 @@ date: 2011-02-12
 kind: contribution
 tags: [java, json]
 summary: "Old contribution to Argo, a small dependency-free JSON parser and generator for Java."
+blurb: "Dependency-free JSON for Java"
 pitch: "Early open source work on a dependency-free JSON library for Java."
 url: https://argo.sourceforge.net/
 ---
