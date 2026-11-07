@@ -9,6 +9,18 @@ export default function (eleventyConfig) {
     "node_modules/@picocss/pico/css/pico.min.css": "css/pico.min.css"
   });
 
+  // Self-hosted fonts: Fraunces (headings), IBM Plex Sans (text), IBM Plex Mono (code).
+  for (const [pkg, name, css] of [
+    ["@fontsource-variable/fraunces", "fraunces", ["full.css"]],
+    ["@fontsource/ibm-plex-sans", "ibm-plex-sans", ["400.css", "400-italic.css", "500.css", "600.css", "600-italic.css"]],
+    ["@fontsource/ibm-plex-mono", "ibm-plex-mono", ["400.css", "400-italic.css"]]
+  ]) {
+    eleventyConfig.addPassthroughCopy({ [`node_modules/${pkg}/files/*.woff2`]: `fonts/${name}/files` });
+    for (const file of css) {
+      eleventyConfig.addPassthroughCopy({ [`node_modules/${pkg}/${file}`]: `fonts/${name}/${file}` });
+    }
+  }
+
   // The style guide is a dev-server-only page.
   if (process.env.ELEVENTY_RUN_MODE !== "serve") {
     eleventyConfig.ignores.add("src/styleguide.md");
