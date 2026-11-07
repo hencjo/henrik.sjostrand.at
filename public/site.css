@@ -255,25 +255,12 @@ main > section + section {
 }
 
 .pitch {
-  max-width: 60rem;
-  margin: 1.5rem 0 0;
-  padding: 1rem 1.25rem;
-  border-left: 4px solid var(--pico-primary);
-  border-radius: 0 var(--pico-border-radius) var(--pico-border-radius) 0;
-  background: var(--pico-card-sectioning-background-color);
+  max-width: var(--measure);
+  margin: 1rem 0 0;
   font-size: 1.15rem;
-  font-style: normal;
-  color: var(--pico-color);
-}
-
-.pitch-label {
-  display: block;
-  margin-bottom: .25rem;
-  font-size: .75rem;
-  font-weight: 650;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--pico-primary);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--pico-muted-color);
 }
 
 /* Footer */
@@ -746,12 +733,6 @@ main > section + section {
 
 .post-hero .meta a:hover {
   color: var(--pico-primary);
-}
-
-.post-footer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
 }
 
 .reader-menu {

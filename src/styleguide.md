@@ -46,9 +46,9 @@ public final class Upgrader {
 }
 ```
 
-Highlight the lines that matter with ` ```java/2,4-5 `:
+Highlight the lines that matter with ` ```java/2,4-5 ` (zero-based line numbers):
 
-```rust/3-4
+```rust/2-3
 fn main() -> anyhow::Result<()> {
     let config = Config::load("fransson.yaml")?;
     // Source connections are read-only; every write targets the destination.

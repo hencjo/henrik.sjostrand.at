@@ -27,7 +27,7 @@ example does the convincing.
 
 ```java
 // The smallest example that shows the idea.
-// Highlight the lines that matter: ```java/2,4-5
+// Highlight the lines that matter: ```java/2,4-5 (zero-based line numbers)
 ```
 
 What to notice in the example — one short paragraph, pointing at the key lines.
