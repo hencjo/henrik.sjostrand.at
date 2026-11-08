@@ -991,3 +991,11 @@ h2, h3 {
 
 /* Date above the headline in article lists */
 .row-date { margin: 0 0 .35rem; font-size: .85rem; color: var(--pico-muted-color); }
+
+/* About page */
+.about { max-width: 54rem; }
+.post-body ul.contact-list { list-style: none; padding-left: 0; }
+.post-body ul.contact-list > li { list-style-type: none; margin-bottom: .5rem; }
+.contact-label { display: inline-block; min-width: 5.5rem; color: var(--pico-muted-color); font-size: .9rem; }
+.contact-note { color: var(--pico-muted-color); font-size: .9rem; }
+.contact-note::before { content: "· "; }

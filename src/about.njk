@@ -1,0 +1,44 @@
+---
+layout: layouts/base.njk
+title: About
+permalink: /about/
+eleventyExcludeFromCollections: true
+# Fill in to show an email line under Contact; left empty, it is hidden.
+email: "henrik@sjostrand.at"
+contact:
+  - { label: "LinkedIn", href: "https://www.linkedin.com/in/hencjo/", text: "linkedin.com/in/hencjo", note: "the easiest way to reach me about work" }
+  - { label: "GitHub", href: "https://github.com/hencjo", text: "github.com/hencjo", note: "questions, issues and pull requests on my projects" }
+  - { label: "X", href: "https://x.com/hencjo", text: "x.com/hencjo", note: "" }
+---
+<article class="post about">
+  <header class="post-hero post-hero--bare">
+    <h1>About me</h1>
+  </header>
+
+  <div class="post-body">
+    <p class="lead">I’m Henrik, a developer living in Härryda, just outside Göteborg.</p>
+
+    <h2>How it started</h2>
+    <p>I’ve loved computers since 1994, and Linux has been my main operating system since 2003. Somewhere along the way the tinkering turned into a job, but it never really stopped being the tinkering.</p>
+    <p>I started doing open source back in the Java 6 days, and in 2012 I founded the Brewing Agile conference, which grew out of the Scrum Beers crowd here in Göteborg and ran until 2018.</p>
+
+    <h2>What I do</h2>
+    <p>I work as a developer, though these days most of my time goes into the bigger picture: the architecture and technical direction of connectivity platforms in telco that a lot of people rely on every day, from domain and API design all the way to running them in production. Much of it happens across team and company boundaries. I also wrote a standard interface between service providers and operators. I’m happy it has had an impact at all, and I believe it makes the business simpler for everyone involved.</p>
+    <p>The part I enjoy most is making systems simpler and sturdier, and pleasant to work on: builds that come out the same every time, environments that just start, tests you didn’t have to write by hand.</p>
+
+    <h2>What I care about</h2>
+    <p>Important inputs should be explicit, not discovered. Things should be reproducible, so that the same project gives the same result tomorrow. Dangerous operations should be boring: one direction, read-only by default, nothing destructive without asking. And a small tool that does one job well usually beats a large one that does everything almost.</p>
+
+    <h2>Outside work</h2>
+    <p>I have two kids, a house that is always a little bit of a DIY project, and a boat that is a DIY project too.</p>
+
+    <h2 id="contact">Contact</h2>
+    <p>I’m happy to hear from you, whether it’s about one of my projects, something I’ve written, or work.</p>
+    <ul class="contact-list">
+      {% if email %}<li><span class="contact-label">Email</span> <a href="mailto:{{ email }}">{{ email }}</a></li>{% endif %}
+      {% for c in contact %}
+      <li><span class="contact-label">{{ c.label }}</span> <a href="{{ c.href }}">{{ c.text }}</a>{% if c.note %} <span class="contact-note">{{ c.note }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>
