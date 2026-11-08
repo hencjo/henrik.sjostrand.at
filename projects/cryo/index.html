@@ -32,14 +32,28 @@
         <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
       </ul>
       <ul>
-        <li><a href="/projects/" aria-current="page">Projects</a></li>
-        <li><a href="/oss/">OSS</a></li>
-        <li><a href="/community/">Community</a></li>
-        <li>
-          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
-            <span aria-hidden="true" id="theme-icon">◐</span>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
           </button>
         </li>
+        <li><a href="/articles/">Articles</a></li>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+
       </ul>
     </nav>
   </header>
@@ -47,90 +61,77 @@
   <main class="container-fluid" id="main">
     
 
-
-
-
 <div class="reader">
+  <article class="post project-page">
+    <header class="post-hero">
+      <p class="meta">
+        <span class="kind-label">Project</span>
+        <span>2026</span>
+        <a href="https://github.com/hencjo/cryo">github.com/hencjo/cryo</a>
+      </p>
+      <h1>cryo</h1>
+      <p class="lead">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
+    </header>
+    
+    
+    <section class="project-articles">
+      <h2 class="section-label">Articles</h2>
+      <ol class="rows">
   
-<article class="post">
-  <header class="post-hero">
-    <p class="meta">
-      <time datetime="2026-08-27">Aug 27, 2026</time>
-      <a href="https://github.com/hencjo/cryo">github.com/hencjo/cryo</a>
-    </p>
-    <h1>cryo</h1>
-    <p class="lead">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
     
-    <p class="pitch">Your codebase already contains API tests — they&#39;re the curl examples in your docs. cryo turns them into regression checks you review like code.</p>
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-08-27">Aug 27, 2026</time></p>
+        <h3><a href="/articles/curl-examples-are-tests/">Deriving API regression tests from existing curl examples</a></h3>
+        <p class="row-summary">HTTP snapshot tests built from curl examples already present in a codebase, and from OpenAPI operations.</p>
+      </div>
+      <p class="row-pitch">Most codebases already contain informal API tests in the form of curl examples in documentation. cryo collects them and turns them into reviewed regression checks.</p>
+    </li>
     
-  </header>
+  
+</ol>
 
-  <div class="post-body">
-    <h2>The problem</h2>
-<p>API regression tests are valuable and tedious to write, so they rarely exist. Meanwhile, READMEs and comments are full of perfectly good <code>curl</code> examples, and the OpenAPI spec already lists every operation.</p>
-<h2>What it does</h2>
-<p>cryo is approval testing for HTTP APIs:</p>
-<pre class="language-text" tabindex="0"><code class="language-text">discover → bless → check → diff or fix → recheck → accept</code></pre>
-<ul>
-<li><strong>Discover</strong> localhost curl commands anywhere in the source tree, or import OpenAPI 3.0/3.1 operations.</li>
-<li><strong>Bless</strong> known-good responses as readable, canonical HTTP snapshots committed to the repo.</li>
-<li><strong>Check</strong> later runs; changed responses become candidates instead of overwriting the baseline.</li>
-<li><strong>Normalize deliberately.</strong> Timestamps and IDs are handled by explicit JSON/CSV replacement rules visible in the manifest — never accepted automatically.</li>
-</ul>
-<h2>Why it's interesting</h2>
-<p>It finds tests that already exist instead of asking you to write new ones, and it treats every response change as something a human reviews. It's also careful by default: discovery only enables side-effect-free loopback GET/HEAD requests, and OpenAPI import ignores the spec's <code>servers</code> so production can't become a test target by accident.</p>
-<p>A 200 → 500 change is flagged as a regression, not just a diff — the kind of small judgement that makes a tool pleasant.</p>
-<h2>Try it</h2>
-<pre class="language-sh" tabindex="0"><code class="language-sh">nix run github:hencjo/cryo -- <span class="token parameter variable">--help</span>
-cryo discover src <span class="token builtin class-name">test</span>
-cryo bless
-cryo check</code></pre>
-
-  </div>
-</article>
-
+    </section>
+    
+  </article>
   <aside class="reader-menu">
     
-<nav class="project-menu" aria-label="Projects">
-  <p class="menu-group">Projects</p>
+<nav class="project-menu" aria-label="Articles">
+  <p class="menu-group">Articles</p>
   <ul>
     
-    <li><a href="/projects/jix/"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
+    <li><a href="/articles/calling-javac-again/"><span class="m-title">Separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
     
-    <li><a href="/projects/cryo/" aria-current="page"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    <li><a href="/articles/an-agent-in-a-messy-confluence/"><span class="m-title">Read-only agent access to a corporate Confluence</span> <span class="m-year">2026</span><span class="m-blurb">An agent skill for the wiki</span></a></li>
     
-    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    <li><a href="/articles/curl-examples-are-tests/"><span class="m-title">Deriving API regression tests from existing curl examples</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
     
-    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    <li><a href="/articles/reproducible-kafka-data/"><span class="m-title">Reproducible Kafka data for local and test environments</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
     
-    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    <li><a href="/articles/gitops-for-a-plain-docker-host/"><span class="m-title">GitOps deployments for a single Docker host</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
     
-    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    <li><a href="/articles/packaging-opencode-with-nix/"><span class="m-title">Nix packaging for the opencode coding agent</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
     
-    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    <li><a href="/articles/openid-login-on-localhost/"><span class="m-title">A local OpenID Connect provider for development and testing</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
     
-    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    <li><a href="/articles/papercuts-in-devenv/"><span class="m-title">Service modules, port allocation, and process watching in devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
     
-    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    <li><a href="/articles/url-in-pdf-out/"><span class="m-title">An HTTP interface to wkhtmltopdf, in Haskell</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
     
-    <li><a href="/projects/summer-security/"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    <li><a href="/articles/ldap-without-a-framework/"><span class="m-title">An LDAP authenticator for Summer Security</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
     
-  </ul>
-  <p class="menu-group">OSS</p>
-  <ul>
+    <li><a href="/articles/where-am-i-in-this-repo/"><span class="m-title">Showing the repository-relative path in a Bash prompt</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
     
-    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    <li><a href="/articles/migrations-in-code-order/"><span class="m-title">Database migrations with an explicitly declared order</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
     
-    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    <li><a href="/articles/authentication-as-plain-java/"><span class="m-title">Web authentication as an ordered list of rules in Java</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
     
-    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    <li><a href="/articles/a-textbook-pull-request/"><span class="m-title">Structuring a pull request for review: a jOOQ bug fix</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
     
-    <li><a href="/projects/jooq/"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
-    
-    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    <li><a href="/articles/dependency-free-json-for-java/"><span class="m-title">Contributions to Argo, a dependency-free JSON library for Java</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
     
   </ul>
-  <p class="menu-more"><a href="/community/">Community →</a></p>
+  <p class="menu-more"><a href="/projects/">Projects →</a></p>
 </nav>
 
   </aside>
@@ -146,16 +147,14 @@ cryo check</code></pre>
     (function () {
       var root = document.documentElement;
       var button = document.getElementById("theme-toggle");
-      var icon = document.getElementById("theme-icon");
       var order = ["system", "light", "dark"];
-      var icons = { system: "◐", light: "☀", dark: "☾" };
 
       function current() {
         return root.getAttribute("data-theme") || "system";
       }
 
       function render(mode) {
-        icon.textContent = icons[mode];
+        button.dataset.mode = mode;
         var label = "Color theme: " + mode;
         button.setAttribute("aria-label", label);
         button.title = label;

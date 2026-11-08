@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/fonts/fraunces/full.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/500.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400-italic.css">
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
+          </button>
+        </li>
+        <li><a href="/articles/" aria-current="page">Articles</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    <hgroup class="page-header">
+  <h1>Articles</h1>
+  <p>Notes on tools I build and use: the problems they address and the approaches they take.</p>
+</hgroup>
+
+
+<ol class="rows">
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-11-06">Nov 06, 2026</time></p>
+        <h3><a href="/articles/calling-javac-again/">Separating dependency resolution from the Java build</a></h3>
+        <p class="row-summary">Maven dependencies resolved once, pinned with Nix, and consumed by builds written as ordinary code.</p>
+      </div>
+      <p class="row-pitch">Build tools couple dependency resolution with everything else, so a simple change to the build often means working through plugins and lifecycle phases. jix separates the two: dependencies are pinned with Nix, and the build becomes a short, readable description.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-09-24">Sep 24, 2026</time></p>
+        <h3><a href="/articles/an-agent-in-a-messy-confluence/">Read-only agent access to a corporate Confluence</a></h3>
+        <p class="row-summary">A small setup — confluence-cli, an agent skill, and SecretSpec — for retrieving and consolidating information from an internal wiki.</p>
+      </div>
+      <p class="row-pitch">Locating reliable information in our wiki was slow, and much of it was outdated. Delegating retrieval and cross-checking to an agent, with read-only access and no exposure of credentials, reduced that cost considerably.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-08-27">Aug 27, 2026</time></p>
+        <h3><a href="/articles/curl-examples-are-tests/">Deriving API regression tests from existing curl examples</a></h3>
+        <p class="row-summary">HTTP snapshot tests built from curl examples already present in a codebase, and from OpenAPI operations.</p>
+      </div>
+      <p class="row-pitch">Most codebases already contain informal API tests in the form of curl examples in documentation. cryo collects them and turns them into reviewed regression checks.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-08-06">Aug 06, 2026</time></p>
+        <h3><a href="/articles/reproducible-kafka-data/">Reproducible Kafka data for local and test environments</a></h3>
+        <p class="row-summary">A one-directional tool for archiving, restoring, and synchronizing Kafka topics deterministically.</p>
+      </div>
+      <p class="row-pitch">Realistic Kafka data in local and test environments, reproducible byte for byte, without ad-hoc scripts against production clusters.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-06-12">Jun 12, 2026</time></p>
+        <h3><a href="/articles/gitops-for-a-plain-docker-host/">GitOps deployments for a single Docker host</a></h3>
+        <p class="row-summary">A GitOps reconciler for Docker service deployments, with changes reviewed as merge requests and automatic convergence on the host.</p>
+      </div>
+      <p class="row-pitch">Reviewed, auditable deployments for a plain Docker host: changes are merge requests, and the host converges, or rolls back, without manual intervention.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-05-28">May 28, 2026</time></p>
+        <h3><a href="/articles/packaging-opencode-with-nix/">Nix packaging for the opencode coding agent</a></h3>
+        <p class="row-summary">Nix-related fixes and packaging work for the open source coding agent opencode.</p>
+      </div>
+      <p class="row-pitch">Keeping an open source coding agent buildable and runnable reproducibly with Nix.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-05-04">May 04, 2026</time></p>
+        <h3><a href="/articles/openid-login-on-localhost/">A local OpenID Connect provider for development and testing</a></h3>
+        <p class="row-summary">A local-only OpenID Connect mock provider for development and tests.</p>
+      </div>
+      <p class="row-pitch">A complete OpenID Connect login flow on localhost, with a user picker in place of a corporate identity provider.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2026-03-18">Mar 18, 2026</time></p>
+        <h3><a href="/articles/papercuts-in-devenv/">Service modules, port allocation, and process watching in devenv</a></h3>
+        <p class="row-summary">Contributions to devenv covering service modules, port allocation, process watching, and evaluation caching.</p>
+      </div>
+      <p class="row-pitch">A series of small fixes to a tool I use daily: services that start cleanly, ports that do not collide across projects, and processes that do not restart without cause.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2014-02-23">Feb 23, 2014</time></p>
+        <h3><a href="/articles/url-in-pdf-out/">An HTTP interface to wkhtmltopdf, in Haskell</a></h3>
+        <p class="row-summary">A small REST service around wkhtmltopdf: it accepts a URL and returns a PDF.</p>
+      </div>
+      <p class="row-pitch">A single-purpose service, written in Haskell, that accepts a URL and returns the rendered PDF.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2013-11-24">Nov 24, 2013</time></p>
+        <h3><a href="/articles/ldap-without-a-framework/">An LDAP authenticator for Summer Security</a></h3>
+        <p class="row-summary">A companion library that adds LDAP authentication to Summer Security.</p>
+      </div>
+      <p class="row-pitch">Directory-based authentication added to Summer Security as a separate component, without introducing a framework.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2013-05-14">May 14, 2013</time></p>
+        <h3><a href="/articles/where-am-i-in-this-repo/">Showing the repository-relative path in a Bash prompt</a></h3>
+        <p class="row-summary">Small Bash helpers for Git-aware prompts.</p>
+      </div>
+      <p class="row-pitch">A Bash prompt that shows the current directory relative to the repository root, which is considerably more useful in deep project trees.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2013-01-12">Jan 12, 2013</time></p>
+        <h3><a href="/articles/migrations-in-code-order/">Database migrations with an explicitly declared order</a></h3>
+        <p class="row-summary">A small Java database migration library in which migrations and their order are declared in code.</p>
+      </div>
+      <p class="row-pitch">Database migrations whose order is declared in code, rather than inferred from whichever files are found on the classpath.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2012-12-19">Dec 19, 2012</time></p>
+        <h3><a href="/articles/authentication-as-plain-java/">Web authentication as an ordered list of rules in Java</a></h3>
+        <p class="row-summary">A small, dependency-free Java library that expresses web authentication as a code-first DSL.</p>
+      </div>
+      <p class="row-pitch">Authentication policy expressed as an ordered list of rules in plain Java, without XML configuration, thread-local state, or a framework.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2012-10-26">Oct 26, 2012</time></p>
+        <h3><a href="/articles/a-textbook-pull-request/">Structuring a pull request for review: a jOOQ bug fix</a></h3>
+        <p class="row-summary">A fix for inserting PostgreSQL string arrays containing quotes or backslashes, later cited by the jOOQ project as an example pull request.</p>
+      </div>
+      <p class="row-pitch">A small bug fix whose structure (refactoring, then a regression test, then the fix) the jOOQ project later used as an example of a well-formed contribution.</p>
+    </li>
+    
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <p class="row-date"><time datetime="2011-02-12">Feb 12, 2011</time></p>
+        <h3><a href="/articles/dependency-free-json-for-java/">Contributions to Argo, a dependency-free JSON library for Java</a></h3>
+        <p class="row-summary">Early open source contributions to Argo, a small dependency-free JSON parser and generator for Java.</p>
+      </div>
+      <p class="row-pitch">Early open source work on a JSON library for Java with no external dependencies.</p>
+    </li>
+    
+  
+</ol>
+
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var order = ["system", "light", "dark"];
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        button.dataset.mode = mode;
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>

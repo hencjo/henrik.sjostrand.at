@@ -925,3 +925,69 @@ h2, h3 {
 .post-body {
   font-size: 1.05rem;
 }
+
+/* Header social icons */
+.site-header nav a.social {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: .4rem;
+  color: var(--pico-muted-color);
+}
+
+.site-header nav a.social:hover,
+.site-header nav a.social:focus-visible {
+  color: var(--pico-h1-color);
+}
+
+.site-header nav a.social svg {
+  display: block;
+}
+
+.site-header nav li:has(> a.social) {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.site-header nav a.social {
+  margin-block: 0;
+  padding-block: 0;
+  translate: none;
+}
+
+/* Theme toggle sits first in the menu, set apart from the links */
+.site-header nav li.theme-item { margin-inline-end: .5rem; }
+.theme-toggle { display: inline-flex; align-items: center; }
+.theme-toggle #theme-icon { display: flex; }
+.theme-toggle svg { display: none; }
+.theme-toggle[data-mode="system"] svg[data-mode="system"],
+.theme-toggle[data-mode="light"] svg[data-mode="light"],
+.theme-toggle[data-mode="dark"] svg[data-mode="dark"] { display: block; }
+
+/* Articles + projects */
+.section-label {
+  margin: 2.5rem 0 .75rem;
+  font-family: var(--pico-font-family-sans-serif);
+  font-variation-settings: normal;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--pico-muted-color);
+}
+.page-header + .section-label { margin-top: 0; }
+.post-hero .meta .kind-label { text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; font-weight: 600; }
+.project-articles { margin-top: 2.5rem; }
+.project-rows > .row { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main"; padding: 1.1rem 0; }
+.project-rows > .row:first-child { padding-top: .25rem; }
+.project-rows .row h3 { font-size: 1.35rem; margin-bottom: .25rem; }
+.project-rows .row-summary { max-width: var(--measure); color: var(--pico-muted-color); }
+.project-articles .rows > .row { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "pitch"; gap: .5rem; padding: 1.25rem 0; }
+.project-articles .row h3 { font-size: 1.5rem; }
+
+/* Article header: title and meta only, straight into the body */
+.post-hero--bare { margin-bottom: 1.5rem; padding-bottom: 0; border-bottom: 0; }
+.post-hero--bare + .post-body > h2:first-child { margin-top: 0; }
+
+/* Date above the headline in article lists */
+.row-date { margin: 0 0 .35rem; font-size: .85rem; color: var(--pico-muted-color); }

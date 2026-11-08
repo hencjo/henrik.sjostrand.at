@@ -32,14 +32,28 @@
         <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
       </ul>
       <ul>
-        <li><a href="/projects/" aria-current="page">Projects</a></li>
-        <li><a href="/oss/">OSS</a></li>
-        <li><a href="/community/">Community</a></li>
-        <li>
-          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
-            <span aria-hidden="true" id="theme-icon">◐</span>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
           </button>
         </li>
+        <li><a href="/articles/">Articles</a></li>
+        <li><a href="/projects/" aria-current="page">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+
       </ul>
     </nav>
   </header>
@@ -47,111 +61,165 @@
   <main class="container-fluid" id="main">
     <hgroup class="page-header">
   <h1>Projects</h1>
-  <p>Things built, maintained, debugged, or dragged into better shape.</p>
+  <p>Things I’ve built, open source I help with, and communities I’ve run. Articles go into the details.</p>
 </hgroup>
 
+<h2 class="section-label" id="projects">Projects</h2>
 
-<ol class="rows">
+
+<ol class="rows project-rows">
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/jix/">jix</a> <time datetime="2026-11-06">Nov 06, 2026</time></h3>
+        <h3><a href="/projects/jix/">jix</a> <time>2026 · 1 article</time></h3>
         <p class="row-summary">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
       </div>
-      <p class="row-pitch">Ever fought your build tool when all you wanted was to call javac? jix pins your Maven dependencies with Nix — so the build becomes a few lines you can read, and change.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/cryo/">cryo</a> <time datetime="2026-08-27">Aug 27, 2026</time></h3>
+        <h3><a href="/projects/cryo/">cryo</a> <time>2026 · 1 article</time></h3>
         <p class="row-summary">HTTP snapshot tests built from existing curl examples and OpenAPI operations.</p>
       </div>
-      <p class="row-pitch">Your codebase already contains API tests — they&#39;re the curl examples in your docs. cryo turns them into regression checks you review like code.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/fransson/">Fransson</a> <time datetime="2026-08-06">Aug 06, 2026</time></h3>
+        <h3><a href="/projects/fransson/">Fransson</a> <time>2026 · 1 article</time></h3>
         <p class="row-summary">Repeatable Kafka data for local and test environments.</p>
       </div>
-      <p class="row-pitch">Realistic Kafka data locally, byte-for-byte reproducible, without hand-rolled scripts poking at production clusters.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/stow/">stow</a> <time datetime="2026-06-12">Jun 12, 2026</time></h3>
+        <h3><a href="/projects/stow/">stow</a> <time>2026 · 1 article</time></h3>
         <p class="row-summary">GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence.</p>
       </div>
-      <p class="row-pitch">GitOps for a plain Docker host: deployments are merge requests, and the host converges — or rolls back — on its own.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/silo/">Silo</a> <time datetime="2026-05-04">May 04, 2026</time></h3>
+        <h3><a href="/projects/silo/">Silo</a> <time>2026 · 1 article</time></h3>
         <p class="row-summary">Local-only OpenID mock backend for development and tests.</p>
       </div>
-      <p class="row-pitch">A real-looking OpenID login flow on localhost, with a user picker instead of a corporate identity provider.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/wkhtmltopdf-rest/">wkhtmltopdf-rest</a> <time datetime="2014-02-23">Feb 23, 2014</time></h3>
+        <h3><a href="/projects/wkhtmltopdf-rest/">wkhtmltopdf-rest</a> <time>2014 · 1 article</time></h3>
         <p class="row-summary">A small REST wrapper around wkhtmltopdf: send a URL, get a PDF.</p>
       </div>
-      <p class="row-pitch">One job, one endpoint: give it a URL, get a PDF back — written in Haskell.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/summer-security-ldap/">Summer Security LDAP</a> <time datetime="2013-11-24">Nov 24, 2013</time></h3>
+        <h3><a href="/projects/summer-security-ldap/">Summer Security LDAP</a> <time>2013 · 1 article</time></h3>
         <p class="row-summary">LDAP authenticator for Summer Security.</p>
       </div>
-      <p class="row-pitch">Plug a directory into Summer Security without pulling in a framework to do it.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/git-bash-prompt-utils/">git-bash-prompt-utils</a> <time datetime="2013-05-14">May 14, 2013</time></h3>
+        <h3><a href="/projects/git-bash-prompt-utils/">git-bash-prompt-utils</a> <time>2013 · 1 article</time></h3>
         <p class="row-summary">Small Bash helpers for nicer Git-aware prompts.</p>
       </div>
-      <p class="row-pitch">Show where you are relative to the repository root — deep project trees get a lot less miserable.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/summer-migration/">Summer Migration</a> <time datetime="2013-01-12">Jan 12, 2013</time></h3>
+        <h3><a href="/projects/summer-migration/">Summer Migration</a> <time>2013 · 1 article</time></h3>
         <p class="row-summary">A simple Java database migration library built around explicit migration descriptions.</p>
       </div>
-      <p class="row-pitch">Database migrations where the order is written in code — not decided by whatever files happen to be on the classpath.</p>
     </li>
-    
   
     
     <li class="row">
       <div class="row-main">
-        <h3><a href="/projects/summer-security/">Summer Security</a> <time datetime="2012-12-19">Dec 19, 2012</time></h3>
+        <h3><a href="/projects/summer-security/">Summer Security</a> <time>2012 · 1 article</time></h3>
         <p class="row-summary">A small Java authentication library/DSL with code-first configuration and no dependencies.</p>
       </div>
-      <p class="row-pitch">Web authentication as a readable list of rules in plain Java — no XML, no ThreadLocals, no framework.</p>
     </li>
+  
+</ol>
+
+
+<h2 class="section-label" id="oss">OSS</h2>
+
+
+<ol class="rows project-rows">
+  
     
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/confluence-cli/">confluence-cli</a> <time>2026 · 1 article</time></h3>
+        <p class="row-summary">Nix flake and system certificate trust for a terminal Confluence client.</p>
+      </div>
+    </li>
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/opencode/">opencode</a> <time>2026 · 1 article</time></h3>
+        <p class="row-summary">Work around Nix packaging for the open source coding agent.</p>
+      </div>
+    </li>
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/devenv/">devenv</a> <time>2026 · 1 article</time></h3>
+        <p class="row-summary">Contributions to reproducible developer environments: services, port allocation, process watching, and cache sharp edges.</p>
+      </div>
+    </li>
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/jooq/">jOOQ</a> <time>2012 · 1 article</time></h3>
+        <p class="row-summary">Fix for inserting PostgreSQL string arrays containing quotes or backslashes.</p>
+      </div>
+    </li>
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/argo/">Argo JSON Library</a> <time>2011 · 1 article</time></h3>
+        <p class="row-summary">Old contribution to Argo, a small dependency-free JSON parser and generator for Java.</p>
+      </div>
+    </li>
+  
+</ol>
+
+
+<h2 class="section-label" id="community">Community</h2>
+
+
+<ol class="rows project-rows">
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/brewing-agile/">Brewing Agile</a> <time>2012–2018</time></h3>
+        <p class="row-summary">A Göteborg conference about agile thinking, learning, leadership, collaboration, and process, which I founded in 2012.</p>
+      </div>
+    </li>
+  
+    
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="/projects/scrum-beers-goteborg/">Scrum Beers Göteborg</a> <time>Meetup</time></h3>
+        <p class="row-summary">The low-ceremony version of an agile meetup: people in a pub, talking about teams, delivery, collaboration, architecture, and leadership.</p>
+      </div>
+    </li>
   
 </ol>
 
@@ -166,16 +234,14 @@
     (function () {
       var root = document.documentElement;
       var button = document.getElementById("theme-toggle");
-      var icon = document.getElementById("theme-icon");
       var order = ["system", "light", "dark"];
-      var icons = { system: "◐", light: "☀", dark: "☾" };
 
       function current() {
         return root.getAttribute("data-theme") || "system";
       }
 
       function render(mode) {
-        icon.textContent = icons[mode];
+        button.dataset.mode = mode;
         var label = "Color theme: " + mode;
         button.setAttribute("aria-label", label);
         button.title = label;

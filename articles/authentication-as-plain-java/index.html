@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web authentication as an ordered list of rules in Java · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/fonts/fraunces/full.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/500.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400-italic.css">
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
+          </button>
+        </li>
+        <li><a href="/articles/" aria-current="page">Articles</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    
+
+
+
+
+<div class="reader">
+  
+
+<article class="post">
+  <header class="post-hero post-hero--bare">
+    <p class="meta">
+      <time datetime="2012-12-19">Dec 19, 2012</time>
+      <a href="/projects/summer-security/" class="meta-project">Summer Security</a>
+    </p>
+    <h1>Web authentication as an ordered list of rules in Java</h1>
+  </header>
+
+  <div class="post-body">
+    <h2>Background</h2>
+<p>Many Java web applications require authentication and little else. The security frameworks available at the time brought XML configuration, implicit global state, and a large surface area relative to what was often a handful of rules.</p>
+<h2>Approach</h2>
+<p>Summer Security is a servlet filter configured through a small DSL. Rules are evaluated in order, and the first matching rule determines the response:</p>
+<pre class="language-java" tabindex="0"><code class="language-java"><span class="token function">summer</span><span class="token punctuation">(</span>logger<span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span><span class="token function">pathBeginsWith</span><span class="token punctuation">(</span><span class="token string">"/img/"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">thenAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span>formBasedLogin<span class="token punctuation">.</span><span class="token function">loginRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>formBasedLogin<span class="token punctuation">.</span><span class="token function">performLoginRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span>session<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">thenAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">when</span><span class="token punctuation">(</span>httpBasicAuthenticator<span class="token punctuation">.</span><span class="token function">authorizes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">thenAllow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">otherwise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token function">redirect</span><span class="token punctuation">(</span><span class="token string">"/login.html"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>It supports HTTP Basic and form-based login (compatible with Spring Security conventions), and can be extended through custom request matchers and responders.</p>
+<h2>Discussion</h2>
+<p>The complete policy is readable top to bottom in one place. The authenticated user is derived from the request rather than held in thread-local state, the library has no dependencies, and its scope is limited to authentication; authorization is left to the application.</p>
+
+  </div>
+</article>
+
+  <aside class="reader-menu">
+    
+<nav class="project-menu" aria-label="Articles">
+  <p class="menu-group">Articles</p>
+  <ul>
+    
+    <li><a href="/articles/calling-javac-again/"><span class="m-title">Separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
+    
+    <li><a href="/articles/an-agent-in-a-messy-confluence/"><span class="m-title">Read-only agent access to a corporate Confluence</span> <span class="m-year">2026</span><span class="m-blurb">An agent skill for the wiki</span></a></li>
+    
+    <li><a href="/articles/curl-examples-are-tests/"><span class="m-title">Deriving API regression tests from existing curl examples</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    
+    <li><a href="/articles/reproducible-kafka-data/"><span class="m-title">Reproducible Kafka data for local and test environments</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    
+    <li><a href="/articles/gitops-for-a-plain-docker-host/"><span class="m-title">GitOps deployments for a single Docker host</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    
+    <li><a href="/articles/packaging-opencode-with-nix/"><span class="m-title">Nix packaging for the opencode coding agent</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    
+    <li><a href="/articles/openid-login-on-localhost/"><span class="m-title">A local OpenID Connect provider for development and testing</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    
+    <li><a href="/articles/papercuts-in-devenv/"><span class="m-title">Service modules, port allocation, and process watching in devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/articles/url-in-pdf-out/"><span class="m-title">An HTTP interface to wkhtmltopdf, in Haskell</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    
+    <li><a href="/articles/ldap-without-a-framework/"><span class="m-title">An LDAP authenticator for Summer Security</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    
+    <li><a href="/articles/where-am-i-in-this-repo/"><span class="m-title">Showing the repository-relative path in a Bash prompt</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/articles/migrations-in-code-order/"><span class="m-title">Database migrations with an explicitly declared order</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/articles/authentication-as-plain-java/" aria-current="page"><span class="m-title">Web authentication as an ordered list of rules in Java</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+    <li><a href="/articles/a-textbook-pull-request/"><span class="m-title">Structuring a pull request for review: a jOOQ bug fix</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+    <li><a href="/articles/dependency-free-json-for-java/"><span class="m-title">Contributions to Argo, a dependency-free JSON library for Java</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/projects/">Projects →</a></p>
+</nav>
+
+  </aside>
+</div>
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var order = ["system", "light", "dark"];
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        button.dataset.mode = mode;
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>

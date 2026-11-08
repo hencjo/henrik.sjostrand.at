@@ -32,14 +32,28 @@
         <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
       </ul>
       <ul>
-        <li><a href="/projects/">Projects</a></li>
-        <li><a href="/oss/">OSS</a></li>
-        <li><a href="/community/">Community</a></li>
-        <li>
-          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
-            <span aria-hidden="true" id="theme-icon">◐</span>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
           </button>
         </li>
+        <li><a href="/articles/">Articles</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+
       </ul>
     </nav>
   </header>
@@ -48,7 +62,7 @@
     <section class="intro">
   <h1>I’m Henrik</h1>
   <p class="lead">I’m a developer in Göteborg, and the part of the job I enjoy most is the stuff around the code: builds that come out the same every time, environments that just start, tests you didn’t have to write by hand.</p>
-  <p>I’ve been doing open source since the Java 6 days, started the <a href="https://brewingagile.org/">Brewing Agile</a> conference in 2012, and I still get a real kick out of a small tool that gives someone their afternoon back. Below is one of the things I’ve built — and why I think it’s interesting.</p>
+  <p>I’ve been doing open source since the Java 6 days, started the <a href="https://brewingagile.org/">Brewing Agile</a> conference in 2012, and I still get a real kick out of a small tool that gives someone their afternoon back. Below is my latest article.</p>
 </section>
 
 
@@ -60,28 +74,37 @@
 
 <div class="reader">
   
+
 <article class="post">
-  <header class="post-hero">
+  <header class="post-hero post-hero--bare">
     <p class="meta">
       <time datetime="2026-11-06">Nov 06, 2026</time>
-      <a href="https://github.com/hencjo/jix">github.com/hencjo/jix</a>
+      <a href="/projects/jix/" class="meta-project">jix</a>
     </p>
-    <h1><a href="/projects/jix/">jix</a></h1>
-    <p class="lead">Pinned Maven dependencies and reproducible Java builds powered by Nix.</p>
-    
-    <p class="pitch">Ever fought your build tool when all you wanted was to call javac? jix pins your Maven dependencies with Nix — so the build becomes a few lines you can read, and change.</p>
-    
+    <h1><a href="/articles/calling-javac-again/">Separating dependency resolution from the Java build</a></h1>
   </header>
 
   <div class="post-body">
-    <h2>The problem</h2>
-<p>First, credit where it's due: Maven gave Java the best dependency ecosystem of its generation. Group/artifact/version coordinates, POMs that describe what a library needs, and Maven Central — one place where nearly every Java library lives, with history going back twenty years. Every other language's package manager owes something to it. jix doesn't replace any of that; it depends on it.</p>
-<p>But have you ever battled your build tool and just wanted to call <code>javac</code> yourself?</p>
-<p>You know exactly what you want: compile these sources against those JARs, put this file in the JAR, done. Instead you're reading about Maven resource inclusions, picking between three plugins that almost do it, and debugging a lifecycle phase you didn't know existed. The build tool owns the dependency resolution, so it also owns everything else.</p>
-<p>And even when it works, it resolves dependencies at build time, from the network, with whatever JDK happens to be around. Same project, different day, different result.</p>
-<h2>The idea</h2>
-<p>Keep the ecosystem, split the two jobs. jix does the part that's genuinely hard — resolving dependencies from Maven Central the way Maven does, scopes, BOMs, exclusions and all — then locks the full graph and every artifact hash in <code>jix.lock</code>. After that, the dependencies are just pinned Nix values, and the build is ordinary code.</p>
-<p>Bundling a file is one line. Here's an entire executable JAR build:</p>
+    <h2>Background</h2>
+<p>Maven's dependency ecosystem deserves credit at the outset. Group/artifact/version coordinates, POMs that declare a library's requirements, and Maven Central, a single repository holding nearly every Java library with roughly twenty years of history, gave Java the strongest dependency ecosystem of its generation, and later package managers in other languages have drawn on it. jix does not replace any of this; it depends on it.</p>
+<p>The difficulty lies elsewhere. A build often has a simple, well-understood goal: compile these sources against these JARs and include a given file in the resulting JAR. Achieving it in Maven may nonetheless require reading about resource inclusion, choosing among several plugins that each nearly fit, and investigating lifecycle phases. Because the build tool owns dependency resolution, it also owns every other step of the build.</p>
+<p>Even when the build works, dependencies are resolved at build time, from the network, with whichever JDK is present. The same project can therefore produce different results on different days.</p>
+<h2>Approach</h2>
+<p>jix keeps the ecosystem and separates the two responsibilities. It performs the difficult part, resolving dependencies from Maven Central with Maven's semantics, including scopes, BOMs, and exclusions, and records the complete graph and every artifact hash in <code>jix.lock</code>. From that point on, dependencies are pinned Nix values, and the build is ordinary code.</p>
+<p>Dependencies are declared with ordinary Maven coordinates. Here the application uses Guava:</p>
+<figure>
+<pre class="language-nix" tabindex="0"><code class="language-nix"><span class="highlight-line"><span class="token punctuation">{</span> maven <span class="token punctuation">}</span><span class="token punctuation">:</span></span>
+<span class="highlight-line"><span class="token keyword">let</span></span>
+<mark class="highlight-line highlight-line-active">  common <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">"com.google.guava:guava:33.5.0-jre"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span></mark>
+<span class="highlight-line"><span class="token keyword">in</span> <span class="token punctuation">{</span></span>
+<span class="highlight-line">  classpaths <span class="token operator">=</span> <span class="token punctuation">{</span></span>
+<span class="highlight-line">    main <span class="token operator">=</span> maven<span class="token punctuation">.</span>resolve <span class="token punctuation">{</span> scope <span class="token operator">=</span> <span class="token string">"compile"</span><span class="token punctuation">;</span> dependencies <span class="token operator">=</span> common<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">    runtime <span class="token operator">=</span> maven<span class="token punctuation">.</span>resolve <span class="token punctuation">{</span> scope <span class="token operator">=</span> <span class="token string">"runtime"</span><span class="token punctuation">;</span> dependencies <span class="token operator">=</span> common<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="highlight-line"><span class="token punctuation">}</span></span></code></pre>
+<figcaption>maven.nix. A declaration only: no network access takes place until jix lock resolves and pins it.</figcaption></figure>
+<p><code>jix lock</code> resolves Guava together with its transitive dependencies (<code>failureaccess</code>, <code>jspecify</code>, and others) and writes the result to <code>jix.lock</code>. The build then refers to the locked classpaths as <code>deps.classpaths.main</code> and <code>deps.classpaths.runtime</code>.</p>
+<p>Including a resource takes one line. The following is a complete executable JAR build:</p>
 <figure>
 <pre class="language-nix" tabindex="0"><code class="language-nix"><span class="highlight-line"><span class="token punctuation">{</span> pkgs<span class="token punctuation">,</span> java<span class="token punctuation">,</span> deps<span class="token punctuation">,</span> jdk <span class="token operator">?</span> pkgs<span class="token punctuation">.</span>jdk21 <span class="token punctuation">}</span><span class="token punctuation">:</span></span>
 <span class="highlight-line"><span class="token keyword">let</span></span>
@@ -103,73 +126,65 @@
 <span class="highlight-line">    mainClass <span class="token operator">=</span> <span class="token string">"example.Main"</span><span class="token punctuation">;</span></span>
 <span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
 <span class="highlight-line"><span class="token keyword">in</span> <span class="token punctuation">{</span> <span class="token keyword">inherit</span> jar<span class="token punctuation">;</span> <span class="token punctuation">}</span></span></code></pre>
-<figcaption>build.nix — from jix's fat-JAR template. Resources are one line; there are no plugins.</figcaption></figure>
-<p>Want something the DSL doesn't do? <code>deps.classpaths.main</code> is a plain Nix derivation holding the pinned JARs. Write your own step and call <code>javac</code> with it — no plugin API to learn.</p>
+<figcaption>build.nix, from jix's fat-JAR template. The locked classpaths are passed in as deps; resources are declared in one line, and no plugins are involved.</figcaption></figure>
+<p>Where the DSL is insufficient, <code>deps.classpaths.main</code> is a plain Nix derivation containing the pinned JARs. A custom build step can invoke <code>javac</code> with it directly, without a plugin API.</p>
 <aside class="note">
 <p class="note-title">Design choice</p>
-<p>Builds never resolve dependencies or update locks. A missing or stale <code>jix.lock</code> stops the build instead of quietly going to the network.</p>
+<p>Builds never resolve dependencies or update locks. A missing or stale <code>jix.lock</code> causes the build to fail rather than fall back to the network.</p>
 </aside>
-<h2>What it does</h2>
+<h2>Features</h2>
 <ul>
-<li><strong>Two locks, no surprises.</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts.</li>
-<li><strong>Start small.</strong> Use locked classpaths with your current build first; adopt the build DSL later, or never.</li>
-<li><strong>Several environments, one lock.</strong> Declare named Java/OS contexts and <code>jix lock</code> pins all of them.</li>
-<li><strong>Plain Nix outputs.</strong> <code>jix build jar</code> is <code>nix build .#jar</code>; standard binary caches just work.</li>
-<li><strong>IDE included.</strong> <code>jix idea</code> generates IntelliJ configuration from the same pinned inputs.</li>
+<li><strong>Two lock files:</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts.</li>
+<li><strong>Incremental adoption:</strong> locked classpaths can be used with an existing build first, and the build DSL adopted later or not at all.</li>
+<li><strong>Multiple environments:</strong> named Java/OS contexts are declared once, and <code>jix lock</code> pins all of them.</li>
+<li><strong>Plain Nix outputs:</strong> <code>jix build jar</code> is equivalent to <code>nix build .#jar</code>, so standard binary caches apply.</li>
+<li><strong>IDE support:</strong> <code>jix idea</code> generates IntelliJ configuration from the same pinned inputs.</li>
 </ul>
-<h2>Why it's interesting</h2>
-<p>Build tools bundle two very different things: dependency resolution, which is hard and worth getting exactly right, and building, which is mostly &quot;run javac, zip the result&quot;. Because they're bundled, you pay for the first with the complexity of the second.</p>
-<p>Maven got the hard part right, and the whole Java world builds on it. jix treats that as something to respect, not reinvent: it resolves from the same repositories with the same semantics — checked against Maven 3.9 / Resolver 1.9 — and hands you the result as pinned, hash-checked inputs. What you do with them is up to you, in a language that's good at describing builds.</p>
-<h2>Try it</h2>
-<pre class="language-sh" tabindex="0"><code class="language-sh">jix init <span class="token parameter variable">--template</span> fat
-jix lock
-jix run</code></pre>
+<h2>Discussion</h2>
+<p>Build tools combine two different tasks: dependency resolution, which is difficult and must be exact, and building, which for the most part means running <code>javac</code> and packaging the result. Because the two are combined, the cost of the first is paid in the complexity of the second.</p>
+<p>Maven solved the difficult part, and the Java ecosystem rests on that solution. jix reuses it rather than reimplementing it: resolution uses the same repositories and the same semantics, verified against Maven 3.9 and Resolver 1.9, and the result is provided as pinned, hash-checked inputs. How those inputs are used is left to the build author, in a language suited to describing builds.</p>
 
   </div>
 </article>
 
   <aside class="reader-menu">
     
-<nav class="project-menu" aria-label="Projects">
-  <p class="menu-group">Projects</p>
+<nav class="project-menu" aria-label="Articles">
+  <p class="menu-group">Articles</p>
   <ul>
     
-    <li><a href="/projects/jix/" aria-current="page"><span class="m-title">jix</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
+    <li><a href="/articles/calling-javac-again/" aria-current="page"><span class="m-title">Separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
     
-    <li><a href="/projects/cryo/"><span class="m-title">cryo</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    <li><a href="/articles/an-agent-in-a-messy-confluence/"><span class="m-title">Read-only agent access to a corporate Confluence</span> <span class="m-year">2026</span><span class="m-blurb">An agent skill for the wiki</span></a></li>
     
-    <li><a href="/projects/fransson/"><span class="m-title">Fransson</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    <li><a href="/articles/curl-examples-are-tests/"><span class="m-title">Deriving API regression tests from existing curl examples</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
     
-    <li><a href="/projects/stow/"><span class="m-title">stow</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    <li><a href="/articles/reproducible-kafka-data/"><span class="m-title">Reproducible Kafka data for local and test environments</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
     
-    <li><a href="/projects/silo/"><span class="m-title">Silo</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    <li><a href="/articles/gitops-for-a-plain-docker-host/"><span class="m-title">GitOps deployments for a single Docker host</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
     
-    <li><a href="/projects/wkhtmltopdf-rest/"><span class="m-title">wkhtmltopdf-rest</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    <li><a href="/articles/packaging-opencode-with-nix/"><span class="m-title">Nix packaging for the opencode coding agent</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
     
-    <li><a href="/projects/summer-security-ldap/"><span class="m-title">Summer Security LDAP</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    <li><a href="/articles/openid-login-on-localhost/"><span class="m-title">A local OpenID Connect provider for development and testing</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
     
-    <li><a href="/projects/git-bash-prompt-utils/"><span class="m-title">git-bash-prompt-utils</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    <li><a href="/articles/papercuts-in-devenv/"><span class="m-title">Service modules, port allocation, and process watching in devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
     
-    <li><a href="/projects/summer-migration/"><span class="m-title">Summer Migration</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    <li><a href="/articles/url-in-pdf-out/"><span class="m-title">An HTTP interface to wkhtmltopdf, in Haskell</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
     
-    <li><a href="/projects/summer-security/"><span class="m-title">Summer Security</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    <li><a href="/articles/ldap-without-a-framework/"><span class="m-title">An LDAP authenticator for Summer Security</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
     
-  </ul>
-  <p class="menu-group">OSS</p>
-  <ul>
+    <li><a href="/articles/where-am-i-in-this-repo/"><span class="m-title">Showing the repository-relative path in a Bash prompt</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
     
-    <li><a href="/projects/confluence-cli/"><span class="m-title">confluence-cli</span> <span class="m-year">2026</span><span class="m-blurb">Nix flake and corporate TLS</span></a></li>
+    <li><a href="/articles/migrations-in-code-order/"><span class="m-title">Database migrations with an explicitly declared order</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
     
-    <li><a href="/projects/opencode/"><span class="m-title">opencode</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
+    <li><a href="/articles/authentication-as-plain-java/"><span class="m-title">Web authentication as an ordered list of rules in Java</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
     
-    <li><a href="/projects/devenv/"><span class="m-title">devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    <li><a href="/articles/a-textbook-pull-request/"><span class="m-title">Structuring a pull request for review: a jOOQ bug fix</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
     
-    <li><a href="/projects/jooq/"><span class="m-title">jOOQ</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
-    
-    <li><a href="/projects/argo/"><span class="m-title">Argo JSON Library</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    <li><a href="/articles/dependency-free-json-for-java/"><span class="m-title">Contributions to Argo, a dependency-free JSON library for Java</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
     
   </ul>
-  <p class="menu-more"><a href="/community/">Community →</a></p>
+  <p class="menu-more"><a href="/projects/">Projects →</a></p>
 </nav>
 
   </aside>
@@ -185,16 +200,14 @@ jix run</code></pre>
     (function () {
       var root = document.documentElement;
       var button = document.getElementById("theme-toggle");
-      var icon = document.getElementById("theme-icon");
       var order = ["system", "light", "dark"];
-      var icons = { system: "◐", light: "☀", dark: "☾" };
 
       function current() {
         return root.getAttribute("data-theme") || "system";
       }
 
       function render(mode) {
-        icon.textContent = icons[mode];
+        button.dataset.mode = mode;
         var label = "Color theme: " + mode;
         button.setAttribute("aria-label", label);
         button.title = label;
