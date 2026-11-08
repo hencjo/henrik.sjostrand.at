@@ -32,14 +32,19 @@
         <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
       </ul>
       <ul>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
+          </button>
+        </li>
         <li><a href="/projects/"{% if page.url and page.url.startsWith("/projects/") %} aria-current="page"{% endif %}>Projects</a></li>
         <li><a href="/oss/"{% if page.url == "/oss/" %} aria-current="page"{% endif %}>OSS</a></li>
         <li><a href="/community/"{% if page.url == "/community/" %} aria-current="page"{% endif %}>Community</a></li>
-        <li>
-          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Color theme: system" title="Color theme: system">
-            <span aria-hidden="true" id="theme-icon">◐</span>
-          </button>
-        </li>
+        {% include "social-icons.njk" %}
       </ul>
     </nav>
   </header>
@@ -56,16 +61,14 @@
     (function () {
       var root = document.documentElement;
       var button = document.getElementById("theme-toggle");
-      var icon = document.getElementById("theme-icon");
       var order = ["system", "light", "dark"];
-      var icons = { system: "◐", light: "☀", dark: "☾" };
 
       function current() {
         return root.getAttribute("data-theme") || "system";
       }
 
       function render(mode) {
-        icon.textContent = icons[mode];
+        button.dataset.mode = mode;
         var label = "Color theme: " + mode;
         button.setAttribute("aria-label", label);
         button.title = label;
