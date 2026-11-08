@@ -1,4 +1,5 @@
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 
 const escapeHtml = (s) =>
   String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -28,6 +29,20 @@ export default function (eleventyConfig) {
 
   // Build-time Prism highlighting for fenced code blocks (no client JS).
   eleventyConfig.addPlugin(syntaxHighlight, { preAttributes: { tabindex: 0 } });
+
+  // Atom feed of all articles at /feed.xml (newest first; the collection is already sorted).
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom",
+    outputPath: "/feed.xml",
+    collection: { name: "articles", limit: 0, sort: "descending" },
+    metadata: {
+      language: "en",
+      title: "Henrik Sjöstrand",
+      subtitle: "Notes on tools I build and use: the problems they address and the approaches they take.",
+      base: "https://henrik.sjostrand.at/",
+      author: { name: "Henrik Sjöstrand" }
+    }
+  });
 
   // {% figure "Caption" %} …markdown, e.g. a fenced code block… {% endfigure %}
   eleventyConfig.addPairedShortcode("figure", (content, caption = "") => {

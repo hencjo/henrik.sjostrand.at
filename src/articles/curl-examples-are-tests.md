@@ -1,17 +1,19 @@
 ---
-title: "Deriving API regression tests from existing curl examples"
+title: "Introducing cryo: API regression tests from existing curl examples"
 date: 2026-08-27
 project: cryo
-summary: "HTTP snapshot tests built from curl examples already present in a codebase, and from OpenAPI operations."
+summary: "cryo turns curl examples already present in a codebase, and OpenAPI operations, into reviewed HTTP snapshot tests."
 blurb: "Snapshot tests from curl examples"
-pitch: "Most codebases already contain informal API tests in the form of curl examples in documentation. cryo collects them and turns them into reviewed regression checks."
+pitch: "cryo is now available: most codebases already contain informal API tests in the form of curl examples in documentation. cryo collects them and turns them into reviewed regression checks."
 ---
 
-## Background
+I am releasing [cryo](https://github.com/hencjo/cryo), a tool for HTTP snapshot testing. It finds the `curl` examples already present in a codebase, or imports operations from an OpenAPI specification, records their responses as readable snapshots, and reports later changes for review.
+
+## Why
 
 API regression tests are valuable but tedious to write, and are consequently often absent. At the same time, READMEs and code comments frequently contain working `curl` examples, and an OpenAPI specification, where one exists, already enumerates every operation.
 
-## Approach
+## How it works
 
 cryo applies approval testing to HTTP APIs:
 
@@ -87,7 +89,10 @@ Authorization: Bearer {{API_TOKEN}}
 CSV responses are handled in the same way, by column: `cryo replace add report-get csv generated_at '<generated-at>'`.
 {% endraw %}
 
-## Discussion
+## Design
 
-The approach reuses tests that already exist instead of requiring new ones, and treats every change in a response as something to be reviewed. Defaults are conservative: discovery enables only side-effect-free loopback `GET`/`HEAD` requests, and OpenAPI import ignores the specification's `servers` field, so a production endpoint cannot become a test target by accident. Status changes are also classified; a transition from 200 to 500, for instance, is reported as a regression rather than as an ordinary difference.
+cryo reuses tests that already exist instead of requiring new ones, and treats every change in a response as something to be reviewed. Defaults are conservative: discovery enables only side-effect-free loopback `GET`/`HEAD` requests, and OpenAPI import ignores the specification's `servers` field, so a production endpoint cannot become a test target by accident. Status changes are also classified; a transition from 200 to 500, for instance, is reported as a regression rather than as an ordinary difference.
 
+## Availability
+
+cryo is open source and available on [GitHub](https://github.com/hencjo/cryo). Static Linux x86_64 archives, each with a SHA-256 checksum, are published under [GitHub Releases](https://github.com/hencjo/cryo/releases). It can also be installed with `cargo install --git https://github.com/hencjo/cryo cryo`, which requires `bash` and `curl` on `PATH`, or run directly with `nix run github:hencjo/cryo`. Issues and feedback are welcome.

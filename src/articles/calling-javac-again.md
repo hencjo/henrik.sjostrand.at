@@ -1,13 +1,15 @@
 ---
-title: "Separating dependency resolution from the Java build"
+title: "Introducing jix: separating dependency resolution from the Java build"
 date: 2026-11-06
 project: jix
-summary: "Maven dependencies resolved once, pinned with Nix, and consumed by builds written as ordinary code."
+summary: "jix resolves Maven dependencies once, pins them with Nix, and lets builds be written as ordinary code."
 blurb: "Java builds without the build tool fight"
-pitch: "Build tools couple dependency resolution with everything else, so a simple change to the build often means working through plugins and lifecycle phases. jix separates the two: dependencies are pinned with Nix, and the build becomes a short, readable description."
+pitch: "jix is now available: dependencies are resolved from Maven Central with Maven's semantics and pinned with Nix, so the build itself becomes a short, readable description instead of a plugin configuration."
 ---
 
-## Background
+I am releasing [jix](https://github.com/hencjo/jix), a tool that resolves Java dependencies from Maven Central, pins the complete graph and every artifact hash, and provides the result to Nix. The locked classpaths can be used with an existing build, or with jix's optional build DSL, in which a build is a few lines of ordinary code.
+
+## Why
 
 Maven's dependency ecosystem deserves credit at the outset. Group/artifact/version coordinates, POMs that declare a library's requirements, and Maven Central, a single repository holding nearly every Java library with roughly twenty years of history, gave Java the strongest dependency ecosystem of its generation, and later package managers in other languages have drawn on it. jix does not replace any of this; it depends on it.
 
@@ -15,7 +17,7 @@ The difficulty lies elsewhere. A build often has a simple, well-understood goal:
 
 Even when the build works, dependencies are resolved at build time, from the network, with whichever JDK is present. The same project can therefore produce different results on different days.
 
-## Approach
+## How it works
 
 jix keeps the ecosystem and separates the two responsibilities. It performs the difficult part, resolving dependencies from Maven Central with Maven's semantics, including scopes, BOMs, and exclusions, and records the complete graph and every artifact hash in `jix.lock`. From that point on, dependencies are pinned Nix values, and the build is ordinary code.
 
@@ -78,9 +80,13 @@ Builds never resolve dependencies or update locks. A missing or stale `jix.lock`
 - **Plain Nix outputs:** `jix build jar` is equivalent to `nix build .#jar`, so standard binary caches apply.
 - **IDE support:** `jix idea` generates IntelliJ configuration from the same pinned inputs.
 
-## Discussion
+## Design
 
 Build tools combine two different tasks: dependency resolution, which is difficult and must be exact, and building, which for the most part means running `javac` and packaging the result. Because the two are combined, the cost of the first is paid in the complexity of the second.
 
 Maven solved the difficult part, and the Java ecosystem rests on that solution. jix reuses it rather than reimplementing it: resolution uses the same repositories and the same semantics, verified against Maven 3.9 and Resolver 1.9, and the result is provided as pinned, hash-checked inputs. How those inputs are used is left to the build author, in a language suited to describing builds.
 
+
+## Availability
+
+jix is open source and available on [GitHub](https://github.com/hencjo/jix). It runs on Linux (x86-64 and AArch64) and requires Nix. A new project with an executable JAR build is three commands away: `jix init --template fat`, `jix lock`, and `jix run`. Issues and feedback are welcome.
