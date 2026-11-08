@@ -1,0 +1,10 @@
+{# Floating article menu. `currentUrl` marks the active entry. #}
+<nav class="project-menu" aria-label="Articles">
+  <p class="menu-group">Articles</p>
+  <ul>
+    {% for item in collections.articles %}
+    <li><a href="{{ item.url }}"{% if item.url == currentUrl %} aria-current="page"{% endif %}><span class="m-title">{{ item.data.title }}</span> <span class="m-year">{{ item.date | readableYear }}</span>{% if item.data.blurb %}<span class="m-blurb">{{ item.data.blurb }}</span>{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+  <p class="menu-more"><a href="/projects/">Projects →</a></p>
+</nav>

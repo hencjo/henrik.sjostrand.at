@@ -55,19 +55,24 @@ export default function (eleventyConfig) {
     return new Date(value).toISOString().slice(0, 10);
   });
 
-  eleventyConfig.addCollection("projects", (collectionApi) => {
-    return collectionApi
-      .getFilteredByGlob("src/projects/*.md")
-      .filter((item) => item.data.kind !== "contribution")
-      .sort((a, b) => b.date - a.date);
-  });
+  const newestFirst = (api, glob) => api.getFilteredByGlob(glob).sort((a, b) => b.date - a.date);
 
-  eleventyConfig.addCollection("contributions", (collectionApi) => {
-    return collectionApi
-      .getFilteredByGlob("src/projects/*.md")
-      .filter((item) => item.data.kind === "contribution")
-      .sort((a, b) => b.date - a.date);
-  });
+  // Articles: posts about a topic or tool. Each names its project with `project: <slug>`.
+  eleventyConfig.addCollection("articles", (api) => newestFirst(api, "src/articles/*.md"));
+
+  // Projects: short intros, one per project / OSS contribution / community entry.
+  eleventyConfig.addCollection("projectList", (api) => newestFirst(api, "src/projects/*.md"));
+  for (const kind of ["project", "oss", "community"]) {
+    eleventyConfig.addCollection(`kind_${kind}`, (api) =>
+      newestFirst(api, "src/projects/*.md").filter((item) => item.data.kind === kind));
+  }
+
+  eleventyConfig.addFilter("articlesFor", (articles, slug) =>
+    (articles || []).filter((item) => item.data.project === slug));
+  eleventyConfig.addFilter("projectBySlug", (projects, slug) =>
+    (projects || []).find((item) => item.fileSlug === slug));
+  eleventyConfig.addFilter("kindLabel", (kind) =>
+    ({ project: "Project", oss: "OSS", community: "Community" })[kind] || kind);
 
   return {
     markdownTemplateEngine: "njk",

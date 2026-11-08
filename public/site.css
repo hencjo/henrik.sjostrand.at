@@ -963,3 +963,24 @@ h2, h3 {
 .theme-toggle[data-mode="system"] svg[data-mode="system"],
 .theme-toggle[data-mode="light"] svg[data-mode="light"],
 .theme-toggle[data-mode="dark"] svg[data-mode="dark"] { display: block; }
+
+/* Articles + projects */
+.section-label {
+  margin: 2.5rem 0 .75rem;
+  font-family: var(--pico-font-family-sans-serif);
+  font-variation-settings: normal;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--pico-muted-color);
+}
+.page-header + .section-label { margin-top: 0; }
+.post-hero .meta .kind-label { text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; font-weight: 600; }
+.project-articles { margin-top: 2.5rem; }
+.project-rows > .row { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main"; padding: 1.1rem 0; }
+.project-rows > .row:first-child { padding-top: .25rem; }
+.project-rows .row h3 { font-size: 1.35rem; margin-bottom: .25rem; }
+.project-rows .row-summary { max-width: var(--measure); color: var(--pico-muted-color); }
+.project-articles .rows > .row { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "pitch"; gap: .5rem; padding: 1.25rem 0; }
+.project-articles .row h3 { font-size: 1.5rem; }

@@ -1,11 +1,21 @@
 ---
 layout: layouts/base.njk
 title: Projects
+eleventyExcludeFromCollections: true
 ---
 <hgroup class="page-header">
   <h1>Projects</h1>
-  <p>Things built, maintained, debugged, or dragged into better shape.</p>
+  <p>Things I’ve built, open source I help with, and communities I’ve run. Articles go into the details.</p>
 </hgroup>
 
-{% set items = collections.projects %}
-{% include "entry-list.njk" %}
+<h2 class="section-label" id="projects">Projects</h2>
+{% set items = collections.kind_project %}
+{% include "project-list.njk" %}
+
+<h2 class="section-label" id="oss">OSS</h2>
+{% set items = collections.kind_oss %}
+{% include "project-list.njk" %}
+
+<h2 class="section-label" id="community">Community</h2>
+{% set items = collections.kind_community %}
+{% include "project-list.njk" %}

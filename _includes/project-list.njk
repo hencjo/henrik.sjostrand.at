@@ -1,0 +1,12 @@
+{# Project rows. Expects: items (project entries). #}
+<ol class="rows project-rows">
+  {% for item in items %}
+    {% set n = (collections.articles | articlesFor(item.fileSlug)).length %}
+    <li class="row">
+      <div class="row-main">
+        <h3><a href="{{ item.url }}">{{ item.data.title }}</a> <time>{{ item.data.period or (item.date | readableYear) }}{% if n %} · {{ n }} article{% if n != 1 %}s{% endif %}{% endif %}</time></h3>
+        {% if item.data.intro %}<p class="row-summary">{{ item.data.intro }}</p>{% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ol>

@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+---
+{% set currentUrl = page.url %}
+{% set items = collections.articles | articlesFor(page.fileSlug) %}
+<div class="reader">
+  <article class="post project-page">
+    <header class="post-hero">
+      <p class="meta">
+        <span class="kind-label">{{ kind | kindLabel }}</span>
+        <span>{{ period or (page.date | readableYear) }}</span>
+        {% if url %}<a href="{{ url }}">{{ url | replace("https://", "") | replace("www.", "") | replace(r/\/$/, "") }}</a>{% endif %}
+      </p>
+      <h1>{{ title }}</h1>
+      {% if intro %}<p class="lead">{{ intro }}</p>{% endif %}
+    </header>
+    {% if content | trim %}<div class="post-body">{{ content | safe }}</div>{% endif %}
+    {% if items.length %}
+    <section class="project-articles">
+      <h2 class="section-label">Articles</h2>
+      {% include "entry-list.njk" %}
+    </section>
+    {% endif %}
+  </article>
+  <aside class="reader-menu">
+    {% include "article-menu.njk" %}
+  </aside>
+</div>

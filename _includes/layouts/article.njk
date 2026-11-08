@@ -1,14 +1,14 @@
 ---
 layout: layouts/base.njk
 ---
-{% set p = { title: title, kind: kind, summary: summary, pitch: pitch, url: url } %}
+{% set p = { title: title, summary: summary, pitch: pitch, project: project } %}
 {% set pdate = page.date %}
 {% set purl = page.url %}
 {% set body = content %}
 {% set currentUrl = page.url %}
 <div class="reader">
-  {% include "project-article.njk" %}
+  {% include "post.njk" %}
   <aside class="reader-menu">
-    {% include "project-menu.njk" %}
+    {% include "article-menu.njk" %}
   </aside>
 </div>
