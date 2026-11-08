@@ -738,11 +738,7 @@ main > section + section {
 }
 
 .reader-menu {
-  position: sticky;
-  top: 1.5rem;
-  max-height: calc(100vh - 3rem);
-  overflow-y: auto;
-  scrollbar-width: thin;
+  /* Flows with the page: no sticky positioning, so no inner scrollbar. */
 }
 
 .project-menu {
