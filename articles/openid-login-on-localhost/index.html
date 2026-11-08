@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A local OpenID Connect provider for development and testing · Henrik Sjöstrand</title>
+  <title>Introducing Silo: a local OpenID Connect provider for development and testing · Henrik Sjöstrand</title>
   <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
   <meta name="color-scheme" content="light dark">
   <script>
@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="/fonts/ibm-plex-mono/400-italic.css">
   <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Henrik Sjöstrand · Articles">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,6 +54,11 @@
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
   </a>
 </li>
+<li>
+  <a class="social" href="/feed.xml" aria-label="Atom feed" title="Atom feed">
+    <svg viewBox="2.5 2 20 20" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M4 4.5a1 1 0 0 1 1-1A15.5 15.5 0 0 1 20.5 19a1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A12.3 12.3 0 0 0 5 6.7a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1 9.5 9.5 0 0 1 9.5 9.5 1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A6.3 6.3 0 0 0 5 12.7a1 1 0 0 1-1-1zM6.5 15a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+</li>
 
       </ul>
     </nav>
@@ -73,21 +79,29 @@
       <time datetime="2026-05-04">May 04, 2026</time>
       <a href="/projects/silo/" class="meta-project">Silo</a>
     </p>
-    <h1>A local OpenID Connect provider for development and testing</h1>
+    <h1>Introducing Silo: a local OpenID Connect provider for development and testing</h1>
   </header>
 
   <div class="post-body">
-    <h2>Background</h2>
-<p>Applications that authenticate through OpenID Connect are difficult to run locally. Using the production identity provider during development requires test accounts, network access, and registered redirect URLs, and makes switching between users cumbersome.</p>
-<h2>Approach</h2>
+    <p>I am releasing <a href="https://github.com/hencjo/silo">Silo</a>, a local OpenID Connect provider for development and test environments. It runs the authorization-code flow in the browser with a built-in user picker, issues signed tokens, and publishes a JWKS endpoint, so applications can be run and tested locally without a corporate identity provider.</p>
+<h2>Why</h2>
+<p>Applications that authenticate through OpenID Connect are difficult to run locally. Using the production identity provider during development requires test accounts, network access, and registered redirect URLs, and makes switching between users cumbersome. Replacing the authentication code path with a development-only shortcut avoids those problems, but then the code under test is no longer the code that runs in production.</p>
+<h2>How it works</h2>
+<p>Silo implements the parts of an OpenID Connect provider that an application interacts with:</p>
 <ul>
-<li><strong>Endpoints:</strong> OpenID discovery, authorization, token, and JWKS, issuing RS256-signed ID and access tokens.</li>
-<li><strong>User selection:</strong> a browser-based user picker for the authorization-code flow, with mock users defined in YAML.</li>
+<li><strong>Endpoints:</strong> discovery at <code>/Silo/.well-known/openid-configuration</code>, together with authorization, token, and JWKS endpoints.</li>
+<li><strong>Tokens:</strong> RS256-signed ID and access tokens for the authorization-code flow. Refresh tokens are not issued.</li>
+<li><strong>User selection:</strong> a browser-based user picker in place of a login form, with mock users and their claims defined in YAML.</li>
 <li><strong>Client credentials:</strong> service-to-service tokens with scope-dependent mock claims.</li>
-<li><strong>Client mode:</strong> obtaining access tokens from a real issuer on the command line, via <code>authorization_code</code> or <code>client_credentials</code>.</li>
 </ul>
-<h2>Discussion</h2>
-<p>Applications continue to validate genuine JWTs against a genuine JWKS endpoint, so the code path exercised in development is the production one; only the identity provider is replaced, by one that starts in about a second.</p>
+<p>Silo also works as a client. It can obtain access tokens on the command line, via <code>authorization_code</code> or <code>client_credentials</code>, from Silo itself or from a real issuer.</p>
+<h2>Design</h2>
+<p>Applications continue to validate genuine JWTs against a genuine JWKS endpoint, so the code path exercised in development is the production one. Only the identity provider is replaced, by one that runs locally and starts in about a second.</p>
+<h2>Availability</h2>
+<p>Silo is open source and available on <a href="https://github.com/hencjo/silo">GitHub</a>. It can be installed with <code>nix profile add github:hencjo/silo</code>, or run directly from the flake:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">nix run github:hencjo/silo -- example-config <span class="token operator">></span> config.yaml
+nix run github:hencjo/silo -- serve <span class="token parameter variable">--port</span> <span class="token number">9799</span> --config-file config.yaml</code></pre>
+<p>Issues and feedback are welcome.</p>
 
   </div>
 </article>
@@ -98,19 +112,17 @@
   <p class="menu-group">Articles</p>
   <ul>
     
-    <li><a href="/articles/calling-javac-again/"><span class="m-title">Separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
+    <li><a href="/articles/calling-javac-again/"><span class="m-title">Introducing jix: separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
     
     <li><a href="/articles/an-agent-in-a-messy-confluence/"><span class="m-title">Read-only agent access to a corporate Confluence</span> <span class="m-year">2026</span><span class="m-blurb">An agent skill for the wiki</span></a></li>
     
-    <li><a href="/articles/curl-examples-are-tests/"><span class="m-title">Deriving API regression tests from existing curl examples</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    <li><a href="/articles/curl-examples-are-tests/"><span class="m-title">Introducing cryo: API regression tests from existing curl examples</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
     
-    <li><a href="/articles/reproducible-kafka-data/"><span class="m-title">Reproducible Kafka data for local and test environments</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    <li><a href="/articles/reproducible-kafka-data/"><span class="m-title">Introducing Fransson: reproducible Kafka topics for local and test environments</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
     
-    <li><a href="/articles/gitops-for-a-plain-docker-host/"><span class="m-title">GitOps deployments for a single Docker host</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    <li><a href="/articles/gitops-for-a-plain-docker-host/"><span class="m-title">Introducing stow: GitOps deployments for a single Docker host</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
     
-    <li><a href="/articles/packaging-opencode-with-nix/"><span class="m-title">Nix packaging for the opencode coding agent</span> <span class="m-year">2026</span><span class="m-blurb">Nix packaging for a coding agent</span></a></li>
-    
-    <li><a href="/articles/openid-login-on-localhost/" aria-current="page"><span class="m-title">A local OpenID Connect provider for development and testing</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    <li><a href="/articles/openid-login-on-localhost/" aria-current="page"><span class="m-title">Introducing Silo: a local OpenID Connect provider for development and testing</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
     
     <li><a href="/articles/papercuts-in-devenv/"><span class="m-title">Service modules, port allocation, and process watching in devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
     
@@ -138,7 +150,7 @@
   </main>
 
   <footer class="container-fluid site-footer">
-    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+    <small><a href="/about/">About</a> · <a href="/about/#contact">Contact</a> · <a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
 
   <script>

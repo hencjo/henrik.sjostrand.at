@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="/fonts/ibm-plex-mono/400-italic.css">
   <link rel="stylesheet" href="/css/pico.min.css">
   <link rel="stylesheet" href="/site.css">
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Henrik Sjöstrand · Articles">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,6 +54,11 @@
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
   </a>
 </li>
+<li>
+  <a class="social" href="/feed.xml" aria-label="Atom feed" title="Atom feed">
+    <svg viewBox="2.5 2 20 20" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M4 4.5a1 1 0 0 1 1-1A15.5 15.5 0 0 1 20.5 19a1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A12.3 12.3 0 0 0 5 6.7a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1 9.5 9.5 0 0 1 9.5 9.5 1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A6.3 6.3 0 0 0 5 12.7a1 1 0 0 1-1-1zM6.5 15a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+</li>
 
       </ul>
     </nav>
@@ -71,10 +77,10 @@
     <li class="row">
       <div class="row-main">
         <p class="row-date"><time datetime="2026-11-06">Nov 06, 2026</time></p>
-        <h3><a href="/articles/calling-javac-again/">Separating dependency resolution from the Java build</a></h3>
-        <p class="row-summary">Maven dependencies resolved once, pinned with Nix, and consumed by builds written as ordinary code.</p>
+        <h3><a href="/articles/calling-javac-again/">Introducing jix: separating dependency resolution from the Java build</a></h3>
+        <p class="row-summary">jix resolves Maven dependencies once, pins them with Nix, and lets builds be written as ordinary code.</p>
       </div>
-      <p class="row-pitch">Build tools couple dependency resolution with everything else, so a simple change to the build often means working through plugins and lifecycle phases. jix separates the two: dependencies are pinned with Nix, and the build becomes a short, readable description.</p>
+      <p class="row-pitch">jix is now available: dependencies are resolved from Maven Central with Maven&#39;s semantics and pinned with Nix, so the build itself becomes a short, readable description instead of a plugin configuration.</p>
     </li>
     
   
@@ -93,10 +99,10 @@
     <li class="row">
       <div class="row-main">
         <p class="row-date"><time datetime="2026-08-27">Aug 27, 2026</time></p>
-        <h3><a href="/articles/curl-examples-are-tests/">Deriving API regression tests from existing curl examples</a></h3>
-        <p class="row-summary">HTTP snapshot tests built from curl examples already present in a codebase, and from OpenAPI operations.</p>
+        <h3><a href="/articles/curl-examples-are-tests/">Introducing cryo: API regression tests from existing curl examples</a></h3>
+        <p class="row-summary">cryo turns curl examples already present in a codebase, and OpenAPI operations, into reviewed HTTP snapshot tests.</p>
       </div>
-      <p class="row-pitch">Most codebases already contain informal API tests in the form of curl examples in documentation. cryo collects them and turns them into reviewed regression checks.</p>
+      <p class="row-pitch">cryo is now available: most codebases already contain informal API tests in the form of curl examples in documentation. cryo collects them and turns them into reviewed regression checks.</p>
     </li>
     
   
@@ -104,10 +110,10 @@
     <li class="row">
       <div class="row-main">
         <p class="row-date"><time datetime="2026-08-06">Aug 06, 2026</time></p>
-        <h3><a href="/articles/reproducible-kafka-data/">Reproducible Kafka data for local and test environments</a></h3>
-        <p class="row-summary">A one-directional tool for archiving, restoring, and synchronizing Kafka topics deterministically.</p>
+        <h3><a href="/articles/reproducible-kafka-data/">Introducing Fransson: reproducible Kafka topics for local and test environments</a></h3>
+        <p class="row-summary">Fransson is a one-directional tool for dumping, restoring, and cloning Kafka topics, with their partitioning and configuration intact.</p>
       </div>
-      <p class="row-pitch">Realistic Kafka data in local and test environments, reproducible byte for byte, without ad-hoc scripts against production clusters.</p>
+      <p class="row-pitch">Fransson is now available: a tool for reproducing Kafka topics in local and test clusters, with matching partition counts and topic configuration, safe cloning from live sources, and dumps that restore identically.</p>
     </li>
     
   
@@ -115,21 +121,10 @@
     <li class="row">
       <div class="row-main">
         <p class="row-date"><time datetime="2026-06-12">Jun 12, 2026</time></p>
-        <h3><a href="/articles/gitops-for-a-plain-docker-host/">GitOps deployments for a single Docker host</a></h3>
-        <p class="row-summary">A GitOps reconciler for Docker service deployments, with changes reviewed as merge requests and automatic convergence on the host.</p>
+        <h3><a href="/articles/gitops-for-a-plain-docker-host/">Introducing stow: GitOps deployments for a single Docker host</a></h3>
+        <p class="row-summary">stow is a GitOps reconciler for Docker service deployments, with changes reviewed as merge requests and automatic convergence on the host.</p>
       </div>
-      <p class="row-pitch">Reviewed, auditable deployments for a plain Docker host: changes are merge requests, and the host converges, or rolls back, without manual intervention.</p>
-    </li>
-    
-  
-    
-    <li class="row">
-      <div class="row-main">
-        <p class="row-date"><time datetime="2026-05-28">May 28, 2026</time></p>
-        <h3><a href="/articles/packaging-opencode-with-nix/">Nix packaging for the opencode coding agent</a></h3>
-        <p class="row-summary">Nix-related fixes and packaging work for the open source coding agent opencode.</p>
-      </div>
-      <p class="row-pitch">Keeping an open source coding agent buildable and runnable reproducibly with Nix.</p>
+      <p class="row-pitch">stow is now available: reviewed, auditable deployments for a plain Docker host. Changes are merge requests, and the host converges, or rolls back, without manual intervention.</p>
     </li>
     
   
@@ -137,10 +132,10 @@
     <li class="row">
       <div class="row-main">
         <p class="row-date"><time datetime="2026-05-04">May 04, 2026</time></p>
-        <h3><a href="/articles/openid-login-on-localhost/">A local OpenID Connect provider for development and testing</a></h3>
-        <p class="row-summary">A local-only OpenID Connect mock provider for development and tests.</p>
+        <h3><a href="/articles/openid-login-on-localhost/">Introducing Silo: a local OpenID Connect provider for development and testing</a></h3>
+        <p class="row-summary">Silo is a local-only OpenID Connect mock provider, with a browser user picker and signed tokens, for development and tests.</p>
       </div>
-      <p class="row-pitch">A complete OpenID Connect login flow on localhost, with a user picker in place of a corporate identity provider.</p>
+      <p class="row-pitch">Silo is now available: a complete OpenID Connect login flow on localhost, with a user picker in place of a corporate identity provider.</p>
     </li>
     
   
@@ -238,7 +233,7 @@
   </main>
 
   <footer class="container-fluid site-footer">
-    <small><a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+    <small><a href="/about/">About</a> · <a href="/about/#contact">Contact</a> · <a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
   </footer>
 
   <script>

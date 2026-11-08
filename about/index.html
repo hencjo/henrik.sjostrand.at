@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/fonts/fraunces/full.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/500.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400-italic.css">
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Henrik Sjöstrand · Articles">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
+          </button>
+        </li>
+        <li><a href="/articles/">Articles</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="/feed.xml" aria-label="Atom feed" title="Atom feed">
+    <svg viewBox="2.5 2 20 20" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M4 4.5a1 1 0 0 1 1-1A15.5 15.5 0 0 1 20.5 19a1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A12.3 12.3 0 0 0 5 6.7a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1 9.5 9.5 0 0 1 9.5 9.5 1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A6.3 6.3 0 0 0 5 12.7a1 1 0 0 1-1-1zM6.5 15a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+</li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    <article class="post about">
+  <header class="post-hero post-hero--bare">
+    <h1>About me</h1>
+  </header>
+
+  <div class="post-body">
+    <p class="lead">I’m Henrik, a developer living in Härryda, just outside Göteborg.</p>
+
+    <h2>How it started</h2>
+    <p>I’ve loved computers since 1994, and Linux has been my main operating system since 2003. Somewhere along the way the tinkering turned into a job, but it never really stopped being the tinkering.</p>
+    <p>I started doing open source back in the Java 6 days, and in 2012 I founded the Brewing Agile conference, which grew out of the Scrum Beers crowd here in Göteborg and ran until 2018.</p>
+
+    <h2>What I do</h2>
+    <p>I work as a developer, though these days most of my time goes into the bigger picture: the architecture and technical direction of connectivity platforms in telco that a lot of people rely on every day, from domain and API design all the way to running them in production. Much of it happens across team and company boundaries. I also wrote a standard interface between service providers and operators. I’m happy it has had an impact at all, and I believe it makes the business simpler for everyone involved.</p>
+    <p>The part I enjoy most is making systems simpler and sturdier, and pleasant to work on: builds that come out the same every time, environments that just start, tests you didn’t have to write by hand.</p>
+
+    <h2>What I care about</h2>
+    <p>Important inputs should be explicit, not discovered. Things should be reproducible, so that the same project gives the same result tomorrow. Dangerous operations should be boring: one direction, read-only by default, nothing destructive without asking. And a small tool that does one job well usually beats a large one that does everything almost.</p>
+
+    <h2>Outside work</h2>
+    <p>I have two kids, a house that is always a little bit of a DIY project, and a boat that is a DIY project too.</p>
+
+    <h2 id="contact">Contact</h2>
+    <p>I’m happy to hear from you, whether it’s about one of my projects, something I’ve written, or work.</p>
+    <ul class="contact-list">
+      <li><span class="contact-label">Email</span> <a href="mailto:henrik@sjostrand.at">henrik@sjostrand.at</a></li>
+      
+      <li><span class="contact-label">LinkedIn</span> <a href="https://www.linkedin.com/in/hencjo/">linkedin.com/in/hencjo</a> <span class="contact-note">the easiest way to reach me about work</span></li>
+      
+      <li><span class="contact-label">GitHub</span> <a href="https://github.com/hencjo">github.com/hencjo</a> <span class="contact-note">questions, issues and pull requests on my projects</span></li>
+      
+      <li><span class="contact-label">X</span> <a href="https://x.com/hencjo">x.com/hencjo</a></li>
+      
+    </ul>
+  </div>
+</article>
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="/about/">About</a> · <a href="/about/#contact">Contact</a> · <a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var order = ["system", "light", "dark"];
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        button.dataset.mode = mode;
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>
