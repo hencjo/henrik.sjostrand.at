@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contributions to Argo, a dependency-free JSON library for Java · Henrik Sjöstrand</title>
+  <title>Two contributions to Argo, a dependency-free JSON library for Java · Henrik Sjöstrand</title>
   <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
   <meta name="color-scheme" content="light dark">
   <script>
@@ -76,20 +76,20 @@
 <article class="post">
   <header class="post-hero post-hero--bare">
     <p class="meta">
-      <time datetime="2011-02-12">Feb 12, 2011</time>
+      <time datetime="2016-08-24">Aug 24, 2016</time>
       <a href="/projects/argo/" class="meta-project">Argo JSON Library</a>
     </p>
-    <h1>Contributions to Argo, a dependency-free JSON library for Java</h1>
+    <h1>Two contributions to Argo, a dependency-free JSON library for Java</h1>
   </header>
 
   <div class="post-body">
     <h2>Background</h2>
-<p>Argo is a JSON parser and generator for Java without external dependencies, originally hosted on SourceForge.</p>
+<p><a href="https://github.com/argo-json/argo">Argo</a> is a JSON parser and generator for Java without external dependencies, maintained by Mark Slater and originally hosted on SourceForge.</p>
 <h2>Contribution</h2>
-<p>I contributed to the library during its SourceForge period. The record is less complete than for later, GitHub-hosted work; the available references are the SourceForge and GitHub project histories and an old Rebel Alliance profile listing Argo among my open source contributions.</p>
+<p><strong>Incomplete reads (2016).</strong> <code>Reader.read(char[])</code> may return fewer characters than the buffer holds, in which case the caller is expected to call it again. Argo's <code>PositionTrackingPushbackReader</code> assumed a single call filled the buffer. With readers backed by local data this rarely shows, but with readers backed by a network buffer it caused parse failures. I changed the reader to keep reading until the buffer is full or the input ends, and added a regression test using a reader that deliberately returns input in small pieces. The maintainer <a href="https://github.com/argo-json/argo/commit/510fa05b4313790c66ce81f45d89506da82457c1">merged the fix</a>.</p>
+<p><strong>Buffered reading (2026).</strong> <a href="https://github.com/argo-json/argo/pull/19">Pull request #19</a> changed <code>JsonParser</code> to read from its <code>Reader</code> into a small character buffer instead of one character at a time. This reduces per-character overhead and follows the usual <code>Reader.read(char[])</code> pattern, without changing parsing behaviour.</p>
 <h2>Discussion</h2>
-<p>Small libraries without dependencies are a recurring preference in my work, and Argo is an early instance of it.</p>
-<p><a href="https://argo.sourceforge.net/">Argo site</a> · <a href="https://sourceforge.net/projects/argo/">SourceForge</a></p>
+<p>Both changes concern the same boundary: how a parser consumes its input. The first is a correctness issue that only appears with certain kinds of input source, which is why the regression test simulates one rather than relying on local data. Small libraries without dependencies are a recurring preference in my work, and Argo is one I have used for a long time.</p>
 
   </div>
 </article>
@@ -114,6 +114,8 @@
     
     <li><a href="/articles/papercuts-in-devenv/"><span class="m-title">Service modules, port allocation, and process watching in devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
     
+    <li><a href="/articles/dependency-free-json-for-java/" aria-current="page"><span class="m-title">Two contributions to Argo, a dependency-free JSON library for Java</span> <span class="m-year">2016</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
     <li><a href="/articles/url-in-pdf-out/"><span class="m-title">An HTTP interface to wkhtmltopdf, in Haskell</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
     
     <li><a href="/articles/ldap-without-a-framework/"><span class="m-title">An LDAP authenticator for Summer Security</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
@@ -125,8 +127,6 @@
     <li><a href="/articles/authentication-as-plain-java/"><span class="m-title">Web authentication as an ordered list of rules in Java</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
     
     <li><a href="/articles/a-textbook-pull-request/"><span class="m-title">Structuring a pull request for review: a jOOQ bug fix</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
-    
-    <li><a href="/articles/dependency-free-json-for-java/" aria-current="page"><span class="m-title">Contributions to Argo, a dependency-free JSON library for Java</span> <span class="m-year">2011</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
     
   </ul>
   <p class="menu-more"><a href="/projects/">Projects →</a></p>

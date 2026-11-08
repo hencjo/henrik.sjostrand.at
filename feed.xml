@@ -332,6 +332,21 @@ nix run github:hencjo/silo -- serve &lt;span class=&quot;token parameter variabl
 </content>
   </entry>
   <entry>
+    <title>Two contributions to Argo, a dependency-free JSON library for Java</title>
+    <link href="https://henrik.sjostrand.at/articles/dependency-free-json-for-java/" />
+    <updated>2016-08-24T00:00:00Z</updated>
+    <id>https://henrik.sjostrand.at/articles/dependency-free-json-for-java/</id>
+    <summary>A fix for incomplete reads in Argo&#39;s position-tracking reader (2016), and buffered reading in its parser (2026).</summary>
+    <content type="html">&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/argo-json/argo&quot;&gt;Argo&lt;/a&gt; is a JSON parser and generator for Java without external dependencies, maintained by Mark Slater and originally hosted on SourceForge.&lt;/p&gt;
+&lt;h2&gt;Contribution&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Incomplete reads (2016).&lt;/strong&gt; &lt;code&gt;Reader.read(char[])&lt;/code&gt; may return fewer characters than the buffer holds, in which case the caller is expected to call it again. Argo&#39;s &lt;code&gt;PositionTrackingPushbackReader&lt;/code&gt; assumed a single call filled the buffer. With readers backed by local data this rarely shows, but with readers backed by a network buffer it caused parse failures. I changed the reader to keep reading until the buffer is full or the input ends, and added a regression test using a reader that deliberately returns input in small pieces. The maintainer &lt;a href=&quot;https://github.com/argo-json/argo/commit/510fa05b4313790c66ce81f45d89506da82457c1&quot;&gt;merged the fix&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Buffered reading (2026).&lt;/strong&gt; &lt;a href=&quot;https://github.com/argo-json/argo/pull/19&quot;&gt;Pull request #19&lt;/a&gt; changed &lt;code&gt;JsonParser&lt;/code&gt; to read from its &lt;code&gt;Reader&lt;/code&gt; into a small character buffer instead of one character at a time. This reduces per-character overhead and follows the usual &lt;code&gt;Reader.read(char[])&lt;/code&gt; pattern, without changing parsing behaviour.&lt;/p&gt;
+&lt;h2&gt;Discussion&lt;/h2&gt;
+&lt;p&gt;Both changes concern the same boundary: how a parser consumes its input. The first is a correctness issue that only appears with certain kinds of input source, which is why the regression test simulates one rather than relying on local data. Small libraries without dependencies are a recurring preference in my work, and Argo is one I have used for a long time.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <title>An HTTP interface to wkhtmltopdf, in Haskell</title>
     <link href="https://henrik.sjostrand.at/articles/url-in-pdf-out/" />
     <updated>2014-02-23T00:00:00Z</updated>
@@ -428,21 +443,6 @@ nix run github:hencjo/silo -- serve &lt;span class=&quot;token parameter variabl
 &lt;p&gt;I submitted a &lt;a href=&quot;https://github.com/jOOQ/jOOQ/pull/1889&quot;&gt;pull request&lt;/a&gt; correcting the escaping. The change was deliberately ordered as a sequence of small steps: preparatory refactorings first, then a regression test that reproduced the defect, and finally the fix itself.&lt;/p&gt;
 &lt;h2&gt;Discussion&lt;/h2&gt;
 &lt;p&gt;The jOOQ blog later used this pull request as its example in &lt;a href=&quot;https://blog.jooq.org/how-to-provide-a-good-pull-request/&quot;&gt;How to provide a good pull request&lt;/a&gt;. The fix itself was minor. The observation I took from it is that the order and granularity of a change largely determine how easily it can be reviewed.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Contributions to Argo, a dependency-free JSON library for Java</title>
-    <link href="https://henrik.sjostrand.at/articles/dependency-free-json-for-java/" />
-    <updated>2011-02-12T00:00:00Z</updated>
-    <id>https://henrik.sjostrand.at/articles/dependency-free-json-for-java/</id>
-    <summary>Early open source contributions to Argo, a small dependency-free JSON parser and generator for Java.</summary>
-    <content type="html">&lt;h2&gt;Background&lt;/h2&gt;
-&lt;p&gt;Argo is a JSON parser and generator for Java without external dependencies, originally hosted on SourceForge.&lt;/p&gt;
-&lt;h2&gt;Contribution&lt;/h2&gt;
-&lt;p&gt;I contributed to the library during its SourceForge period. The record is less complete than for later, GitHub-hosted work; the available references are the SourceForge and GitHub project histories and an old Rebel Alliance profile listing Argo among my open source contributions.&lt;/p&gt;
-&lt;h2&gt;Discussion&lt;/h2&gt;
-&lt;p&gt;Small libraries without dependencies are a recurring preference in my work, and Argo is an early instance of it.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://argo.sourceforge.net/&quot;&gt;Argo site&lt;/a&gt; · &lt;a href=&quot;https://sourceforge.net/projects/argo/&quot;&gt;SourceForge&lt;/a&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>
