@@ -98,12 +98,3 @@ Two obstacles prevented this setup from working in my environment. I addressed b
 
 The setup requires few components: a CLI with predictable behaviour, a page of instructions, and SecretSpec to keep the credential out of reach. No integration platform or dedicated bot is involved. The relevant judgement is encoded in the skill file: narrow queries, page content treated as data rather than instructions, and no writes without explicit approval. These constraints are what made it acceptable, in my view, to give an agent access to the wiki at all.
 
-## Reproduction
-
-```sh
-confluence auth status
-confluence search "some topic" --space SPACEKEY --output json
-confluence pull tree PAGE_ID ./notes/topic
-```
-
-Once these commands work, the remaining step is the skill file described above.

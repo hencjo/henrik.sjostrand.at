@@ -1,17 +1,17 @@
 ---
-title: "Where am I in this repo? A Git-aware Bash prompt"
+title: "Showing the repository-relative path in a Bash prompt"
 date: 2013-05-14
 project: git-bash-prompt-utils
-summary: "Small Bash helpers for nicer Git-aware prompts."
+summary: "Small Bash helpers for Git-aware prompts."
 blurb: "Git-aware Bash prompts"
-pitch: "Show where you are relative to the repository root — deep project trees get a lot less miserable."
+pitch: "A Bash prompt that shows the current directory relative to the repository root, which is considerably more useful in deep project trees."
 ---
 
-## The problem
+## Background
 
-In deep Maven-style trees, `\w` in a Bash prompt turns into a wall of path, while the part you actually care about — where you are inside the repository — gets lost.
+In deep, Maven-style directory trees, the `\w` escape in a Bash prompt expands to a long path, and the relevant part, the position within the repository, is difficult to see.
 
-## What it does
+## Approach
 
 `__git_relative_subdir` replaces `\w` with the working directory relative to the Git root:
 
@@ -21,8 +21,8 @@ In deep Maven-style trees, `\w` in a Bash prompt turns into a wall of path, whil
  master /module1/src/main/java $
 ```
 
-Combine it with `__git_ps1` for branch and status.
+It can be combined with `__git_ps1` to show the branch and status.
 
-## Why it's interesting
+## Discussion
 
-Tiny tool, real quality-of-life improvement. You look at your prompt thousands of times a day; it's worth making it say the right thing.
+The change is small, but a prompt is read many times a day, and it is reasonable for it to show the most relevant information.

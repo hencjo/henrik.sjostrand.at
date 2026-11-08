@@ -1,19 +1,19 @@
 ---
-title: "Database migrations in the order you wrote them"
+title: "Database migrations with an explicitly declared order"
 date: 2013-01-12
 project: summer-migration
-summary: "A simple Java database migration library built around explicit migration descriptions."
+summary: "A small Java database migration library in which migrations and their order are declared in code."
 blurb: "Explicit database migrations"
-pitch: "Database migrations where the order is written in code — not decided by whatever files happen to be on the classpath."
+pitch: "Database migrations whose order is declared in code, rather than inferred from whichever files are found on the classpath."
 ---
 
-## The problem
+## Background
 
-Migration tools of the time leaned on classpath scanning, naming conventions, XML, and logging framework dependencies. Which migrations ran, and in what order, depended on what was found — not on what you meant.
+Migration tools of the period typically relied on classpath scanning, naming conventions, XML configuration, and a logging framework. Which migrations ran, and in which order, depended on what was discovered at runtime rather than on what had been specified.
 
-## What it does
+## Approach
 
-Migrations are described explicitly in Java:
+Migrations are declared explicitly in Java:
 
 ```java
 migrations(
@@ -22,8 +22,8 @@ migrations(
 );
 ```
 
-SQL scripts and Java-based migrations sit side by side, and it's easy to extend with your own.
+SQL scripts and Java-based migrations can be combined, and further migration types can be added.
 
-## Why it's interesting
+## Discussion
 
-The design goals are deliberately boring: minimal dependencies, no logging framework, configuration in code, and **no resource discovery** — a missing script fails the upgrade instead of silently changing it. It's an early example of a theme that runs through most of my work: make the important inputs explicit.
+The design goals are intentionally modest: minimal dependencies, no logging framework, configuration in code, and no resource discovery. A missing script causes the upgrade to fail rather than silently altering it. The library is an early example of a principle that recurs in my later work: important inputs should be explicit.

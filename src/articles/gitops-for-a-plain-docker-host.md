@@ -1,27 +1,27 @@
 ---
-title: "GitOps for a plain Docker host"
+title: "GitOps deployments for a single Docker host"
 date: 2026-06-12
 project: stow
-summary: "GitOps reconciler for Docker service deployments with reviewable changes and automatic convergence."
+summary: "A GitOps reconciler for Docker service deployments, with changes reviewed as merge requests and automatic convergence on the host."
 blurb: "GitOps for a plain Docker host"
-pitch: "GitOps for a plain Docker host: deployments are merge requests, and the host converges — or rolls back — on its own."
+pitch: "Reviewed, auditable deployments for a plain Docker host: changes are merge requests, and the host converges, or rolls back, without manual intervention."
 ---
 
-## The problem
+## Background
 
-Not every service needs Kubernetes, but every service deserves reviewed, auditable, repeatable deployments. On a plain Docker host that usually degrades into SSH sessions and shell scripts.
+Not every service warrants Kubernetes, but reviewed, auditable, and repeatable deployments are desirable regardless of scale. On a single Docker host, deployment in practice tends to reduce to SSH sessions and shell scripts.
 
-## What it does
+## Approach
 
-A GitLab repository is the source of truth. Each service is a `stow.yaml` descriptor plus versioned configuration.
+A GitLab repository is the source of truth. Each service is described by a `stow.yaml` descriptor and versioned configuration. A deployment proceeds as follows:
 
 1. The application pipeline builds and pushes an image.
-2. `stow suggest-image` opens or updates a merge request pinning the image digest (and optional changelog).
-3. After merge, the deployment pipeline pokes the host daemon.
-4. `stow daemon` reconciles Docker to the latest default-branch HEAD, decrypting SOPS-managed config, verifying the new instance, and rolling back automatically if verification fails.
+2. `stow suggest-image` opens or updates a merge request that pins the image digest, optionally with a changelog.
+3. After the merge, the deployment pipeline notifies the daemon on the host.
+4. `stow daemon` reconciles Docker with the latest commit on the default branch: it decrypts SOPS-managed configuration, verifies the new instance, and rolls back automatically if verification fails.
 
-## Why it's interesting
+## Discussion
 
-It brings the good parts of GitOps — declarative descriptors, digest-pinned artifacts, approvals in merge requests, convergence status — to a single host in one small binary. No cluster, no operator, no control plane to babysit.
+stow brings the principal properties of GitOps (declarative descriptors, digest-pinned artifacts, approval through merge requests, and observable convergence) to a single host, in one binary, without a cluster, operator, or control plane.
 
-The details are careful: YAML edits preserve unrelated bytes, re-running a suggestion never duplicates a merge request, and a moved target branch fails safely instead of racing.
+Several details are handled conservatively. YAML edits preserve unrelated content byte for byte, repeating a suggestion does not create duplicate merge requests, and a target branch that has moved causes a safe failure rather than a race.

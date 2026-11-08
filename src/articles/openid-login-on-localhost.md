@@ -1,30 +1,24 @@
 ---
-title: "A real OpenID login on localhost"
+title: "A local OpenID Connect provider for development and testing"
 date: 2026-05-04
 project: silo
-summary: "Local-only OpenID mock backend for development and tests."
+summary: "A local-only OpenID Connect mock provider for development and tests."
 blurb: "OpenID mock for local dev"
-pitch: "A real-looking OpenID login flow on localhost, with a user picker instead of a corporate identity provider."
+pitch: "A complete OpenID Connect login flow on localhost, with a user picker in place of a corporate identity provider."
 ---
 
-## The problem
+## Background
 
-Applications that log in via OpenID Connect are awkward to run locally. Pointing development at the real identity provider means test accounts, network access, and redirect URLs someone has to register — and switching users is painful.
+Applications that authenticate through OpenID Connect are difficult to run locally. Using the production identity provider during development requires test accounts, network access, and registered redirect URLs, and makes switching between users cumbersome.
 
-## What it does
+## Approach
 
-- **OpenID discovery, authorization, token, and JWKS endpoints** with RS256-signed ID and access tokens.
-- **A browser user picker** for the authorization-code flow, with mock users defined in YAML.
-- **Client credentials** with scope-gated mock claims for service-to-service tokens.
-- **A client too:** fetch real access tokens from a real issuer via `authorization_code` or `client_credentials` from the command line.
+- **Endpoints:** OpenID discovery, authorization, token, and JWKS, issuing RS256-signed ID and access tokens.
+- **User selection:** a browser-based user picker for the authorization-code flow, with mock users defined in YAML.
+- **Client credentials:** service-to-service tokens with scope-dependent mock claims.
+- **Client mode:** obtaining access tokens from a real issuer on the command line, via `authorization_code` or `client_credentials`.
 
-## Why it's interesting
+## Discussion
 
-It's practical glue — the kind of tool that removes friction from other people's work. Apps keep validating real JWTs against a real JWKS, so the code path under test is the production one; only the identity provider is swapped for something you can run in a second.
+Applications continue to validate genuine JWTs against a genuine JWKS endpoint, so the code path exercised in development is the production one; only the identity provider is replaced, by one that starts in about a second.
 
-## Try it
-
-```sh
-nix run github:hencjo/silo -- example-config > config.yaml
-nix run github:hencjo/silo -- serve --port 9799 --config-file config.yaml
-```

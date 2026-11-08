@@ -1,5 +1,5 @@
 ---
-title: "A topic-style title, not just the project name"
+title: "A descriptive title, not a slogan"
 date: 2026-01-01
 project: project-slug        # file name in src/projects/ (without .md)
 summary: "One line: what the article is about."            # under the title and in lists
@@ -9,38 +9,33 @@ pitch: "One sentence: why it's interesting."               # italic line under t
 
 <!--
   Copy to src/articles/<topic-slug>.md. Aim for 300–700 words and one good code example.
-  Shape: problem → idea → example → why it's interesting → try it.
+  Shape: Background → Approach → Discussion.
+  Register: dry and academic. Measured claims, first person only for my own
+  experience, no rhetorical questions or addressing the reader.
   Run `npm run dev` and open /styleguide/ to see every element rendered.
 -->
 
-## The problem
+## Background
 
-Two or three short paragraphs. Who hits this, when, and what they do today.
-Make the pain concrete — a real situation beats a feature list.
+The context and the problem, stated plainly. What was difficult, for whom,
+and how it was handled before. Specific situations rather than generalities.
 
-## The idea
+## Approach
 
-What the project does differently, in plain words. One paragraph, then the
-example does the convincing.
+What the project does, and how. One paragraph, then the example.
 
 ```java
-// The smallest example that shows the idea.
+// The smallest example that shows the approach.
 // Highlight the lines that matter: ```java/2,4-5 (zero-based line numbers)
 ```
 
-What to notice in the example — one short paragraph, pointing at the key lines.
+One short paragraph on what the example shows, referring to the key lines.
 
 {% note "Design choice" %}
-Optional: a constraint, trade-off, or thing it deliberately doesn't do.
+Optional: a constraint, trade-off, or deliberate omission.
 {% endnote %}
 
-## Why it's interesting
+## Discussion
 
-The real point of the article. What's the insight, what's the taste,
-what would you do differently from the usual approach — and why.
-
-## Try it
-
-```sh
-nix run github:hencjo/project-name -- --help
-```
+Why the approach is of interest: the underlying observation, the trade-offs,
+and how it differs from the usual approach.

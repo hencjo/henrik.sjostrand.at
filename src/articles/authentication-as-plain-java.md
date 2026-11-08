@@ -1,19 +1,19 @@
 ---
-title: "Web authentication as plain Java rules"
+title: "Web authentication as an ordered list of rules in Java"
 date: 2012-12-19
 project: summer-security
-summary: "A small Java authentication library/DSL with code-first configuration and no dependencies."
+summary: "A small, dependency-free Java library that expresses web authentication as a code-first DSL."
 blurb: "Code-first web authentication"
-pitch: "Web authentication as a readable list of rules in plain Java — no XML, no ThreadLocals, no framework."
+pitch: "Authentication policy expressed as an ordered list of rules in plain Java, without XML configuration, thread-local state, or a framework."
 ---
 
-## The problem
+## Background
 
-Plenty of Java web applications need login, and little else. Full security frameworks bring XML configuration, hidden global state, and a large surface area for what is often a handful of rules.
+Many Java web applications require authentication and little else. The security frameworks available at the time brought XML configuration, implicit global state, and a large surface area relative to what was often a handful of rules.
 
-## What it does
+## Approach
 
-Summer Security is a servlet filter configured as a small DSL:
+Summer Security is a servlet filter configured through a small DSL. Rules are evaluated in order, and the first matching rule determines the response:
 
 ```java
 summer(logger,
@@ -25,8 +25,8 @@ summer(logger,
 );
 ```
 
-It supports HTTP Basic and form login (compatible with Spring Security conventions), and is extendable through request matchers and responders.
+It supports HTTP Basic and form-based login (compatible with Spring Security conventions), and can be extended through custom request matchers and responders.
 
-## Why it's interesting
+## Discussion
 
-The whole policy reads top to bottom on one screen. The logged-in user is a function of the request rather than ThreadLocal magic, there are no dependencies, and the scope is honest: authentication, not authorization.
+The complete policy is readable top to bottom in one place. The authenticated user is derived from the request rather than held in thread-local state, the library has no dependencies, and its scope is limited to authentication; authorization is left to the application.

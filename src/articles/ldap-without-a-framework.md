@@ -1,16 +1,16 @@
 ---
-title: "LDAP login without a framework"
+title: "An LDAP authenticator for Summer Security"
 date: 2013-11-24
 project: summer-security-ldap
-summary: "LDAP authenticator for Summer Security."
+summary: "A companion library that adds LDAP authentication to Summer Security."
 blurb: "LDAP for Summer Security"
-pitch: "Plug a directory into Summer Security without pulling in a framework to do it."
+pitch: "Directory-based authentication added to Summer Security as a separate component, without introducing a framework."
 ---
 
-## What it does
+## Approach
 
-An LDAP `Authenticator` for [Summer Security](/projects/summer-security/), so the same small, code-configured filter can authenticate users against a corporate directory.
+This library provides an LDAP `Authenticator` for [Summer Security](/projects/summer-security/), so that the same small, code-configured filter can authenticate users against a corporate directory.
 
-## Why it's interesting
+## Discussion
 
-It shows the payoff of keeping the core small: authentication backends are just another explicitly wired component, so adding LDAP is a companion library rather than a configuration project.
+It illustrates a consequence of keeping the core small: authentication backends are explicitly wired components, so adding LDAP support amounts to a companion library rather than a configuration exercise.

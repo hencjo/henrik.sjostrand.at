@@ -984,3 +984,10 @@ h2, h3 {
 .project-rows .row-summary { max-width: var(--measure); color: var(--pico-muted-color); }
 .project-articles .rows > .row { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "pitch"; gap: .5rem; padding: 1.25rem 0; }
 .project-articles .row h3 { font-size: 1.5rem; }
+
+/* Article header: title and meta only, straight into the body */
+.post-hero--bare { margin-bottom: 1.5rem; padding-bottom: 0; border-bottom: 0; }
+.post-hero--bare + .post-body > h2:first-child { margin-top: 0; }
+
+/* Date above the headline in article lists */
+.row-date { margin: 0 0 .35rem; font-size: .85rem; color: var(--pico-muted-color); }

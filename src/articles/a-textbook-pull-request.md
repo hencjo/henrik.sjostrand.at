@@ -1,24 +1,20 @@
 ---
-title: "A textbook pull request to jOOQ"
+title: "Structuring a pull request for review: a jOOQ bug fix"
 date: 2012-10-26
 project: jooq
-summary: "Fix for inserting PostgreSQL string arrays containing quotes or backslashes."
+summary: "A fix for inserting PostgreSQL string arrays containing quotes or backslashes, later cited by the jOOQ project as an example pull request."
 blurb: "A textbook pull request"
-pitch: "A small bug fix that the jOOQ blog later held up as an example of how to write a good pull request."
+pitch: "A small bug fix whose structure (refactoring, then a regression test, then the fix) the jOOQ project later used as an example of a well-formed contribution."
 ---
 
-## The project
+## Background
 
-jOOQ is a type-safe SQL DSL and code generator for Java.
+jOOQ is a type-safe SQL DSL and code generator for Java. At the time, inserting values into PostgreSQL string arrays failed when the strings contained `"` or `\` characters.
 
-## What I did
+## Contribution
 
-Fixed insertion into PostgreSQL string arrays when the strings contained `"` or `\` characters.
+I submitted a [pull request](https://github.com/jOOQ/jOOQ/pull/1889) correcting the escaping. The change was deliberately ordered as a sequence of small steps: preparatory refactorings first, then a regression test that reproduced the defect, and finally the fix itself.
 
-The pull request was shaped deliberately: small refactoring steps first, then a regression test, then the actual fix.
+## Discussion
 
-## Why it matters
-
-The jOOQ blog later used it as its example in [How to provide a good pull request](https://blog.jooq.org/how-to-provide-a-good-pull-request/), calling it an “awesome pull request”. The fix was small; the lesson about making changes easy to review has stuck with me since.
-
-[Pull request](https://github.com/jOOQ/jOOQ/pull/1889)
+The jOOQ blog later used this pull request as its example in [How to provide a good pull request](https://blog.jooq.org/how-to-provide-a-good-pull-request/). The fix itself was minor. The observation I took from it is that the order and granularity of a change largely determine how easily it can be reviewed.

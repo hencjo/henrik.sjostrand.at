@@ -3,7 +3,8 @@
     {% if not limit or loop.index <= limit %}
     <li class="row">
       <div class="row-main">
-        <h3><a href="{{ item.url }}">{{ item.data.title }}</a> <time datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time></h3>
+        <p class="row-date"><time datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time></p>
+        <h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
         {% if item.data.summary %}<p class="row-summary">{{ item.data.summary }}</p>{% endif %}
       </div>
       {% if item.data.pitch %}<p class="row-pitch">{{ item.data.pitch }}</p>{% endif %}

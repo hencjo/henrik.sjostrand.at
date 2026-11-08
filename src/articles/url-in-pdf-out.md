@@ -1,20 +1,20 @@
 ---
-title: "URL in, PDF out: a tiny Haskell service"
+title: "An HTTP interface to wkhtmltopdf, in Haskell"
 date: 2014-02-23
 project: wkhtmltopdf-rest
-summary: "A small REST wrapper around wkhtmltopdf: send a URL, get a PDF."
+summary: "A small REST service around wkhtmltopdf: it accepts a URL and returns a PDF."
 blurb: "URL in, PDF out"
-pitch: "One job, one endpoint: give it a URL, get a PDF back — written in Haskell."
+pitch: "A single-purpose service, written in Haskell, that accepts a URL and returns the rendered PDF."
 ---
 
-## The problem
+## Background
 
-Generating PDFs from HTML is a common need, and `wkhtmltopdf` does it well — but it's a command-line tool, and you don't want every application shelling out to it and managing its dependencies.
+Generating PDFs from HTML is a common requirement, and `wkhtmltopdf` performs it well. It is, however, a command-line tool with native dependencies, and having every application invoke it directly spreads those dependencies across systems.
 
-## What it does
+## Approach
 
-A small Haskell web service that wraps `wkhtmltopdf`: it accepts a URL and returns the rendered PDF.
+A small Haskell web service wraps `wkhtmltopdf`. It accepts a URL and returns the rendered PDF.
 
-## Why it's interesting
+## Discussion
 
-It isolates an awkward native dependency behind a tiny HTTP interface, so applications only need to speak HTTP. Not glamorous — useful. And a good excuse to put Haskell into production-shaped work.
+The service confines an awkward native dependency behind a minimal HTTP interface, so that client applications need only HTTP. It was also an opportunity to apply Haskell to a production-oriented problem.

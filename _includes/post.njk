@@ -1,16 +1,12 @@
-{# Renders one article. Expects: p (data, incl. project slug), pdate, purl, body, linkTitle. #}
+{# Renders one article. Expects: p (data, incl. project slug; summary/pitch are for lists only), pdate, purl, body, linkTitle. #}
 {% set proj = collections.projectList | projectBySlug(p.project) %}
 <article class="post">
-  <header class="post-hero">
+  <header class="post-hero post-hero--bare">
     <p class="meta">
       <time datetime="{{ pdate | htmlDateString }}">{{ pdate | readableDate }}</time>
       {% if proj %}<a href="{{ proj.url }}" class="meta-project">{{ proj.data.title }}</a>{% endif %}
     </p>
     <h1>{% if linkTitle %}<a href="{{ purl }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h1>
-    {% if p.summary %}<p class="lead">{{ p.summary }}</p>{% endif %}
-    {% if p.pitch %}
-    <p class="pitch">{{ p.pitch }}</p>
-    {% endif %}
   </header>
 
   <div class="post-body">

@@ -1,26 +1,26 @@
 ---
-title: "Fixing papercuts in devenv"
+title: "Service modules, port allocation, and process watching in devenv"
 date: 2026-03-18
 project: devenv
-summary: "Contributions to reproducible developer environments: services, port allocation, process watching, and cache sharp edges."
+summary: "Contributions to devenv covering service modules, port allocation, process watching, and evaluation caching."
 blurb: "Services, ports, process watching"
-pitch: "Fewer papercuts in the tool I use every day: services that start cleanly, ports that don't collide, processes that don't restart for nothing."
+pitch: "A series of small fixes to a tool I use daily: services that start cleanly, ports that do not collide across projects, and processes that do not restart without cause."
 ---
 
-## The project
+## Background
 
-devenv is a Nix-based tool for fast, declarative, reproducible developer environments — languages, packages, services, and processes in one file. This site is built with it.
+devenv is a Nix-based tool for declarative, reproducible developer environments, combining languages, packages, services, and processes in a single file. This site is built with it.
 
-## What I did
+## Contribution
 
-- added the `services.mosquitto` module, tests, and documentation
+- added the `services.mosquitto` module, with tests and documentation
 - worked on the MongoDB module, including `services.mongodb.replication`
 - improved RabbitMQ port allocation for distribution and EPMD ports
 - allocated OpenTelemetry Collector listener ports
-- fixed process watching so processes do not restart on meaningless file events
-- tightened dynamic port allocation and eval-cache behavior
-- added regression tests around port allocation across repositories
+- fixed process watching so that processes are not restarted on irrelevant file events
+- tightened dynamic port allocation and evaluation-cache behaviour
+- added regression tests for port allocation across repositories
 
-## Why it matters
+## Discussion
 
-When you switch between many projects, the tool either disappears or it gets in the way. Port collisions between repositories and spurious restarts are exactly the kind of friction that makes people give up on reproducible environments. This is the kind of open source I like: better defaults, more confidence.
+When working across many projects, an environment tool is either unobtrusive or a source of friction. Port collisions between repositories and spurious restarts are typical examples of the latter, and are a common reason for abandoning reproducible environments altogether.

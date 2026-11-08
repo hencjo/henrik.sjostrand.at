@@ -2,32 +2,25 @@
 title: "Reproducible Kafka data for local and test environments"
 date: 2026-08-06
 project: fransson
-summary: "Repeatable Kafka data for local and test environments."
+summary: "A one-directional tool for archiving, restoring, and synchronizing Kafka topics deterministically."
 blurb: "Reproducible Kafka data"
-pitch: "Realistic Kafka data locally, byte-for-byte reproducible, without hand-rolled scripts poking at production clusters."
+pitch: "Realistic Kafka data in local and test environments, reproducible byte for byte, without ad-hoc scripts against production clusters."
 ---
 
-## The problem
+## Background
 
-Event-driven systems are hard to develop against with toy data. Compacted reference topics, real message shapes, and real volumes matter — but copying data out of production Kafka usually means ad-hoc scripts, nervous operators, and environments nobody can recreate.
+Event-driven systems are difficult to develop against with synthetic data. Compacted reference topics, realistic message shapes, and realistic volumes all matter. Copying data out of a production Kafka cluster, however, usually involves ad-hoc scripts and produces environments that cannot be recreated.
 
-## What it does
+## Approach
 
-Fransson is a deliberately one-way tool: source connections are read-only, every write goes to the configured destination.
+Fransson is strictly one-directional: source connections are read-only, and all writes go to the configured destination.
 
-- **Dump and restore.** Archive selected topics up to the high-watermark, then restore them deterministically into local or test Kafka. Equal partition contents produce byte-identical archives.
-- **Clone and stream.** Keep compacted topics in sync, or forward only new events while it runs.
-- **Manage topic shape.** Reconcile topic configuration declaratively, or start each run with a fresh empty topic.
-- **Faithful copies.** Partition, key, payload, timestamp, and headers are preserved; nothing is transformed or repartitioned.
+- **Dump and restore:** archive selected topics up to the high-watermark, then restore them deterministically into a local or test cluster. Identical partition contents produce byte-identical archives.
+- **Clone and stream:** keep compacted topics synchronized, or forward only new events while running.
+- **Topic configuration:** reconcile topic configuration declaratively, or begin each run with a new, empty topic.
+- **Fidelity:** partition, key, payload, timestamp, and headers are preserved; nothing is transformed or repartitioned.
 
-## Why it's interesting
+## Discussion
 
-It treats Kafka state as something you can declare and reproduce, rather than a seed file you hope still works. The design keeps the dangerous parts boring: one direction, explicit modes, preflight checks before anything destructive, and a clear story for "restore only if empty".
+Fransson treats Kafka state as something to be declared and reproduced, rather than a seed file that may or may not still apply. Risk is managed by restricting the design: a single direction of data flow, explicit modes, preflight checks before destructive operations, and a defined behaviour for restoring only into empty topics.
 
-## Try it
-
-```sh
-nix run github:hencjo/fransson -- --help
-fransson dump --config fransson.yaml --source production:products --archive products.fransson.zst
-fransson restore --config fransson.yaml
-```
