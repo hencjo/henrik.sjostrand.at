@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Introducing roro: a container registry for GitLab CI with less to operate · Henrik Sjöstrand</title>
+  <meta name="description" content="Projects, open source contributions, and community work by Henrik Sjöstrand.">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="/fonts/fraunces/full.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/400-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/500.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-sans/600-italic.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400.css">
+  <link rel="stylesheet" href="/fonts/ibm-plex-mono/400-italic.css">
+  <link rel="stylesheet" href="/css/pico.min.css">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Henrik Sjöstrand · Articles">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="container-fluid site-header">
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="/" class="brand">Henrik Sjöstrand</a></li>
+      </ul>
+      <ul>
+        <li class="theme-item">
+          <button type="button" class="theme-toggle" id="theme-toggle" data-mode="system" aria-label="Color theme: system" title="Color theme: system">
+            <span aria-hidden="true" id="theme-icon">
+              <svg data-mode="system" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+              <svg data-mode="light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg data-mode="dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+            </span>
+          </button>
+        </li>
+        <li><a href="/articles/" aria-current="page">Articles</a></li>
+        <li><a href="/projects/">Projects</a></li>
+        <li>
+  <a class="social" href="https://github.com/hencjo" aria-label="GitHub" title="GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="https://www.linkedin.com/in/hencjo/" aria-label="LinkedIn" title="LinkedIn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+  </a>
+</li>
+<li>
+  <a class="social" href="/feed.xml" aria-label="Atom feed" title="Atom feed">
+    <svg viewBox="2.5 2 20 20" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M4 4.5a1 1 0 0 1 1-1A15.5 15.5 0 0 1 20.5 19a1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A12.3 12.3 0 0 0 5 6.7a1 1 0 0 1-1-1zm0 6a1 1 0 0 1 1-1 9.5 9.5 0 0 1 9.5 9.5 1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1A6.3 6.3 0 0 0 5 12.7a1 1 0 0 1-1-1zM6.5 15a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+</li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container-fluid" id="main">
+    
+
+
+
+
+<div class="reader">
+  
+
+<article class="post">
+  <header class="post-hero post-hero--bare">
+    <p class="meta">
+      <time datetime="2026-11-24">Nov 24, 2026</time>
+      <a href="/projects/roro/" class="meta-project">roro</a>
+    </p>
+    <h1>Introducing roro: a container registry for GitLab CI with less to operate</h1>
+  </header>
+
+  <div class="post-body">
+    <p>Today I'm releasing <a href="https://github.com/hencjo/roro">roro</a> (Roll On Roll Off): a container registry for GitLab CI that's minimal and easy to run.</p>
+<p><strong>What roro needs:</strong></p>
+<ul>
+<li>a GitLab that issues CI ID tokens (JWTs),</li>
+<li>a TLS certificate (or roro generates one),</li>
+<li>disk to store the images.</li>
+</ul>
+<p><strong>What roro doesn't need:</strong> a database, an object store, an auth service, user accounts, repositories to create, or permissions to keep in sync.</p>
+<h2>Most of it is already in GitLab</h2>
+<p>A registry has to answer a few questions: who is pushing, where they may push, and whether they're allowed to. GitLab already has all of these answers:</p>
+<ul>
+<li><strong>Namespaces:</strong> your GitLab project path, like <code>team/app</code>.</li>
+<li><strong>Users:</strong> the people and CI jobs GitLab already knows.</li>
+<li><strong>Permissions:</strong> the project roles you've already given them.</li>
+</ul>
+<p>And GitLab can hand these answers to a CI job as a signed ID token. So roro doesn't keep its own copy of any of it. It checks the signature and reads the answer, and the only thing left to store is the images themselves.</p>
+<h2>Pushing from CI</h2>
+<p>Request an ID token for the registry and log in with it:</p>
+<figure>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="highlight-line"><span class="token key atrule">publish</span><span class="token punctuation">:</span></span>
+<span class="highlight-line">  <span class="token key atrule">image</span><span class="token punctuation">:</span> docker<span class="token punctuation">:</span>cli</span>
+<span class="highlight-line">  <span class="token key atrule">services</span><span class="token punctuation">:</span></span>
+<span class="highlight-line">    <span class="token punctuation">-</span> docker<span class="token punctuation">:</span>dind</span>
+<mark class="highlight-line highlight-line-active">  <span class="token key atrule">id_tokens</span><span class="token punctuation">:</span></mark>
+<mark class="highlight-line highlight-line-active">    <span class="token key atrule">REGISTRY_TOKEN</span><span class="token punctuation">:</span></mark>
+<mark class="highlight-line highlight-line-active">      <span class="token key atrule">aud</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//registry.example.com</mark>
+<span class="highlight-line">  <span class="token key atrule">script</span><span class="token punctuation">:</span></span>
+<mark class="highlight-line highlight-line-active">    <span class="token punctuation">-</span> echo "$REGISTRY_TOKEN" <span class="token punctuation">|</span> docker login registry.example.com <span class="token punctuation">-</span>u gitlab<span class="token punctuation">-</span>ci<span class="token punctuation">-</span>token <span class="token punctuation">-</span><span class="token punctuation">-</span>password<span class="token punctuation">-</span>stdin</mark>
+<span class="highlight-line">    <span class="token punctuation">-</span> docker build <span class="token punctuation">-</span>t "registry.example.com/$CI_PROJECT_PATH<span class="token punctuation">:</span>$CI_COMMIT_SHA" .</span>
+<span class="highlight-line">    <span class="token punctuation">-</span> docker push "registry.example.com/$CI_PROJECT_PATH<span class="token punctuation">:</span>$CI_COMMIT_SHA"</span></code></pre>
+<figcaption>.gitlab-ci.yml</figcaption></figure>
+<p>That's it. There is nothing to create in the registry first:</p>
+<ul>
+<li><code>team/app</code> can push to <code>team/app</code> and anything below it, like <code>team/app/worker</code>, but not to <code>team/application</code>.</li>
+<li><strong>Developers</strong> can push, <strong>Maintainers</strong> can delete.</li>
+<li>Merge-request pipelines are denied.</li>
+<li>Pulls are anonymous, so any Docker client can use the images.</li>
+</ul>
+<p>roro checks the token's signature against GitLab's keys. No API tokens to store, no OAuth app to register.</p>
+<h2>Running it</h2>
+<p>Write a <code>config.yaml</code>:</p>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token key atrule">listen</span><span class="token punctuation">:</span> 0.0.0.0<span class="token punctuation">:</span><span class="token number">443</span>
+<span class="token key atrule">dataRoot</span><span class="token punctuation">:</span> /var/lib/roro
+<span class="token key atrule">publicUrl</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//registry.example.com
+<span class="token key atrule">gitlabIssuer</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//gitlab.example.com</code></pre>
+<p>and start it:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">roro serve <span class="token parameter variable">--config</span> config.yaml</code></pre>
+<p>HTTPS is always on. Bring your own certificate, or let roro generate a self-signed one that it keeps across restarts.</p>
+<h2>Need more than one instance?</h2>
+<p>Point several instances at the same data directory and put a load balancer in front. They coordinate through filesystem locks, so there's no lock service and no sticky sessions. The one requirement is storage with working cross-host locks, such as a properly configured NFSv4 hard mount.</p>
+<h2>Cleanup included</h2>
+<p>Old images don't pile up. Once an hour roro:</p>
+<ul>
+<li>keeps <code>latest</code> forever,</li>
+<li>expires other tags 30 days after their last push,</li>
+<li>garbage-collects content nothing refers to anymore.</li>
+</ul>
+<p>The registry keeps serving while this happens.</p>
+<p><strong>Heads up:</strong> this applies to release tags too. Read the <a href="https://github.com/hencjo/roro#retention--read-before-storing-production-images">retention rules</a> before storing anything you want to keep.</p>
+<h2>What roro is not</h2>
+<p>roro is for <strong>publicly pullable CI images</strong>. It doesn't do private pulls, proxy caching, replication, quotas or image scanning. Keeping that list short is what keeps the rest simple.</p>
+<h2>Try it</h2>
+<p>roro is MIT-licensed and on <a href="https://github.com/hencjo/roro">GitHub</a>. Grab a static Linux binary for x86_64 or aarch64 (no Nix, container, OpenSSL or glibc needed on the host), or run it straight from the repository:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">nix run github:hencjo/roro -- serve <span class="token parameter variable">--config</span> config.yaml</code></pre>
+<p>You'll need GitLab 18.4 or newer.</p>
+<p>Issues and feedback are very welcome!</p>
+
+  </div>
+</article>
+
+  <aside class="reader-menu">
+    
+<nav class="project-menu" aria-label="Articles">
+  <p class="menu-group">Articles</p>
+  <ul>
+    
+    <li><a href="/articles/a-registry-with-less-to-operate/" aria-current="page"><span class="m-title">Introducing roro: a container registry for GitLab CI with less to operate</span> <span class="m-year">2026</span><span class="m-blurb">GitLab-authenticated registry</span></a></li>
+    
+    <li><a href="/articles/calling-javac-again/"><span class="m-title">Introducing jix: separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
+    
+    <li><a href="/articles/an-agent-in-a-messy-confluence/"><span class="m-title">Read-only agent access to a corporate Confluence</span> <span class="m-year">2026</span><span class="m-blurb">An agent skill for the wiki</span></a></li>
+    
+    <li><a href="/articles/curl-examples-are-tests/"><span class="m-title">Introducing cryo: API regression tests from existing curl examples</span> <span class="m-year">2026</span><span class="m-blurb">Snapshot tests from curl examples</span></a></li>
+    
+    <li><a href="/articles/reproducible-kafka-data/"><span class="m-title">Introducing Fransson: reproducible Kafka topics for local and test environments</span> <span class="m-year">2026</span><span class="m-blurb">Reproducible Kafka data</span></a></li>
+    
+    <li><a href="/articles/gitops-for-a-plain-docker-host/"><span class="m-title">Introducing stow: GitOps deployments for a single Docker host</span> <span class="m-year">2026</span><span class="m-blurb">GitOps for a plain Docker host</span></a></li>
+    
+    <li><a href="/articles/openid-login-on-localhost/"><span class="m-title">Introducing Silo: a local OpenID Connect provider for development and testing</span> <span class="m-year">2026</span><span class="m-blurb">OpenID mock for local dev</span></a></li>
+    
+    <li><a href="/articles/papercuts-in-devenv/"><span class="m-title">Service modules, port allocation, and process watching in devenv</span> <span class="m-year">2026</span><span class="m-blurb">Services, ports, process watching</span></a></li>
+    
+    <li><a href="/articles/dependency-free-json-for-java/"><span class="m-title">Two contributions to Argo, a dependency-free JSON library for Java</span> <span class="m-year">2016</span><span class="m-blurb">Dependency-free JSON for Java</span></a></li>
+    
+    <li><a href="/articles/url-in-pdf-out/"><span class="m-title">An HTTP interface to wkhtmltopdf, in Haskell</span> <span class="m-year">2014</span><span class="m-blurb">URL in, PDF out</span></a></li>
+    
+    <li><a href="/articles/ldap-without-a-framework/"><span class="m-title">An LDAP authenticator for Summer Security</span> <span class="m-year">2013</span><span class="m-blurb">LDAP for Summer Security</span></a></li>
+    
+    <li><a href="/articles/where-am-i-in-this-repo/"><span class="m-title">Showing the repository-relative path in a Bash prompt</span> <span class="m-year">2013</span><span class="m-blurb">Git-aware Bash prompts</span></a></li>
+    
+    <li><a href="/articles/migrations-in-code-order/"><span class="m-title">Database migrations with an explicitly declared order</span> <span class="m-year">2013</span><span class="m-blurb">Explicit database migrations</span></a></li>
+    
+    <li><a href="/articles/authentication-as-plain-java/"><span class="m-title">Web authentication as an ordered list of rules in Java</span> <span class="m-year">2012</span><span class="m-blurb">Code-first web authentication</span></a></li>
+    
+    <li><a href="/articles/a-textbook-pull-request/"><span class="m-title">Structuring a pull request for review: a jOOQ bug fix</span> <span class="m-year">2012</span><span class="m-blurb">A textbook pull request</span></a></li>
+    
+  </ul>
+  <p class="menu-more"><a href="/projects/">Projects →</a></p>
+</nav>
+
+  </aside>
+</div>
+
+  </main>
+
+  <footer class="container-fluid site-footer">
+    <small><a href="/about/">About</a> · <a href="/about/#contact">Contact</a> · <a href="https://github.com/hencjo">GitHub</a> · <a href="https://www.linkedin.com/in/hencjo/">LinkedIn</a></small>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var button = document.getElementById("theme-toggle");
+      var order = ["system", "light", "dark"];
+
+      function current() {
+        return root.getAttribute("data-theme") || "system";
+      }
+
+      function render(mode) {
+        button.dataset.mode = mode;
+        var label = "Color theme: " + mode;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      button.addEventListener("click", function () {
+        var next = order[(order.indexOf(current()) + 1) % order.length];
+        if (next === "system") {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem("theme");
+        } else {
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        }
+        render(next);
+      });
+
+      render(current());
+    })();
+  </script>
+</body>
+</html>

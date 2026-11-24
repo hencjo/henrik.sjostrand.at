@@ -5,11 +5,85 @@
   <subtitle>Notes on tools I build and use: the problems they address and the approaches they take.</subtitle>
   <link href="https://henrik.sjostrand.at/feed.xml" rel="self" />
   <link href="https://henrik.sjostrand.at/" />
-  <updated>2026-11-06T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
   <id>https://henrik.sjostrand.at/</id>
   <author>
     <name>Henrik Sjöstrand</name>
   </author>
+  <entry>
+    <title>Introducing roro: a container registry for GitLab CI with less to operate</title>
+    <link href="https://henrik.sjostrand.at/articles/a-registry-with-less-to-operate/" />
+    <updated>2026-11-24T00:00:00Z</updated>
+    <id>https://henrik.sjostrand.at/articles/a-registry-with-less-to-operate/</id>
+    <summary>roro is a single-binary OCI/Docker registry that takes its namespaces and write permissions from GitLab CI job identity, and stores images in a directory on disk.</summary>
+    <content type="html">&lt;p&gt;Today I&#39;m releasing &lt;a href=&quot;https://github.com/hencjo/roro&quot;&gt;roro&lt;/a&gt; (Roll On Roll Off): a container registry for GitLab CI that&#39;s minimal and easy to run.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What roro needs:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a GitLab that issues CI ID tokens (JWTs),&lt;/li&gt;
+&lt;li&gt;a TLS certificate (or roro generates one),&lt;/li&gt;
+&lt;li&gt;disk to store the images.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;What roro doesn&#39;t need:&lt;/strong&gt; a database, an object store, an auth service, user accounts, repositories to create, or permissions to keep in sync.&lt;/p&gt;
+&lt;h2&gt;Most of it is already in GitLab&lt;/h2&gt;
+&lt;p&gt;A registry has to answer a few questions: who is pushing, where they may push, and whether they&#39;re allowed to. GitLab already has all of these answers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Namespaces:&lt;/strong&gt; your GitLab project path, like &lt;code&gt;team/app&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Users:&lt;/strong&gt; the people and CI jobs GitLab already knows.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Permissions:&lt;/strong&gt; the project roles you&#39;ve already given them.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And GitLab can hand these answers to a CI job as a signed ID token. So roro doesn&#39;t keep its own copy of any of it. It checks the signature and reads the answer, and the only thing left to store is the images themselves.&lt;/p&gt;
+&lt;h2&gt;Pushing from CI&lt;/h2&gt;
+&lt;p&gt;Request an ID token for the registry and log in with it:&lt;/p&gt;
+&lt;figure&gt;
+&lt;pre class=&quot;language-yaml&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;highlight-line&quot;&gt;  &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; docker&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cli&lt;/span&gt;
+&lt;span class=&quot;highlight-line&quot;&gt;  &lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;highlight-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; docker&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;dind&lt;/span&gt;
+&lt;mark class=&quot;highlight-line highlight-line-active&quot;&gt;  &lt;span class=&quot;token key atrule&quot;&gt;id_tokens&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;/mark&gt;
+&lt;mark class=&quot;highlight-line highlight-line-active&quot;&gt;    &lt;span class=&quot;token key atrule&quot;&gt;REGISTRY_TOKEN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;/mark&gt;
+&lt;mark class=&quot;highlight-line highlight-line-active&quot;&gt;      &lt;span class=&quot;token key atrule&quot;&gt;aud&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//registry.example.com&lt;/mark&gt;
+&lt;span class=&quot;highlight-line&quot;&gt;  &lt;span class=&quot;token key atrule&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;mark class=&quot;highlight-line highlight-line-active&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; echo &quot;$REGISTRY_TOKEN&quot; &lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt; docker login registry.example.com &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;u gitlab&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;ci&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;token &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;password&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;stdin&lt;/mark&gt;
+&lt;span class=&quot;highlight-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; docker build &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;t &quot;registry.example.com/$CI_PROJECT_PATH&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;$CI_COMMIT_SHA&quot; .&lt;/span&gt;
+&lt;span class=&quot;highlight-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; docker push &quot;registry.example.com/$CI_PROJECT_PATH&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;$CI_COMMIT_SHA&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;figcaption&gt;.gitlab-ci.yml&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;That&#39;s it. There is nothing to create in the registry first:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;team/app&lt;/code&gt; can push to &lt;code&gt;team/app&lt;/code&gt; and anything below it, like &lt;code&gt;team/app/worker&lt;/code&gt;, but not to &lt;code&gt;team/application&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Developers&lt;/strong&gt; can push, &lt;strong&gt;Maintainers&lt;/strong&gt; can delete.&lt;/li&gt;
+&lt;li&gt;Merge-request pipelines are denied.&lt;/li&gt;
+&lt;li&gt;Pulls are anonymous, so any Docker client can use the images.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;roro checks the token&#39;s signature against GitLab&#39;s keys. No API tokens to store, no OAuth app to register.&lt;/p&gt;
+&lt;h2&gt;Running it&lt;/h2&gt;
+&lt;p&gt;Write a &lt;code&gt;config.yaml&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;language-yaml&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 0.0.0.0&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;443&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;dataRoot&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /var/lib/roro
+&lt;span class=&quot;token key atrule&quot;&gt;publicUrl&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//registry.example.com
+&lt;span class=&quot;token key atrule&quot;&gt;gitlabIssuer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;//gitlab.example.com&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and start it:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;roro serve &lt;span class=&quot;token parameter variable&quot;&gt;--config&lt;/span&gt; config.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;HTTPS is always on. Bring your own certificate, or let roro generate a self-signed one that it keeps across restarts.&lt;/p&gt;
+&lt;h2&gt;Need more than one instance?&lt;/h2&gt;
+&lt;p&gt;Point several instances at the same data directory and put a load balancer in front. They coordinate through filesystem locks, so there&#39;s no lock service and no sticky sessions. The one requirement is storage with working cross-host locks, such as a properly configured NFSv4 hard mount.&lt;/p&gt;
+&lt;h2&gt;Cleanup included&lt;/h2&gt;
+&lt;p&gt;Old images don&#39;t pile up. Once an hour roro:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;keeps &lt;code&gt;latest&lt;/code&gt; forever,&lt;/li&gt;
+&lt;li&gt;expires other tags 30 days after their last push,&lt;/li&gt;
+&lt;li&gt;garbage-collects content nothing refers to anymore.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The registry keeps serving while this happens.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Heads up:&lt;/strong&gt; this applies to release tags too. Read the &lt;a href=&quot;https://github.com/hencjo/roro#retention--read-before-storing-production-images&quot;&gt;retention rules&lt;/a&gt; before storing anything you want to keep.&lt;/p&gt;
+&lt;h2&gt;What roro is not&lt;/h2&gt;
+&lt;p&gt;roro is for &lt;strong&gt;publicly pullable CI images&lt;/strong&gt;. It doesn&#39;t do private pulls, proxy caching, replication, quotas or image scanning. Keeping that list short is what keeps the rest simple.&lt;/p&gt;
+&lt;h2&gt;Try it&lt;/h2&gt;
+&lt;p&gt;roro is MIT-licensed and on &lt;a href=&quot;https://github.com/hencjo/roro&quot;&gt;GitHub&lt;/a&gt;. Grab a static Linux binary for x86_64 or aarch64 (no Nix, container, OpenSSL or glibc needed on the host), or run it straight from the repository:&lt;/p&gt;
+&lt;pre class=&quot;language-sh&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;nix run github:hencjo/roro -- serve &lt;span class=&quot;token parameter variable&quot;&gt;--config&lt;/span&gt; config.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You&#39;ll need GitLab 18.4 or newer.&lt;/p&gt;
+&lt;p&gt;Issues and feedback are very welcome!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Introducing jix: separating dependency resolution from the Java build</title>
     <link href="https://henrik.sjostrand.at/articles/calling-javac-again/" />
@@ -94,9 +168,9 @@
 &lt;p&gt;The agent is given &lt;a href=&quot;https://github.com/rvben/confluence-cli&quot;&gt;confluence-cli&lt;/a&gt; through a &lt;em&gt;skill&lt;/em&gt;: a short instruction file that specifies which commands to use for searching, reading, and exporting pages, and which actions are prohibited.&lt;/p&gt;
 &lt;figure&gt;
 &lt;pre class=&quot;language-md&quot; tabindex=&quot;0&quot;&gt;&lt;code class=&quot;language-md&quot;&gt;&lt;span class=&quot;token front-matter-block&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;token front-matter yaml language-yaml&quot;&gt;name: confluence-cli
-&lt;span class=&quot;highlight-line&quot;&gt;description: Search, find, read, or export Confluence pages and spaces&lt;/span&gt;
-  with confluence-cli when the user asks about Confluence or the internal wiki.&lt;/span&gt;
+&lt;span class=&quot;token front-matter yaml language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; confluence&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cli
+&lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Search&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; find&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; read&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; or export Confluence pages and spaces&lt;/span&gt;
+  with confluence&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;cli when the user asks about Confluence or the internal wiki.&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;highlight-line&quot;&gt;&lt;/span&gt;
 &lt;span class=&quot;highlight-line&quot;&gt;&lt;span class=&quot;token title important&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;#&lt;/span&gt; Confluence CLI&lt;/span&gt;&lt;/span&gt;

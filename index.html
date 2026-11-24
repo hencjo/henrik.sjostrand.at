@@ -84,74 +84,79 @@
 <article class="post">
   <header class="post-hero post-hero--bare">
     <p class="meta">
-      <time datetime="2026-11-06">Nov 06, 2026</time>
-      <a href="/projects/jix/" class="meta-project">jix</a>
+      <time datetime="2026-11-24">Nov 24, 2026</time>
+      <a href="/projects/roro/" class="meta-project">roro</a>
     </p>
-    <h1><a href="/articles/calling-javac-again/">Introducing jix: separating dependency resolution from the Java build</a></h1>
+    <h1><a href="/articles/a-registry-with-less-to-operate/">Introducing roro: a container registry for GitLab CI with less to operate</a></h1>
   </header>
 
   <div class="post-body">
-    <p>I am releasing <a href="https://github.com/hencjo/jix">jix</a>, a tool that resolves Java dependencies from Maven Central, pins the complete graph and every artifact hash, and provides the result to Nix. The locked classpaths can be used with an existing build, or with jix's optional build DSL, in which a build is a few lines of ordinary code.</p>
-<h2>Why</h2>
-<p>Maven's dependency ecosystem deserves credit at the outset. Group/artifact/version coordinates, POMs that declare a library's requirements, and Maven Central, a single repository holding nearly every Java library with roughly twenty years of history, gave Java the strongest dependency ecosystem of its generation, and later package managers in other languages have drawn on it. jix does not replace any of this; it depends on it.</p>
-<p>The difficulty lies elsewhere. A build often has a simple, well-understood goal: compile these sources against these JARs and include a given file in the resulting JAR. Achieving it in Maven may nonetheless require reading about resource inclusion, choosing among several plugins that each nearly fit, and investigating lifecycle phases. Because the build tool owns dependency resolution, it also owns every other step of the build.</p>
-<p>Even when the build works, dependencies are resolved at build time, from the network, with whichever JDK is present. The same project can therefore produce different results on different days.</p>
-<h2>How it works</h2>
-<p>jix keeps the ecosystem and separates the two responsibilities. It performs the difficult part, resolving dependencies from Maven Central with Maven's semantics, including scopes, BOMs, and exclusions, and records the complete graph and every artifact hash in <code>jix.lock</code>. From that point on, dependencies are pinned Nix values, and the build is ordinary code.</p>
-<p>Dependencies are declared with ordinary Maven coordinates. Here the application uses Guava:</p>
-<figure>
-<pre class="language-nix" tabindex="0"><code class="language-nix"><span class="highlight-line"><span class="token punctuation">{</span> maven <span class="token punctuation">}</span><span class="token punctuation">:</span></span>
-<span class="highlight-line"><span class="token keyword">let</span></span>
-<mark class="highlight-line highlight-line-active">  common <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">"com.google.guava:guava:33.5.0-jre"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span></mark>
-<span class="highlight-line"><span class="token keyword">in</span> <span class="token punctuation">{</span></span>
-<span class="highlight-line">  classpaths <span class="token operator">=</span> <span class="token punctuation">{</span></span>
-<span class="highlight-line">    main <span class="token operator">=</span> maven<span class="token punctuation">.</span>resolve <span class="token punctuation">{</span> scope <span class="token operator">=</span> <span class="token string">"compile"</span><span class="token punctuation">;</span> dependencies <span class="token operator">=</span> common<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    runtime <span class="token operator">=</span> maven<span class="token punctuation">.</span>resolve <span class="token punctuation">{</span> scope <span class="token operator">=</span> <span class="token string">"runtime"</span><span class="token punctuation">;</span> dependencies <span class="token operator">=</span> common<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
-<span class="highlight-line"><span class="token punctuation">}</span></span></code></pre>
-<figcaption>maven.nix. A declaration only: no network access takes place until jix lock resolves and pins it.</figcaption></figure>
-<p><code>jix lock</code> resolves Guava together with its transitive dependencies (<code>failureaccess</code>, <code>jspecify</code>, and others) and writes the result to <code>jix.lock</code>. The build then refers to the locked classpaths as <code>deps.classpaths.main</code> and <code>deps.classpaths.runtime</code>.</p>
-<p>Including a resource takes one line. The following is a complete executable JAR build:</p>
-<figure>
-<pre class="language-nix" tabindex="0"><code class="language-nix"><span class="highlight-line"><span class="token punctuation">{</span> pkgs<span class="token punctuation">,</span> java<span class="token punctuation">,</span> deps<span class="token punctuation">,</span> jdk <span class="token operator">?</span> pkgs<span class="token punctuation">.</span>jdk21 <span class="token punctuation">}</span><span class="token punctuation">:</span></span>
-<span class="highlight-line"><span class="token keyword">let</span></span>
-<span class="highlight-line">  runtime <span class="token operator">=</span> <span class="token punctuation">{</span> classpath <span class="token operator">=</span> <span class="token punctuation">[</span> deps<span class="token punctuation">.</span>classpaths<span class="token punctuation">.</span>runtime <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
-<span class="highlight-line"></span>
-<span class="highlight-line">  thin <span class="token operator">=</span> java<span class="token punctuation">.</span>library <span class="token punctuation">{</span></span>
-<span class="highlight-line">    name <span class="token operator">=</span> <span class="token string">"application"</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    sources <span class="token operator">=</span> <span class="token url">./src/main/java</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    compile<span class="token punctuation">.</span>classpath <span class="token operator">=</span> <span class="token punctuation">[</span> deps<span class="token punctuation">.</span>classpaths<span class="token punctuation">.</span>main <span class="token punctuation">]</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    <span class="token keyword">inherit</span> runtime jdk<span class="token punctuation">;</span></span>
-<span class="highlight-line">    release <span class="token operator">=</span> <span class="token number">21</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    manifest<span class="token punctuation">.</span><span class="token string">"Main-Class"</span> <span class="token operator">=</span> <span class="token string">"example.Main"</span><span class="token punctuation">;</span></span>
-<mark class="highlight-line highlight-line-active">    resources <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span> from <span class="token operator">=</span> <span class="token url">./src/main/resources</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">;</span></mark>
-<span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
-<span class="highlight-line"></span>
-<span class="highlight-line">  jar <span class="token operator">=</span> java<span class="token punctuation">.</span>fatJar <span class="token punctuation">{</span></span>
-<span class="highlight-line">    name <span class="token operator">=</span> <span class="token string">"application"</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    dependencies <span class="token operator">=</span> <span class="token punctuation">[</span> thin <span class="token punctuation">]</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">    mainClass <span class="token operator">=</span> <span class="token string">"example.Main"</span><span class="token punctuation">;</span></span>
-<span class="highlight-line">  <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
-<span class="highlight-line"><span class="token keyword">in</span> <span class="token punctuation">{</span> <span class="token keyword">inherit</span> jar<span class="token punctuation">;</span> <span class="token punctuation">}</span></span></code></pre>
-<figcaption>build.nix, from jix's fat-JAR template. The locked classpaths are passed in as deps; resources are declared in one line, and no plugins are involved.</figcaption></figure>
-<p>Where the DSL is insufficient, <code>deps.classpaths.main</code> is a plain Nix derivation containing the pinned JARs. A custom build step can invoke <code>javac</code> with it directly, without a plugin API.</p>
-<aside class="note">
-<p class="note-title">Design choice</p>
-<p>Builds never resolve dependencies or update locks. A missing or stale <code>jix.lock</code> causes the build to fail rather than fall back to the network.</p>
-</aside>
-<h2>Features</h2>
+    <p>Today I'm releasing <a href="https://github.com/hencjo/roro">roro</a> (Roll On Roll Off): a container registry for GitLab CI that's minimal and easy to run.</p>
+<p><strong>What roro needs:</strong></p>
 <ul>
-<li><strong>Two lock files:</strong> <code>flake.lock</code> pins toolchains; <code>jix.lock</code> pins Maven selections, hashes, and resolution contexts.</li>
-<li><strong>Incremental adoption:</strong> locked classpaths can be used with an existing build first, and the build DSL adopted later or not at all.</li>
-<li><strong>Multiple environments:</strong> named Java/OS contexts are declared once, and <code>jix lock</code> pins all of them.</li>
-<li><strong>Plain Nix outputs:</strong> <code>jix build jar</code> is equivalent to <code>nix build .#jar</code>, so standard binary caches apply.</li>
-<li><strong>IDE support:</strong> <code>jix idea</code> generates IntelliJ configuration from the same pinned inputs.</li>
+<li>a GitLab that issues CI ID tokens (JWTs),</li>
+<li>a TLS certificate (or roro generates one),</li>
+<li>disk to store the images.</li>
 </ul>
-<h2>Design</h2>
-<p>Build tools combine two different tasks: dependency resolution, which is difficult and must be exact, and building, which for the most part means running <code>javac</code> and packaging the result. Because the two are combined, the cost of the first is paid in the complexity of the second.</p>
-<p>Maven solved the difficult part, and the Java ecosystem rests on that solution. jix reuses it rather than reimplementing it: resolution uses the same repositories and the same semantics, verified against Maven 3.9 and Resolver 1.9, and the result is provided as pinned, hash-checked inputs. How those inputs are used is left to the build author, in a language suited to describing builds.</p>
-<h2>Availability</h2>
-<p>jix is open source and available on <a href="https://github.com/hencjo/jix">GitHub</a>. It runs on Linux (x86-64 and AArch64) and requires Nix. A new project with an executable JAR build is three commands away: <code>jix init --template fat</code>, <code>jix lock</code>, and <code>jix run</code>. Issues and feedback are welcome.</p>
+<p><strong>What roro doesn't need:</strong> a database, an object store, an auth service, user accounts, repositories to create, or permissions to keep in sync.</p>
+<h2>Most of it is already in GitLab</h2>
+<p>A registry has to answer a few questions: who is pushing, where they may push, and whether they're allowed to. GitLab already has all of these answers:</p>
+<ul>
+<li><strong>Namespaces:</strong> your GitLab project path, like <code>team/app</code>.</li>
+<li><strong>Users:</strong> the people and CI jobs GitLab already knows.</li>
+<li><strong>Permissions:</strong> the project roles you've already given them.</li>
+</ul>
+<p>And GitLab can hand these answers to a CI job as a signed ID token. So roro doesn't keep its own copy of any of it. It checks the signature and reads the answer, and the only thing left to store is the images themselves.</p>
+<h2>Pushing from CI</h2>
+<p>Request an ID token for the registry and log in with it:</p>
+<figure>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="highlight-line"><span class="token key atrule">publish</span><span class="token punctuation">:</span></span>
+<span class="highlight-line">  <span class="token key atrule">image</span><span class="token punctuation">:</span> docker<span class="token punctuation">:</span>cli</span>
+<span class="highlight-line">  <span class="token key atrule">services</span><span class="token punctuation">:</span></span>
+<span class="highlight-line">    <span class="token punctuation">-</span> docker<span class="token punctuation">:</span>dind</span>
+<mark class="highlight-line highlight-line-active">  <span class="token key atrule">id_tokens</span><span class="token punctuation">:</span></mark>
+<mark class="highlight-line highlight-line-active">    <span class="token key atrule">REGISTRY_TOKEN</span><span class="token punctuation">:</span></mark>
+<mark class="highlight-line highlight-line-active">      <span class="token key atrule">aud</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//registry.example.com</mark>
+<span class="highlight-line">  <span class="token key atrule">script</span><span class="token punctuation">:</span></span>
+<mark class="highlight-line highlight-line-active">    <span class="token punctuation">-</span> echo "$REGISTRY_TOKEN" <span class="token punctuation">|</span> docker login registry.example.com <span class="token punctuation">-</span>u gitlab<span class="token punctuation">-</span>ci<span class="token punctuation">-</span>token <span class="token punctuation">-</span><span class="token punctuation">-</span>password<span class="token punctuation">-</span>stdin</mark>
+<span class="highlight-line">    <span class="token punctuation">-</span> docker build <span class="token punctuation">-</span>t "registry.example.com/$CI_PROJECT_PATH<span class="token punctuation">:</span>$CI_COMMIT_SHA" .</span>
+<span class="highlight-line">    <span class="token punctuation">-</span> docker push "registry.example.com/$CI_PROJECT_PATH<span class="token punctuation">:</span>$CI_COMMIT_SHA"</span></code></pre>
+<figcaption>.gitlab-ci.yml</figcaption></figure>
+<p>That's it. There is nothing to create in the registry first:</p>
+<ul>
+<li><code>team/app</code> can push to <code>team/app</code> and anything below it, like <code>team/app/worker</code>, but not to <code>team/application</code>.</li>
+<li><strong>Developers</strong> can push, <strong>Maintainers</strong> can delete.</li>
+<li>Merge-request pipelines are denied.</li>
+<li>Pulls are anonymous, so any Docker client can use the images.</li>
+</ul>
+<p>roro checks the token's signature against GitLab's keys. No API tokens to store, no OAuth app to register.</p>
+<h2>Running it</h2>
+<p>Write a <code>config.yaml</code>:</p>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token key atrule">listen</span><span class="token punctuation">:</span> 0.0.0.0<span class="token punctuation">:</span><span class="token number">443</span>
+<span class="token key atrule">dataRoot</span><span class="token punctuation">:</span> /var/lib/roro
+<span class="token key atrule">publicUrl</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//registry.example.com
+<span class="token key atrule">gitlabIssuer</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//gitlab.example.com</code></pre>
+<p>and start it:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">roro serve <span class="token parameter variable">--config</span> config.yaml</code></pre>
+<p>HTTPS is always on. Bring your own certificate, or let roro generate a self-signed one that it keeps across restarts.</p>
+<h2>Need more than one instance?</h2>
+<p>Point several instances at the same data directory and put a load balancer in front. They coordinate through filesystem locks, so there's no lock service and no sticky sessions. The one requirement is storage with working cross-host locks, such as a properly configured NFSv4 hard mount.</p>
+<h2>Cleanup included</h2>
+<p>Old images don't pile up. Once an hour roro:</p>
+<ul>
+<li>keeps <code>latest</code> forever,</li>
+<li>expires other tags 30 days after their last push,</li>
+<li>garbage-collects content nothing refers to anymore.</li>
+</ul>
+<p>The registry keeps serving while this happens.</p>
+<p><strong>Heads up:</strong> this applies to release tags too. Read the <a href="https://github.com/hencjo/roro#retention--read-before-storing-production-images">retention rules</a> before storing anything you want to keep.</p>
+<h2>What roro is not</h2>
+<p>roro is for <strong>publicly pullable CI images</strong>. It doesn't do private pulls, proxy caching, replication, quotas or image scanning. Keeping that list short is what keeps the rest simple.</p>
+<h2>Try it</h2>
+<p>roro is MIT-licensed and on <a href="https://github.com/hencjo/roro">GitHub</a>. Grab a static Linux binary for x86_64 or aarch64 (no Nix, container, OpenSSL or glibc needed on the host), or run it straight from the repository:</p>
+<pre class="language-sh" tabindex="0"><code class="language-sh">nix run github:hencjo/roro -- serve <span class="token parameter variable">--config</span> config.yaml</code></pre>
+<p>You'll need GitLab 18.4 or newer.</p>
+<p>Issues and feedback are very welcome!</p>
 
   </div>
 </article>
@@ -162,7 +167,9 @@
   <p class="menu-group">Articles</p>
   <ul>
     
-    <li><a href="/articles/calling-javac-again/" aria-current="page"><span class="m-title">Introducing jix: separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
+    <li><a href="/articles/a-registry-with-less-to-operate/" aria-current="page"><span class="m-title">Introducing roro: a container registry for GitLab CI with less to operate</span> <span class="m-year">2026</span><span class="m-blurb">GitLab-authenticated registry</span></a></li>
+    
+    <li><a href="/articles/calling-javac-again/"><span class="m-title">Introducing jix: separating dependency resolution from the Java build</span> <span class="m-year">2026</span><span class="m-blurb">Java builds without the build tool fight</span></a></li>
     
     <li><a href="/articles/an-agent-in-a-messy-confluence/"><span class="m-title">Read-only agent access to a corporate Confluence</span> <span class="m-year">2026</span><span class="m-blurb">An agent skill for the wiki</span></a></li>
     
