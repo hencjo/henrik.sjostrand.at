@@ -7,19 +7,31 @@ blurb: "GitLab-authenticated registry"
 pitch: "roro is now available: an on-prem container registry without a database, object store, or separate auth service, where GitLab projects are the namespaces and GitLab roles decide who may push."
 ---
 
-I am releasing [roro](https://github.com/hencjo/roro) (Roll On Roll Off), a small OCI/Docker registry for GitLab CI. A GitLab project path becomes the image namespace, the project role of the user behind a CI job determines write access, and images are stored in a directory on disk. It runs as one statically linked Rust binary.
+Today I'm releasing [roro](https://github.com/hencjo/roro) (Roll On Roll Off): a container registry for GitLab CI that's minimal and easy to run.
 
-## Why
+**What roro needs:**
 
-An on-prem registry for CI images is a modest requirement, but a typical deployment involves several components: a database, an object store, a token or authentication service, and a set of repositories and permissions that has to be kept consistent with the GitLab projects that publish to it. Each of these must be installed, backed up, and upgraded. The information needed to decide who may push where, however, already exists in GitLab, and a CI job can present it in signed form. roro was written to use that information directly and to keep the remaining parts to a single process and a disk.
+- a GitLab that issues CI ID tokens (JWTs),
+- a TLS certificate (or roro generates one),
+- disk to store the images.
 
-## How it works
+**What roro doesn't need:** a database, an object store, an auth service, user accounts, repositories to create, or permissions to keep in sync.
 
-### GitLab identity instead of a user database
+## Most of it is already in GitLab
 
-A CI job requests an audience-bound OIDC ID token and uses it as the password for `docker login`; the username is ignored. roro verifies the token against the GitLab issuer's signing keys and reads the signed claims for the project and the user's access level. Developer (30) or higher may publish, and Maintainer (40) or higher may delete.
+A registry has to answer a few questions: who is pushing, where they may push, and whether they're allowed to. GitLab already has all of these answers:
 
-{% figure ".gitlab-ci.yml. The ID token is requested for the registry's audience and passed to docker login." %}
+- **Namespaces:** your GitLab project path, like `team/app`.
+- **Users:** the people and CI jobs GitLab already knows.
+- **Permissions:** the project roles you've already given them.
+
+And GitLab can hand these answers to a CI job as a signed ID token. So roro doesn't keep its own copy of any of it. It checks the signature and reads the answer, and the only thing left to store is the images themselves.
+
+## Pushing from CI
+
+Request an ID token for the registry and log in with it:
+
+{% figure ".gitlab-ci.yml" %}
 ```yaml/4-6,8
 publish:
   image: docker:cli
@@ -35,20 +47,62 @@ publish:
 ```
 {% endfigure %}
 
-The namespace follows from the project path: `team/app` may publish `team/app` and its subpaths, such as `team/app/worker`, but not `team/application` or another project's path. There are no repositories to create in the registry and no permissions to synchronize. roro stores no GitLab API credentials and requires no OAuth application. Merge-request pipelines are denied, and the short-lived registry tokens roro issues never outlive the ID token they were exchanged for. Pulls are anonymous.
+That's it. There is nothing to create in the registry first:
 
-### Disk as the storage backend
+- `team/app` can push to `team/app` and anything below it, like `team/app/worker`, but not to `team/application`.
+- **Developers** can push, **Maintainers** can delete.
+- Merge-request pipelines are denied.
+- Pulls are anonymous, so any Docker client can use the images.
 
-Images are stored content-addressed in a data directory, with resumable uploads and filesystem locks in place of a database or a distributed lock service. Several instances may share the same directory behind a load balancer without sticky sessions, provided the shared storage supports cross-host advisory locks, as a correctly configured NFSv4 hard mount does. This is shared storage, not replication.
+roro checks the token's signature against GitLab's keys. No API tokens to store, no OAuth app to register.
 
-### Built-in retention
+## Running it
 
-An elected instance runs cleanup at startup and hourly. The tag `latest` is kept indefinitely; every other tag expires 30 days after its last push, and unreachable content is removed after a grace period. Cleanup briefly pauses metadata commits behind a filesystem gate instead of requiring the registry to be stopped, and aborts rather than guessing when it encounters an incomplete image graph.
+Write a `config.yaml`:
 
-## Design
+```yaml
+listen: 0.0.0.0:443
+dataRoot: /var/lib/roro
+publicUrl: https://registry.example.com
+gitlabIssuer: https://gitlab.example.com
+```
 
-roro derives what it can from systems that are already maintained, namely GitLab's projects, roles, and signing keys, and does not keep a second copy of them. The remaining state is a directory that can be backed up as a whole. Several choices are deliberately fixed rather than configurable: HTTPS is mandatory, with a persistent self-signed certificate generated when none is supplied; pulls are public; and retention is enabled by default. The scope is correspondingly narrow. roro is intended for publicly pullable CI images, and does not provide private pulls, proxy caching, replication, quotas, or image scanning.
+and start it:
 
-## Availability
+```sh
+roro serve --config config.yaml
+```
 
-roro is open source under the MIT license and available on [GitHub](https://github.com/hencjo/roro). It is distributed as static Linux archives for x86_64 and aarch64, which need no Nix, container runtime, OpenSSL, or glibc on the host, and can also be built and run with `nix run github:hencjo/roro`. It requires GitLab 18.4 or newer for the job-project claims in CI ID tokens. Issues and feedback are welcome.
+HTTPS is always on. Bring your own certificate, or let roro generate a self-signed one that it keeps across restarts.
+
+## Need more than one instance?
+
+Point several instances at the same data directory and put a load balancer in front. They coordinate through filesystem locks, so there's no lock service and no sticky sessions. The one requirement is storage with working cross-host locks, such as a properly configured NFSv4 hard mount.
+
+## Cleanup included
+
+Old images don't pile up. Once an hour roro:
+
+- keeps `latest` forever,
+- expires other tags 30 days after their last push,
+- garbage-collects content nothing refers to anymore.
+
+The registry keeps serving while this happens.
+
+**Heads up:** this applies to release tags too. Read the [retention rules](https://github.com/hencjo/roro#retention--read-before-storing-production-images) before storing anything you want to keep.
+
+## What roro is not
+
+roro is for **publicly pullable CI images**. It doesn't do private pulls, proxy caching, replication, quotas or image scanning. Keeping that list short is what keeps the rest simple.
+
+## Try it
+
+roro is MIT-licensed and on [GitHub](https://github.com/hencjo/roro). Grab a static Linux binary for x86_64 or aarch64 (no Nix, container, OpenSSL or glibc needed on the host), or run it straight from the repository:
+
+```sh
+nix run github:hencjo/roro -- serve --config config.yaml
+```
+
+You'll need GitLab 18.4 or newer.
+
+Issues and feedback are very welcome!
