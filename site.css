@@ -8,6 +8,7 @@
   --pico-line-height: 1.65;
   --gutter: clamp(1rem, 4vw, 4rem);
   --measure: 68ch;
+  --reader-cols: minmax(0, 1fr) minmax(0, 54rem) minmax(16rem, 1fr);
   --text: var(--pico-color);
   --pico-font-family-monospace: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
@@ -100,7 +101,8 @@ main > section + section {
 /* Home intro */
 
 .intro {
-  max-width: 60rem;
+  display: grid;
+  grid-template-columns: var(--reader-cols);
   padding-block: 1.5rem 1rem;
 }
 
@@ -714,9 +716,9 @@ main > section + section {
 
 .reader {
   display: grid;
-  grid-template-columns: minmax(0, 54rem) minmax(14rem, 17rem);
-  justify-content: space-between;
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: var(--reader-cols);
+  column-gap: 0;
+  row-gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
 }
 
@@ -739,6 +741,9 @@ main > section + section {
 
 .reader-menu {
   /* Flows with the page: no sticky positioning, so no inner scrollbar. */
+  grid-column: 3;
+  max-width: 22rem;
+  padding-inline-start: clamp(2rem, 5vw, 5rem);
 }
 
 .project-menu {
@@ -812,6 +817,11 @@ nav.project-menu li {
   color: var(--pico-primary);
 }
 
+.intro > *,
+.reader > :first-child {
+  grid-column: 2;
+}
+
 .intro + .reader {
   margin-top: 1rem;
   padding-top: 2.5rem;
@@ -823,8 +833,20 @@ nav.project-menu li {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .intro > *,
+  .reader > :first-child,
+  .reader-menu {
+    grid-column: auto;
+  }
+
   .reader-menu {
     position: static;
+    max-width: none;
+    padding-inline-start: 0;
     max-height: none;
     padding-top: 2rem;
     border-top: 1px solid var(--pico-muted-border-color);
